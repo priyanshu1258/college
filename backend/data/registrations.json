@@ -1,0 +1,1010 @@
+[
+  {
+    "registrationId": "REG1761511078233245C2",
+    "teamId": "TEAM-MH867QS9-1CXX0O",
+    "studentDetails": {
+      "fullName": "MohanSharma",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "1",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "jack-of-hearts"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "jack-of-hearts",
+          "name": "Jack of Hearts",
+          "description": "Card game strategy competition",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Gaming",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "totalAmount": 298,
+      "eventCount": 1,
+      "participantCount": 1,
+      "eventName": "Jack of Hearts",
+      "price": 298,
+      "eventId": "jack-of-hearts"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "TECHFEST1760889963885",
+      "amount": 298,
+      "status": "completed",
+      "timestamp": "2025-10-26T20:37:53.274Z",
+      "upiId": "priyanshuattri05@okaxis",
+      "upiTransactionId": "111",
+      "payerName": "sdad",
+      "payerUPI": "",
+      "verificationData": {
+        "upiTransactionId": "111",
+        "screenshot": null,
+        "payerName": "sdad",
+        "payerUPI": "",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "TECHFEST1760889963885",
+          "amount": 298,
+          "status": "completed",
+          "timestamp": "2025-10-26T20:37:53.274Z",
+          "upiId": "priyanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-26T20:37:58.228Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-26T20:37:58.233Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761511292526WX1VT",
+    "teamId": "TEAM-MH86CC4U-HZBGLQ",
+    "studentDetails": {
+      "fullName": "MohanSharma",
+      "email": "mohan05@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "1",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Reena sharma",
+          "email": "sharmareena@gmail.com",
+          "phone": "7018753206",
+          "college": "HPTU"
+        },
+        {
+          "name": "Muskaaan",
+          "email": "muskaathakur88@gmail.com",
+          "phone": "7018753567",
+          "college": "HPTU"
+        },
+        {
+          "name": "Arav Sharma",
+          "email": "aravsharma69@gmail.com",
+          "phone": "7018798076",
+          "college": "HPTU"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "jack-of-hearts",
+        "dancing",
+        "singing",
+        "reverse-engineering"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "jack-of-hearts",
+          "name": "Jack of Hearts",
+          "description": "Card game strategy competition",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Gaming",
+          "type": "individual"
+        },
+        {
+          "id": "dancing",
+          "name": "Dancing Competition",
+          "description": "Show your dance moves and creativity",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Cultural",
+          "type": "individual"
+        },
+        {
+          "id": "singing",
+          "name": "Singing Competition",
+          "description": "Showcase your vocal talent",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Cultural",
+          "type": "individual"
+        },
+        {
+          "id": "reverse-engineering",
+          "name": "Reverse Engineering",
+          "description": "Deconstruct and understand complex systems",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Technical",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "totalAmount": 595,
+      "eventCount": 4,
+      "participantCount": 1,
+      "eventName": "Jack of Hearts, Dancing Competition, Singing Competition, Reverse Engineering",
+      "price": 595,
+      "eventId": "multiple"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Reena sharma",
+        "email": "sharmareena@gmail.com",
+        "phone": "7018753206",
+        "college": "HPTU",
+        "teamId": "TEAM-MH86CC4U-HZBGLQ",
+        "memberIndex": 1
+      },
+      {
+        "name": "Muskaaan",
+        "email": "muskaathakur88@gmail.com",
+        "phone": "7018753567",
+        "college": "HPTU",
+        "teamId": "TEAM-MH86CC4U-HZBGLQ",
+        "memberIndex": 2
+      },
+      {
+        "name": "Arav Sharma",
+        "email": "aravsharma69@gmail.com",
+        "phone": "7018798076",
+        "college": "HPTU",
+        "teamId": "TEAM-MH86CC4U-HZBGLQ",
+        "memberIndex": 3
+      }
+    ],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "TECHFEST1760889963885",
+      "amount": 595,
+      "status": "completed",
+      "timestamp": "2025-10-26T20:41:20.049Z",
+      "upiId": "priyanshuattri05@okaxis",
+      "upiTransactionId": "12345",
+      "payerName": "Reena",
+      "payerUPI": "",
+      "verificationData": {
+        "upiTransactionId": "12345",
+        "screenshot": null,
+        "payerName": "Reena",
+        "payerUPI": "",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "TECHFEST1760889963885",
+          "amount": 595,
+          "status": "completed",
+          "timestamp": "2025-10-26T20:41:20.049Z",
+          "upiId": "priyanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-26T20:41:32.520Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-26T20:41:32.526Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761511410959C57MT",
+    "teamId": "TEAM-MH86EVIN-4F1YEQ",
+    "studentDetails": {
+      "fullName": "Priyanshu Attri ",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "3",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "singing"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "singing",
+          "name": "Singing Competition",
+          "description": "Showcase your vocal talent",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Cultural",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": false,
+      "totalAmount": 99,
+      "eventCount": 1,
+      "participantCount": 1,
+      "eventName": "Singing Competition",
+      "price": 99,
+      "eventId": "singing"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "TECHFEST1760889963885",
+      "amount": 99,
+      "status": "completed",
+      "timestamp": "2025-10-26T20:43:17.788Z",
+      "upiId": "priyanshuattri05@okaxis",
+      "upiTransactionId": "66666666",
+      "payerName": "Priyanshu Attri",
+      "payerUPI": "",
+      "verificationData": {
+        "upiTransactionId": "66666666",
+        "screenshot": null,
+        "payerName": "Priyanshu Attri",
+        "payerUPI": "",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "TECHFEST1760889963885",
+          "amount": 99,
+          "status": "completed",
+          "timestamp": "2025-10-26T20:43:17.788Z",
+          "upiId": "priyanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-26T20:43:30.952Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-26T20:43:30.959Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761543861937XIO65",
+    "teamId": "TEAM-MH8PQEUP-BM9109",
+    "studentDetails": {
+      "fullName": "Priyanshu Attri ",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "1",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Reena sharma",
+          "email": "sharmareena@gmail.com",
+          "phone": "7018753206",
+          "college": "HPTU"
+        },
+        {
+          "name": "MohanSharma",
+          "email": "shuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "HPTU"
+        },
+        {
+          "name": "Arav Sharma",
+          "email": "yanshuattri05@gmail.com",
+          "phone": "7018753245",
+          "college": "HPTU"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "hackathon"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "hackathon",
+          "name": "Hackathon (Code Forge)",
+          "description": "36-hour coding competition to build innovative solutions",
+          "price": 199,
+          "duration": "36 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": false,
+      "totalAmount": 796,
+      "eventCount": 1,
+      "participantCount": 4,
+      "eventName": "Hackathon (Code Forge)",
+      "price": 796,
+      "eventId": "hackathon"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Reena sharma",
+        "email": "sharmareena@gmail.com",
+        "phone": "7018753206",
+        "college": "HPTU",
+        "teamId": "TEAM-MH8PQEUP-BM9109",
+        "memberIndex": 1
+      },
+      {
+        "name": "MohanSharma",
+        "email": "shuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "HPTU",
+        "teamId": "TEAM-MH8PQEUP-BM9109",
+        "memberIndex": 2
+      },
+      {
+        "name": "Arav Sharma",
+        "email": "yanshuattri05@gmail.com",
+        "phone": "7018753245",
+        "college": "HPTU",
+        "teamId": "TEAM-MH8PQEUP-BM9109",
+        "memberIndex": 3
+      }
+    ],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "TECHFEST1760889963885",
+      "amount": 796,
+      "status": "completed",
+      "timestamp": "2025-10-27T05:44:06.543Z",
+      "upiId": "priyanshuattri05@okaxis",
+      "upiTransactionId": "333333333333",
+      "payerName": "Aksah ",
+      "payerUPI": "sdkfsdjfhs",
+      "verificationData": {
+        "upiTransactionId": "333333333333",
+        "screenshot": null,
+        "payerName": "Aksah ",
+        "payerUPI": "sdkfsdjfhs",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "TECHFEST1760889963885",
+          "amount": 796,
+          "status": "completed",
+          "timestamp": "2025-10-27T05:44:06.543Z",
+          "upiId": "priyanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-27T05:44:21.944Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-27T05:44:21.937Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761550189854JBNTH",
+    "teamId": "TEAM-MH8TI1I6-4Q4KKK",
+    "studentDetails": {
+      "fullName": "Priyanshu Attri ",
+      "email": "akashsharma27062004@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "3",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "retro-theming",
+        "jack-of-hearts"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "retro-theming",
+          "name": "Retro Theming",
+          "description": "Creative design competition with retro themes",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Creative",
+          "type": "individual"
+        },
+        {
+          "id": "jack-of-hearts",
+          "name": "Jack of Hearts",
+          "description": "Card game strategy competition",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Gaming",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "totalAmount": 397,
+      "eventCount": 2,
+      "participantCount": 1,
+      "eventName": "Retro Theming, Jack of Hearts",
+      "price": 397,
+      "eventId": "multiple"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "TECHFEST1760889963885",
+      "amount": 397,
+      "status": "completed",
+      "timestamp": "2025-10-27T07:29:26.576Z",
+      "upiId": "priyanshuattri05@okaxis",
+      "upiTransactionId": "2134124213",
+      "payerName": "ash",
+      "payerUPI": "ass",
+      "verificationData": {
+        "upiTransactionId": "2134124213",
+        "screenshot": null,
+        "payerName": "ash",
+        "payerUPI": "ass",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "TECHFEST1760889963885",
+          "amount": 397,
+          "status": "completed",
+          "timestamp": "2025-10-27T07:29:26.576Z",
+          "upiId": "priyanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-27T07:29:49.846Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-27T07:29:49.854Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761550831199WFL19",
+    "teamId": "TEAM-MH8TVSDB-SXOXR3",
+    "studentDetails": {
+      "fullName": "Priyanshu Attri",
+      "email": "akashsharma27062004@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "2",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "retro-theming"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "retro-theming",
+          "name": "Retro Theming",
+          "description": "Creative design competition with retro themes",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Creative",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": false,
+      "totalAmount": 99,
+      "eventCount": 1,
+      "participantCount": 1,
+      "eventName": "Retro Theming",
+      "price": 99,
+      "eventId": "retro-theming"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "TECHFEST1760889963885",
+      "amount": 99,
+      "status": "completed",
+      "timestamp": "2025-10-27T07:40:18.848Z",
+      "upiId": "priyanshuattri05@okaxis",
+      "upiTransactionId": "213123",
+      "payerName": "bin",
+      "payerUPI": "trash",
+      "verificationData": {
+        "upiTransactionId": "213123",
+        "screenshot": null,
+        "payerName": "bin",
+        "payerUPI": "trash",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "TECHFEST1760889963885",
+          "amount": 99,
+          "status": "completed",
+          "timestamp": "2025-10-27T07:40:18.848Z",
+          "upiId": "priyanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-27T07:40:31.189Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-27T07:40:31.199Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761581521071LXF9W",
+    "teamId": "TEAM-MH9C5KTS-584WEO",
+    "studentDetails": {
+      "fullName": "MohanSharma",
+      "email": "pathaniagaurav1818@gmail.com",
+      "phone": "7018753245",
+      "college": "HPTU",
+      "year": "1",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "dancing",
+        "singing",
+        "jack-of-hearts",
+        "reverse-engineering",
+        "human-vs-ai",
+        "integration-bee",
+        "prompt-engineering",
+        "retro-theming"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "dancing",
+          "name": "Dancing Competition",
+          "description": "Show your dance moves and creativity",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Cultural",
+          "type": "individual"
+        },
+        {
+          "id": "singing",
+          "name": "Singing Competition",
+          "description": "Showcase your vocal talent",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Cultural",
+          "type": "individual"
+        },
+        {
+          "id": "jack-of-hearts",
+          "name": "Jack of Hearts",
+          "description": "Card game strategy competition",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Gaming",
+          "type": "individual"
+        },
+        {
+          "id": "reverse-engineering",
+          "name": "Reverse Engineering",
+          "description": "Deconstruct and understand complex systems",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Technical",
+          "type": "individual"
+        },
+        {
+          "id": "human-vs-ai",
+          "name": "Human vs AI",
+          "description": "Test your skills against artificial intelligence",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Technical",
+          "type": "individual"
+        },
+        {
+          "id": "integration-bee",
+          "name": "Integration Bee",
+          "description": "Mathematical integration competition",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Technical",
+          "type": "individual"
+        },
+        {
+          "id": "prompt-engineering",
+          "name": "Prompt Engineering",
+          "description": "Master the art of AI prompt crafting",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Technical",
+          "type": "individual"
+        },
+        {
+          "id": "retro-theming",
+          "name": "Retro Theming",
+          "description": "Creative design competition with retro themes",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Creative",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "totalAmount": 991,
+      "eventCount": 8,
+      "participantCount": 1,
+      "eventName": "Dancing Competition, Singing Competition, Jack of Hearts, Reverse Engineering, Human vs AI, Integration Bee, Prompt Engineering, Retro Theming",
+      "price": 991,
+      "eventId": "multiple"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "TECHFEST1760889963885",
+      "amount": 991,
+      "status": "completed",
+      "timestamp": "2025-10-27T16:11:48.128Z",
+      "upiId": "9816367020@axl",
+      "upiTransactionId": "12121212121",
+      "payerName": "Gaurav pathania",
+      "payerUPI": "",
+      "verificationData": {
+        "upiTransactionId": "12121212121",
+        "screenshot": null,
+        "payerName": "Gaurav pathania",
+        "payerUPI": "",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "TECHFEST1760889963885",
+          "amount": 991,
+          "status": "completed",
+          "timestamp": "2025-10-27T16:11:48.128Z",
+          "upiId": "9816367020@axl"
+        },
+        "verificationTimestamp": "2025-10-27T16:12:01.064Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-27T16:12:01.072Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761674320922NLBD3",
+    "teamId": "TEAM-MHAVELNE-J49MFK",
+    "studentDetails": {
+      "fullName": "afsfsafd",
+      "email": "auctobat@gmail.com",
+      "phone": "7018753204",
+      "college": "hptu",
+      "year": "3",
+      "rollNumber": "1213213",
+      "department": "cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "singing",
+        "dancing"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "singing",
+          "name": "Singing Competition",
+          "description": "Showcase your vocal talent",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Cultural",
+          "type": "individual"
+        },
+        {
+          "id": "dancing",
+          "name": "Dancing Competition",
+          "description": "Show your dance moves and creativity",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Cultural",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "totalAmount": 397,
+      "eventCount": 2,
+      "participantCount": 1,
+      "eventName": "Singing Competition, Dancing Competition",
+      "price": 397,
+      "eventId": "multiple"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "CHAITANYA1761674307180ZN64F",
+      "amount": 397,
+      "status": "pending_verification",
+      "timestamp": "2025-10-28T17:58:27.191Z",
+      "upiId": "9816367020@axl",
+      "verificationId": "CHAITANYA1761674307180ZN64F",
+      "upiTransactionId": "1231232321",
+      "payerName": "priyanshu asdas",
+      "payerUPI": "sadasdasd",
+      "verificationData": {
+        "upiTransactionId": "1231232321",
+        "screenshot": null,
+        "payerName": "priyanshu asdas",
+        "payerUPI": "sadasdasd",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "CHAITANYA1761674307180ZN64F",
+          "amount": 397,
+          "status": "pending_verification",
+          "timestamp": "2025-10-28T17:58:27.191Z",
+          "upiId": "9816367020@axl",
+          "verificationId": "CHAITANYA1761674307180ZN64F",
+          "upiTransactionId": "11121213213",
+          "payerName": "ggjjsdfh",
+          "payerUPI": "sdfsdfsdfsdf"
+        },
+        "verificationTimestamp": "2025-10-28T17:58:40.916Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-28T17:58:40.922Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761675654958SSGY9",
+    "teamId": "TEAM-MHAW76ZY-VG1YXS",
+    "studentDetails": {
+      "fullName": "Arun Kumar",
+      "email": "arungaming1973@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "2",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Priyanshu Attri ",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753203",
+          "college": "HPTU"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "hackathon"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "hackathon",
+          "name": "Hackathon (Code Forge)",
+          "description": "36-hour coding competition to build innovative solutions",
+          "price": 199,
+          "duration": "36 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "totalAmount": 796,
+      "eventCount": 1,
+      "participantCount": 2,
+      "eventName": "Hackathon (Code Forge)",
+      "price": 796,
+      "eventId": "hackathon"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Priyanshu Attri ",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753203",
+        "college": "HPTU",
+        "teamId": "TEAM-MHAW76ZY-VG1YXS",
+        "memberIndex": 1
+      }
+    ],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "CHAITANYA1761675654939ZETTS",
+      "amount": 796,
+      "status": "pending_verification",
+      "timestamp": "2025-10-28T18:20:54.953Z",
+      "upiId": "9816367020@axl",
+      "verificationId": "CHAITANYA1761675654939ZETTS",
+      "upiTransactionId": "",
+      "payerName": "",
+      "payerUPI": "",
+      "verificationData": {}
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-28T18:20:54.959Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761675824336BOB5N",
+    "teamId": "TEAM-MHAWATOW-1R6JJH",
+    "studentDetails": {
+      "fullName": "Arun Kumar",
+      "email": "arungaming1973@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "2",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "retro-theming"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "retro-theming",
+          "name": "Retro Theming",
+          "description": "Creative design competition with retro themes",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Creative",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "totalAmount": 298,
+      "eventCount": 1,
+      "participantCount": 1,
+      "eventName": "Retro Theming",
+      "price": 298,
+      "eventId": "retro-theming"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "CHAITANYA1761675811930ORZX1",
+      "amount": 298,
+      "status": "pending_verification",
+      "timestamp": "2025-10-28T18:23:31.945Z",
+      "upiId": "9816367020@axl",
+      "verificationId": "CHAITANYA1761675811930ORZX1",
+      "upiTransactionId": "21312313",
+      "payerName": "fucker",
+      "payerUPI": "sdfsdfsdf",
+      "verificationData": {
+        "upiTransactionId": "21312313",
+        "screenshot": null,
+        "payerName": "fucker",
+        "payerUPI": "sdfsdfsdf",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "CHAITANYA1761675811930ORZX1",
+          "amount": 298,
+          "status": "pending_verification",
+          "timestamp": "2025-10-28T18:23:31.945Z",
+          "upiId": "9816367020@axl",
+          "verificationId": "CHAITANYA1761675811930ORZX1",
+          "upiTransactionId": "12313123",
+          "payerName": "sadasd",
+          "payerUPI": "asdad"
+        },
+        "verificationTimestamp": "2025-10-28T18:23:44.330Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-28T18:23:44.336Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761678447994RT9RD",
+    "teamId": "TEAM-MHAXV24A-5OEX66",
+    "studentDetails": {
+      "fullName": "xxxxxxxxxx",
+      "email": "arungaming1973@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "2",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "retro-theming",
+        "integration-bee"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "retro-theming",
+          "name": "Retro Theming",
+          "description": "Creative design competition with retro themes",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Creative",
+          "type": "individual"
+        },
+        {
+          "id": "integration-bee",
+          "name": "Integration Bee",
+          "description": "Mathematical integration competition",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Technical",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "totalAmount": 397,
+      "eventCount": 2,
+      "participantCount": 1,
+      "eventName": "Retro Theming, Integration Bee",
+      "price": 397,
+      "eventId": "multiple"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "method": "upi",
+      "transactionId": "CHAITANYA17616784284256VK6H",
+      "amount": 397,
+      "status": "pending_verification",
+      "timestamp": "2025-10-28T19:07:08.434Z",
+      "upiId": "9816367020@axl",
+      "verificationId": "CHAITANYA17616784284256VK6H",
+      "upiTransactionId": "12121212121212",
+      "payerName": "Priyanshu Attri",
+      "payerUPI": "hehehehe",
+      "verificationData": {
+        "upiTransactionId": "12121212121212",
+        "screenshot": null,
+        "payerName": "Priyanshu Attri",
+        "payerUPI": "hehehehe",
+        "originalTransaction": {
+          "method": "upi",
+          "transactionId": "CHAITANYA17616784284256VK6H",
+          "amount": 397,
+          "status": "pending_verification",
+          "timestamp": "2025-10-28T19:07:08.434Z",
+          "upiId": "9816367020@axl",
+          "verificationId": "CHAITANYA17616784284256VK6H",
+          "upiTransactionId": "12312312313",
+          "payerName": "sdfdsfsdfsf",
+          "payerUPI": "dsfsdfsdfs"
+        },
+        "verificationTimestamp": "2025-10-28T19:07:27.986Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-28T19:07:27.994Z",
+    "verified": false
+  }
+]
