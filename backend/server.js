@@ -115,14 +115,34 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration
-app.use(
-  cors({
-    origin: [
-      process.env.FRONTEND_URL,
-    ],
-    credentials: true,
-  })
-);
+// CORS configuration - allow only known frontends and respond to preflight requests.
+// In production, set FRONTEND_URL env var to your deployed frontend (e.g. https://frontend-qrxt.onrender.com)
+const allowedOrigins = [
+  process.env.FRONTEND_URL, // set this in your Render/hosting env
+  "http://localhost:5173",
+  "http://localhost:5174",
+  // You can add other allowed origins here, for example your deployed frontend:
+  "https://frontend-qrxt.onrender.com",
+].filter(Boolean);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // If no origin (curl, server-to-server), allow it
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    }
+    console.warn(`Blocked CORS request from origin: ${origin}`);
+    return callback(new Error("Not allowed by CORS"), false);
+  },
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
+// Ensure preflight OPTIONS requests are handled and return CORS headers
+app.options("*", cors(corsOptions));
 
 // In-memory storage
 let transactions = [];
