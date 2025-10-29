@@ -26,7 +26,7 @@ const Payment = ({ formData, updateFormData, nextStep, prevStep, currentStep, to
       };
 
       // Call your backend API instead of direct service
-      const response = await fetch('http://localhost:5000/api/payment/register', {
+      const response = await fetch('https://backend-0c8i.onrender.com/api/payment/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

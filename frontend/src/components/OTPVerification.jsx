@@ -42,7 +42,7 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/send-otp', {
+      const response = await fetch('https://backend-0c8i.onrender.com/api/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
@@ -128,7 +128,7 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/verify-otp', {
+      const response = await fetch('https://backend-0c8i.onrender.com/api/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
