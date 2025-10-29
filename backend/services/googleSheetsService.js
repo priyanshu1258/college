@@ -21,25 +21,25 @@ class GoogleSheetsService {
       if (!this.spreadsheetId)
         throw new Error("GOOGLE_SHEETS_ID environment variable is not set");
 
-     const serviceAccount = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+      const keyFile = path.join(__dirname, "../service-account-key.json");
+      if (!fs.existsSync(keyFile))
+        throw new Error("Service account key file not found: " + keyFile);
 
-const auth = new google.auth.GoogleAuth({
-  credentials: serviceAccount,
-  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-});
+      const auth = new google.auth.GoogleAuth({
+        keyFile,
+        scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+      });
 
-this.auth = auth;
-this.sheets = google.sheets({ version: "v4", auth });
+      this.auth = auth;
+      this.sheets = google.sheets({ version: "v4", auth });
+      // Probe access (fails fast if the key/sheet share is wrong)
+      await this.sheets.spreadsheets.get({ spreadsheetId: this.spreadsheetId });
 
-// Probe access (fails fast if the key/sheet share is wrong)
-await this.sheets.spreadsheets.get({ spreadsheetId: this.spreadsheetId });
-
-this.initialized = true;
-console.log(
-  "✅ Google Sheets API initialized with Sheet ID:",
-  this.spreadsheetId
-);
-
+      this.initialized = true;
+      console.log(
+        "✅ Google Sheets API initialized with Sheet ID:",
+        this.spreadsheetId
+      );
     } catch (error) {
       console.error("❌ Failed to initialize Google Sheets:", error.message);
       throw error;
@@ -88,6 +88,14 @@ console.log(
         .filter(Boolean)
         .join(", ");
 
+      // If a specific esports game was selected, include it in the event name so
+      // the Registrations sheet reflects the exact game (e.g. "E-Sports Tournament - BGMI").
+      const selectedGame = eventSelection?.selectedEsportsGame;
+      const baseEventName = eventSelection?.eventName || "";
+      const eventNameWithGame = selectedGame
+        ? `${baseEventName} - ${selectedGame}`
+        : baseEventName;
+
       const values = [
         [
           teamId || "",
@@ -99,15 +107,15 @@ console.log(
           studentDetails.year,
           studentDetails.department,
           studentDetails.rollNumber,
-          eventSelection.eventName,
-          eventSelection.category,
-          eventSelection.type,
+          eventNameWithGame,
+          eventSelection?.category || "",
+          eventSelection?.type || "",
           participationType,
           teamMembers.length,
           teamNames,
           teamEmails,
           teamPhones,
-          eventSelection.price,
+          eventSelection?.price,
           paymentData?.method || "upi",
           paymentData?.upiTransactionId || "",
           paymentData?.payerName || "",
