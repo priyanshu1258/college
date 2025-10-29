@@ -2,7 +2,6 @@
 import React, { useState, useRef } from 'react';
 import EventSelection from './components/EventSelection';
 import StudentDetails from './components/StudentDetails';
-import UPIVerification from './components/UPIVerification';
 import DirectUPIPayment from './components/DirectUPIPayment';
 import OTPVerification from './components/OTPVerification';
 import { register } from './api/register';
@@ -27,8 +26,7 @@ const PaymentFlow = () => {
     { number: 1, name: 'Student Details', component: StudentDetails },
     { number: 2, name: 'OTP Verification', component: OTPVerification },
     { number: 3, name: 'Event Selection', component: EventSelection },
-    { number: 4, name: 'Payment', component: DirectUPIPayment },
-    { number: 5, name: 'UPI Verification', component: UPIVerification }
+    { number: 4, name: 'Payment', component: DirectUPIPayment }
   ];
 
   const CurrentComponent = steps[currentStep]?.component;
@@ -47,11 +45,21 @@ const PaymentFlow = () => {
 
   // Handle payment success from DirectUPIPayment
   const handlePaymentSuccess = (paymentResult) => {
+    // Save payment result and immediately treat it as verified submission.
     updateFormData({
       paymentData: paymentResult,
       paymentStatus: 'completed'
     });
-    nextStep();
+
+    // The DirectUPIPayment component handles verification and returns a verified
+    // paymentResult (with verificationId). We use that payload to submit the
+    // final registration immediately instead of navigating to a separate UPI
+    // Verification step.
+    try {
+      handleUPIVerification(paymentResult);
+    } catch (err) {
+      console.error('Error handling UPI verification after payment success:', err);
+    }
   };
 
   // Handle payment failure from DirectUPIPayment
