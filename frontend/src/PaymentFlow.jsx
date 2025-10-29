@@ -265,14 +265,7 @@ const PaymentFlow = () => {
           onPaymentSuccess: handlePaymentSuccess,
           onPaymentFailure: handlePaymentFailure
         };
-      case 'UPI Verification':
-        return {
-          ...baseProps,
-          transactionData: formData.paymentData,
-          onVerificationSubmit: handleUPIVerification,
-          onCancel: prevStep,
-          isSubmitting
-        };
+      /* UPI Verification step removed — verification is handled inside DirectUPIPayment */
       case 'OTP Verification':
         return {
           ...baseProps,
