@@ -137,7 +137,7 @@ const HomePage = () => {
         { innerText: 0 },
         {
           innerText: (i, target) => {
-            const values = [2000, 50, 100, 25];
+            const values = [500, 20, 10, 5];
             return values[i];
           },
           duration: 2,
