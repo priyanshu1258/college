@@ -21,25 +21,25 @@ class GoogleSheetsService {
       if (!this.spreadsheetId)
         throw new Error("GOOGLE_SHEETS_ID environment variable is not set");
 
-      const keyFile = path.join(__dirname, "../service-account-key.json");
-      if (!fs.existsSync(keyFile))
-        throw new Error("Service account key file not found: " + keyFile);
+     const serviceAccount = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
-      const auth = new google.auth.GoogleAuth({
-        keyFile,
-        scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-      });
+const auth = new google.auth.GoogleAuth({
+  credentials: serviceAccount,
+  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+});
 
-      this.auth = auth;
-      this.sheets = google.sheets({ version: "v4", auth });
-      // Probe access (fails fast if the key/sheet share is wrong)
-      await this.sheets.spreadsheets.get({ spreadsheetId: this.spreadsheetId });
+this.auth = auth;
+this.sheets = google.sheets({ version: "v4", auth });
 
-      this.initialized = true;
-      console.log(
-        "✅ Google Sheets API initialized with Sheet ID:",
-        this.spreadsheetId
-      );
+// Probe access (fails fast if the key/sheet share is wrong)
+await this.sheets.spreadsheets.get({ spreadsheetId: this.spreadsheetId });
+
+this.initialized = true;
+console.log(
+  "✅ Google Sheets API initialized with Sheet ID:",
+  this.spreadsheetId
+);
+
     } catch (error) {
       console.error("❌ Failed to initialize Google Sheets:", error.message);
       throw error;
