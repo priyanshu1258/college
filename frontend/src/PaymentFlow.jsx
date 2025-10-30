@@ -378,6 +378,7 @@ const PaymentFlow = () => {
     <div class="footer">
       <p style="margin: 5px 0;"><strong>Contact Information:</strong></p>
       <p style="margin: 5px 0;">📧 Email: chaitanyahptu@gmail.com</p>
+      <p style="margin: 5px 0;">📞 Tech Team: Priyanshu Attri - 7018753204</p>
       <p style="margin: 5px 0;">🌐 Website: techfest.chaitanya.ac.in</p>
       <p style="margin: 15px 0 5px 0; font-size: 11px;">
         This is a computer-generated document. No signature required.
@@ -619,6 +620,13 @@ const PaymentFlow = () => {
                   >
                     <span className="mr-2">📧</span>
                     chaitanyahptu@gmail.com
+                  </a>
+                  <a 
+                    href="tel:7018753204"
+                    className="inline-flex items-center bg-white px-4 py-2 rounded-lg border-2 border-orange-300 text-sm font-bold text-gray-800 hover:bg-orange-100 transition-colors"
+                  >
+                    <span className="mr-2">📞</span>
+                    Priyanshu: 7018753204
                   </a>
                   <div className="inline-flex items-center bg-white px-4 py-2 rounded-lg border-2 border-orange-300 text-sm font-bold text-gray-800">
                     <span className="mr-2">🌐</span>
