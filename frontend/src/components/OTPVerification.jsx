@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Clock, RotateCcw, Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { apiRequest } from '../api/client';
 
 const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, currentStep, totalSteps }) => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -42,19 +43,16 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/send-otp', {
+      const response = await apiRequest('/api/send-otp', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: { email }
       });
 
-      const result = await response.json();
-      
-      if (result.success) {
+      if (response.success) {
         console.log("✅ OTP sent successfully");
 
-        if (result.developmentOTP) {
-          setGeneratedOTP(result.developmentOTP);
+        if (response.developmentOTP) {
+          setGeneratedOTP(response.developmentOTP);
         } else {
           const testOTP = Math.floor(100000 + Math.random() * 900000).toString();
           setGeneratedOTP(testOTP);
@@ -62,7 +60,7 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
 
         setTimer(60);
       } else {
-        setMessage(result.message || 'Failed to send OTP');
+        setMessage(response.message || 'Failed to send OTP');
       }
     } catch (error) {
       console.error('OTP send error:', error);
@@ -128,21 +126,17 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/verify-otp', {
+      const response = await apiRequest('/api/verify-otp', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
+        body: { 
           email, 
           otp: otpString 
-        })
+        }
       });
 
-      const result = await response.json();
-      console.log('📨 Backend OTP response:', result);
+      console.log('📨 Backend OTP response:', response);
 
-      if (result.success) {
+      if (response.success) {
         console.log("✅ OTP verified successfully");
         updateFormData({ 
           verified: true,
@@ -151,7 +145,7 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
         });
         nextStep();
       } else {
-        setMessage(result.error || result.message || 'Invalid OTP. Please try again.');
+        setMessage(response.error || response.message || 'Invalid OTP. Please try again.');
       }
     } catch (error) {
       console.error('OTP verification error:', error);

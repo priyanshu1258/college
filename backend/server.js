@@ -121,8 +121,9 @@ const allowedOrigins = [
   process.env.FRONTEND_URL, // set this in your Render/hosting env
   "http://localhost:5173",
   "http://localhost:5174",
-  // You can add other allowed origins here, for example your deployed frontend:
+  // Add your deployed frontend URLs:
   "https://frontend-qrxt.onrender.com",
+  "https://chaitanya2025.onrender.com",
 ].filter(Boolean);
 
 const corsOptions = {
