@@ -28,6 +28,11 @@ const StudentDetails = ({ data, updateData, nextStep }) => {
     if (!formData.department.trim()) newErrors.department = 'Department is required';
 
     if (formData.participationType === 'team') {
+      // Check minimum team size (team lead + at least 2 members = 3 total)
+      if (formData.teamMembers.length < 2) {
+        newErrors.teamMembers = 'A team must have at least 3 people total (you + 2 members)';
+      }
+      
       formData.teamMembers.forEach((member, index) => {
         if (!member.fullName?.trim()) newErrors[`teamMemberName_${index}`] = `Team member ${index + 1} name is required`;
         if (!member.email?.trim()) newErrors[`teamMemberEmail_${index}`] = `Team member ${index + 1} email is required`;
@@ -35,7 +40,6 @@ const StudentDetails = ({ data, updateData, nextStep }) => {
         if (!member.phone?.trim()) newErrors[`teamMemberPhone_${index}`] = `Team member ${index + 1} phone is required`;
         else if (!/^[6-9]\d{9}$/.test(member.phone.replace(/\s/g, ''))) newErrors[`teamMemberPhone_${index}`] = `Team member ${index + 1} phone is invalid`;
       });
-      if (formData.teamMembers.length === 0) newErrors.teamMembers = 'At least one team member is required for team participation';
     }
 
     setErrors(newErrors);
@@ -45,6 +49,13 @@ const StudentDetails = ({ data, updateData, nextStep }) => {
  // In the handleSubmit function, update the data structure:
 const handleSubmit = (e) => {
   e.preventDefault();
+  
+  // Additional check for team participation with alert
+  if (formData.participationType === 'team' && formData.teamMembers.length < 2) {
+    alert('⚠️ Team Requirement Not Met!\n\nYou need at least 3 people total (including yourself) to participate as a team.\n\nCurrent team size: ' + (formData.teamMembers.length + 1) + '\nRequired minimum: 3\n\nPlease add at least ' + (2 - formData.teamMembers.length) + ' more team member(s) before continuing.');
+    return;
+  }
+  
   if (validateForm()) {
     // Prepare team members data for backend
     const teamMembersData = formData.participationType === 'team' 
@@ -103,8 +114,8 @@ const submissionData = {
   };
 
   const addTeamMember = () => {
-    if (formData.teamMembers.length >= 5) {
-      alert('Maximum 5 team members allowed (excluding yourself)');
+    if (formData.teamMembers.length >= 4) {
+      alert('Maximum 4 team members allowed (excluding yourself). Total team size: 5 people.');
       return;
     }
     setFormData(prev => ({
@@ -146,18 +157,25 @@ const submissionData = {
   };
 
   const isTeamParticipation = formData.participationType === 'team';
-  const canAddMoreMembers = formData.teamMembers.length < 5;
+  const canAddMoreMembers = formData.teamMembers.length < 4;
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8">
-      <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Student Information</h2>
-      <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">Please provide your basic details</p>
+    <div className="p-4 sm:p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            Student Information
+          </h2>
+          <p className="text-sm sm:text-base text-gray-600">Please provide your basic details to continue</p>
+        </div>
 
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         {/* Primary Student Details */}
-        <div className="border border-gray-200 rounded-xl p-4 sm:p-6">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4 flex items-center">
-            <User className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+        <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl p-4 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <h3 className="text-base sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
+              <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            </div>
             {isTeamParticipation ? 'Team Lead Details' : 'Student Details'} *
           </h3>
 
@@ -165,78 +183,78 @@ const submissionData = {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Full Name */}
             <div>
-              <label className="flex items-center text-xs sm:text-sm font-medium text-gray-700 mb-2">
-                <User className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+              <label className="flex items-center text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+                <User className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-600" />
                 Full Name *
               </label>
               <input
                 type="text"
                 value={formData.fullName}
                 onChange={(e) => handleChange('fullName', e.target.value)}
-                className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 text-sm sm:text-base ${errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full px-3 py-2 sm:px-4 sm:py-3 border-2 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 text-gray-900 text-sm sm:text-base transition-all duration-200 ${errors.fullName ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400 bg-white'}`}
                 placeholder="Enter your full name"
               />
-              {errors.fullName && <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.fullName}</p>}
+              {errors.fullName && <p className="text-red-600 text-xs sm:text-sm mt-1.5 font-medium">{errors.fullName}</p>}
             </div>
 
             {/* Email */}
             <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Mail className="w-4 h-4 mr-2" />
+              <label className="flex items-center text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+                <Mail className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-600" />
                 Email Address *
               </label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full px-3 py-2 sm:px-4 sm:py-3 border-2 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 text-gray-900 text-sm sm:text-base transition-all duration-200 ${errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400 bg-white'}`}
                 placeholder="your.email@college.edu"
               />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              {errors.email && <p className="text-red-600 text-xs sm:text-sm mt-1.5 font-medium">{errors.email}</p>}
             </div>
 
             {/* Phone */}
             <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Phone className="w-4 h-4 mr-2" />
+              <label className="flex items-center text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+                <Phone className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-600" />
                 Phone Number *
               </label>
               <input
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full px-3 py-2 sm:px-4 sm:py-3 border-2 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 text-gray-900 text-sm sm:text-base transition-all duration-200 ${errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400 bg-white'}`}
                 placeholder="9876543210"
               />
-              {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+              {errors.phone && <p className="text-red-600 text-xs sm:text-sm mt-1.5 font-medium">{errors.phone}</p>}
             </div>
 
             {/* College */}
             <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <School className="w-4 h-4 mr-2" />
+              <label className="flex items-center text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+                <School className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-600" />
                 College/University *
               </label>
               <input
                 type="text"
                 value={formData.college}
                 onChange={(e) => handleChange('college', e.target.value)}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors.college ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full px-3 py-2 sm:px-4 sm:py-3 border-2 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 text-gray-900 text-sm sm:text-base transition-all duration-200 ${errors.college ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400 bg-white'}`}
                 placeholder="Your college name"
               />
-              {errors.college && <p className="text-red-500 text-sm mt-1">{errors.college}</p>}
+              {errors.college && <p className="text-red-600 text-xs sm:text-sm mt-1.5 font-medium">{errors.college}</p>}
             </div>
 
             {/* Year */}
             <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Calendar className="w-4 h-4 mr-2" />
+              <label className="flex items-center text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-600" />
                 Year of Study *
               </label>
               <select
                 value={formData.year}
                 onChange={(e) => handleChange('year', e.target.value)}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors.year ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full px-3 py-2 sm:px-4 sm:py-3 border-2 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 text-gray-900 text-sm sm:text-base transition-all duration-200 ${errors.year ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400 bg-white'}`}
               >
                 <option value="">Select Year</option>
                 <option value="1">First Year</option>
@@ -245,155 +263,201 @@ const submissionData = {
                 <option value="4">Fourth Year</option>
                 <option value="5">Fifth Year</option>
               </select>
-              {errors.year && <p className="text-red-500 text-sm mt-1">{errors.year}</p>}
+              {errors.year && <p className="text-red-600 text-xs sm:text-sm mt-1.5 font-medium">{errors.year}</p>}
             </div>
 
             {/* Roll Number */}
             <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <User className="w-4 h-4 mr-2" />
+              <label className="flex items-center text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+                <User className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-600" />
                 Roll Number *
               </label>
               <input
                 type="text"
                 value={formData.rollNumber}
                 onChange={(e) => handleChange('rollNumber', e.target.value)}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors.rollNumber ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full px-3 py-2 sm:px-4 sm:py-3 border-2 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 text-gray-900 text-sm sm:text-base transition-all duration-200 ${errors.rollNumber ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400 bg-white'}`}
                 placeholder="Enter your roll number"
               />
-              {errors.rollNumber && <p className="text-red-500 text-sm mt-1">{errors.rollNumber}</p>}
+              {errors.rollNumber && <p className="text-red-600 text-xs sm:text-sm mt-1.5 font-medium">{errors.rollNumber}</p>}
             </div>
 
             {/* Department */}
             <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <School className="w-4 h-4 mr-2" />
+              <label className="flex items-center text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+                <School className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-600" />
                 Department *
               </label>
               <input
                 type="text"
                 value={formData.department}
                 onChange={(e) => handleChange('department', e.target.value)}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors.department ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full px-3 py-2 sm:px-4 sm:py-3 border-2 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 text-gray-900 text-sm sm:text-base transition-all duration-200 ${errors.department ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400 bg-white'}`}
                 placeholder="Enter your department"
               />
-              {errors.department && <p className="text-red-500 text-sm mt-1">{errors.department}</p>}
+              {errors.department && <p className="text-red-600 text-xs sm:text-sm mt-1.5 font-medium">{errors.department}</p>}
             </div>
 
             {/* Participation Type */}
-            <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Users className="w-4 h-4 mr-2" />
+            <div className="md:col-span-2">
+              <label className="flex items-center text-xs sm:text-sm font-semibold text-gray-700 mb-3">
+                <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-600" />
                 Participation Type *
               </label>
-              <div className="relative">
-                <select
-                  value={formData.participationType}
-                  onChange={(e) => handleChange('participationType', e.target.value)}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 appearance-none pr-10 ${errors.participationType ? 'border-red-500' : 'border-gray-300'}`}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <button
+                  type="button"
+                  onClick={() => handleChange('participationType', 'individual')}
+                  className={`p-4 sm:p-6 rounded-xl border-2 transition-all duration-300 ${
+                    formData.participationType === 'individual'
+                      ? 'border-blue-500 bg-blue-50 shadow-lg transform scale-105'
+                      : 'border-gray-300 hover:border-blue-300 bg-white hover:bg-gray-50'
+                  }`}
                 >
-                  <option value="individual">Individual</option>
-                  <option value="team">Team</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                  <ChevronDown className="w-4 h-4 text-gray-400" />
-                </div>
+                  <User className={`w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 ${
+                    formData.participationType === 'individual' ? 'text-blue-600' : 'text-gray-400'
+                  }`} />
+                  <div className={`text-sm sm:text-base font-bold ${
+                    formData.participationType === 'individual' ? 'text-blue-600' : 'text-gray-600'
+                  }`}>Individual</div>
+                  <div className="text-xs text-gray-500 mt-1">Solo participation</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleChange('participationType', 'team')}
+                  className={`p-4 sm:p-6 rounded-xl border-2 transition-all duration-300 ${
+                    formData.participationType === 'team'
+                      ? 'border-purple-500 bg-purple-50 shadow-lg transform scale-105'
+                      : 'border-gray-300 hover:border-purple-300 bg-white hover:bg-gray-50'
+                  }`}
+                >
+                  <Users className={`w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 ${
+                    formData.participationType === 'team' ? 'text-purple-600' : 'text-gray-400'
+                  }`} />
+                  <div className={`text-sm sm:text-base font-bold ${
+                    formData.participationType === 'team' ? 'text-purple-600' : 'text-gray-600'
+                  }`}>Team</div>
+                  <div className="text-xs text-gray-500 mt-1">With teammates</div>
+                </button>
               </div>
-              {errors.participationType && <p className="text-red-500 text-sm mt-1">{errors.participationType}</p>}
-              <p className="text-xs text-gray-500 mt-1">
-                {formData.participationType === 'individual' ? 'You will participate individually' : 'You will participate as a team'}
-              </p>
             </div>
           </div>
         </div>
 
         {/* Team Members Section */}
         {isTeamParticipation && (
-          <div className="border border-gray-200 rounded-xl p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-                <Users className="w-5 h-5 mr-2" />
-                Team Members {formData.teamMembers.length > 0 && `(${formData.teamMembers.length}/5)`}
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-2xl p-4 sm:p-8 shadow-lg">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <h3 className="text-base sm:text-xl font-bold text-gray-800 flex items-center">
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mr-3">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                </div>
+                Team Members (Min 3, Max 4)
               </h3>
               <button
                 type="button"
                 onClick={addTeamMember}
                 disabled={!canAddMoreMembers}
-                className={`flex items-center px-4 py-2 rounded-lg transition-colors ${canAddMoreMembers ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+                className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
+                  canAddMoreMembers
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
-                <Plus className="w-4 h-4 mr-2" />
-                Add Team Member
+                <Plus className="w-4 h-4" />
+                Add Member
               </button>
             </div>
 
             {errors.teamMembers && (
-              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-700 text-sm">{errors.teamMembers}</p>
+              <div className="mb-4 p-4 sm:p-5 bg-gradient-to-r from-red-100 to-orange-100 border-4 border-red-500 rounded-xl shadow-lg animate-pulse">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl sm:text-4xl">⚠️</span>
+                  <p className="text-red-900 text-sm sm:text-base font-black">{errors.teamMembers}</p>
+                </div>
               </div>
             )}
 
-            {/* Always show team members form since we auto-add one member */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               {formData.teamMembers.map((member, index) => (
-                <div key={index} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                  <div className="flex justify-between items-center mb-4">
-                    <h4 className="font-semibold text-gray-800">Team Member {index + 1}</h4>
-                    {/* Don't allow removing the first team member if it's the only one */}
-                    {formData.teamMembers.length > 1 && (
-                      <button type="button" onClick={() => removeTeamMember(index)} className="text-red-600 hover:text-red-800 transition-colors">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    )}
+                <div key={index} className="bg-white border-2 border-purple-200 rounded-xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-sm sm:text-base font-bold text-purple-600 flex items-center">
+                      <span className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs mr-2">
+                        {index + 1}
+                      </span>
+                      Team Member {index + 1}
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={() => removeTeamMember(index)}
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors"
+                      title="Remove member"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Name */}
                     <div>
-                      <label className="text-sm font-medium text-gray-700 mb-1 block">Full Name *</label>
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 block flex items-center">
+                        <User className="w-3 h-3 mr-1 text-purple-600" />
+                        Full Name *
+                      </label>
                       <input
                         type="text"
                         value={member.fullName}
                         onChange={(e) => updateTeamMember(index, 'fullName', e.target.value)}
-                        className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors[`teamMemberName_${index}`] ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-3 py-2 border-2 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 text-gray-900 text-sm transition-all duration-200 ${errors[`teamMemberName_${index}`] ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-purple-400 bg-white'}`}
                         placeholder="Team member full name"
                       />
-                      {errors[`teamMemberName_${index}`] && <p className="text-red-500 text-xs mt-1">{errors[`teamMemberName_${index}`]}</p>}
+                      {errors[`teamMemberName_${index}`] && <p className="text-red-600 text-xs mt-1.5 font-medium">{errors[`teamMemberName_${index}`]}</p>}
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label className="text-sm font-medium text-gray-700 mb-1 block">Email Address *</label>
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 block flex items-center">
+                        <Mail className="w-3 h-3 mr-1 text-purple-600" />
+                        Email Address *
+                      </label>
                       <input
                         type="email"
                         value={member.email}
                         onChange={(e) => updateTeamMember(index, 'email', e.target.value)}
-                        className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors[`teamMemberEmail_${index}`] ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-3 py-2 border-2 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 text-gray-900 text-sm transition-all duration-200 ${errors[`teamMemberEmail_${index}`] ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-purple-400 bg-white'}`}
                         placeholder="team.member@college.edu"
                       />
-                      {errors[`teamMemberEmail_${index}`] && <p className="text-red-500 text-xs mt-1">{errors[`teamMemberEmail_${index}`]}</p>}
+                      {errors[`teamMemberEmail_${index}`] && <p className="text-red-600 text-xs mt-1.5 font-medium">{errors[`teamMemberEmail_${index}`]}</p>}
                     </div>
 
                     {/* Phone */}
                     <div>
-                      <label className="text-sm font-medium text-gray-700 mb-1 block">Phone Number *</label>
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 block flex items-center">
+                        <Phone className="w-3 h-3 mr-1 text-purple-600" />
+                        Phone Number *
+                      </label>
                       <input
                         type="tel"
                         value={member.phone}
                         onChange={(e) => updateTeamMember(index, 'phone', e.target.value)}
-                        className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 ${errors[`teamMemberPhone_${index}`] ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-3 py-2 border-2 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 text-gray-900 text-sm transition-all duration-200 ${errors[`teamMemberPhone_${index}`] ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-purple-400 bg-white'}`}
                         placeholder="9876543210"
                       />
-                      {errors[`teamMemberPhone_${index}`] && <p className="text-red-500 text-xs mt-1">{errors[`teamMemberPhone_${index}`]}</p>}
+                      {errors[`teamMemberPhone_${index}`] && <p className="text-red-600 text-xs mt-1.5 font-medium">{errors[`teamMemberPhone_${index}`]}</p>}
                     </div>
 
                     {/* College (optional) */}
                     <div>
-                      <label className="text-sm font-medium text-gray-700 mb-1 block">College/University</label>
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 block flex items-center">
+                        <School className="w-3 h-3 mr-1 text-purple-600" />
+                        College/University
+                      </label>
                       <input
                         type="text"
                         value={member.college}
                         onChange={(e) => updateTeamMember(index, 'college', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                        className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 text-gray-900 text-sm hover:border-purple-400 transition-all duration-200 bg-white"
                         placeholder="College name"
                       />
                     </div>
@@ -402,30 +466,34 @@ const submissionData = {
               ))}
             </div>
 
-            {/* Help text when only one member exists */}
-            {formData.teamMembers.length === 1 && (
-              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-blue-700 text-sm">
-                  <strong>Tip:</strong> You can add up to 4 more team members using the "Add Team Member" button above.
+            {/* Help text */}
+            {formData.teamMembers.length < 2 && (
+              <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl relative z-10">
+                <p className="text-purple-700 text-xs sm:text-sm flex items-center gap-2">
+                  <span className="text-2xl">💡</span>
+                  <span>
+                    <strong className="font-bold">Important:</strong> A team must have a minimum of 3 people total (you + at least 2 members). You can add up to 3 more members (max 4 total).
+                  </span>
                 </p>
               </div>
             )}
           </div>
         )}
 
-        <div className="flex justify-between items-center pt-6 border-t border-gray-200">
-          <div className="text-sm text-gray-600">
+        <div className="flex justify-between items-center pt-6 border-t-2 border-gray-200">
+          <div className="text-xs sm:text-sm text-gray-600">
             {isTeamParticipation ? (
-              <>Total Team Size: <strong>{formData.teamMembers.length + 1}</strong> (including you)</>
+              <>Total Team Size: <strong className="text-blue-600">{formData.teamMembers.length + 1}</strong> (Min: 3, Max: 4)</>
             ) : (
-              <>Participation Type: <strong className="capitalize">{formData.participationType}</strong></>
+              <>Participation Type: <strong className="capitalize text-blue-600">{formData.participationType}</strong></>
             )}
           </div>
-          <button type="submit" className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
-            Continue to OTP Verification
+          <button type="submit" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm sm:text-base">
+            Continue to OTP →
           </button>
         </div>
       </form>
+      </div>
     </div>
   );
 };

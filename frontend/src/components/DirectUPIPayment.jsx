@@ -128,46 +128,66 @@ const DirectUPIPayment = ({ amount, onPaymentSuccess, onPaymentFailure, nextStep
         upiTransactionId: formData.upiTransactionId,
         payerName: formData.payerName,
         payerUPI: formData.payerUPI || '',
-        transactionData: verificationData
+        transactionData: {
+          amount: amount,
+          timestamp: new Date().toISOString()
+        }
       };
       
-const result = await apiRequest('/api/verify-upi-payment', {
-  method: 'POST',
-  body: verificationPayload
-});
+      const result = await apiRequest('/api/verify-upi-payment', {
+        method: 'POST',
+        body: verificationPayload
+      });
 
-      if (result.success) {
+      console.log('📡 UPI Verification Response:', result);
+
+      if (result && result.success) {
         console.log('✅ UPI verification submitted successfully');
         
-        const paymentResult = {
-          method: 'upi',
-          transactionId: result.verificationId,
-          amount: amount,
-          status: 'pending_verification',
-          timestamp: new Date().toISOString(),
-          upiId: upiId,
-          verificationId: result.verificationId,
+        // Create the complete verification data
+        const verificationResult = {
           upiTransactionId: formData.upiTransactionId,
           payerName: formData.payerName,
-          payerUPI: formData.payerUPI
+          payerUPI: formData.payerUPI,
+          verificationId: result.verificationId,
+          originalTransaction: verificationData,
+          verificationTimestamp: new Date().toISOString()
         };
-
-        onPaymentSuccess?.(paymentResult);
+        
         setShowVerification(false);
+        
+        // Call onPaymentSuccess with the verification data
+        // This will update the formData and trigger nextStep in PaymentFlow
+        if (onPaymentSuccess) {
+          onPaymentSuccess(verificationResult);
+        }
+        
+        // Then proceed to next step (which will be the UPI Verification component)
+        // But since we already have the verification data, it should auto-submit
+        if (nextStep) {
+          nextStep();
+        }
       } else {
-        console.error('❌ UPI verification failed:', result.error);
-        onPaymentFailure?.(new Error(result.error || 'Verification failed'));
+        console.error('❌ UPI verification failed:', result?.error || 'Unknown error');
+        alert(`Payment verification failed: ${result?.error || 'Please check your details and try again'}`);
+        if (onPaymentFailure) {
+          onPaymentFailure(new Error(result?.error || 'Verification failed'));
+        }
       }
     } catch (error) {
       console.error('❌ Verification error:', error);
-      onPaymentFailure?.(error);
+      alert(`Error during verification: ${error.message || 'Please try again'}`);
+      if (onPaymentFailure) {
+        onPaymentFailure(error);
+      }
     } finally {
       setIsProcessing(false);
     }
   };
 
   const handlePaymentSuccessClick = () => {
-    // Load transaction data from localStorage if not already set
+    // When user clicks "I've Made Payment", just collect the verification data
+    // The actual submission happens after they fill the form
     const storedTransaction = localStorage.getItem('lastTransaction');
     if (storedTransaction) {
       setVerificationData(JSON.parse(storedTransaction));
@@ -207,11 +227,26 @@ const result = await apiRequest('/api/verify-upi-payment', {
     }
   };
 
-  // Verification Modal Component
+  // Verification Modal Component - Enhanced
   const VerificationModal = () => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 sm:p-4 z-50 overflow-y-auto">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-4 sm:p-6 my-4">
-        <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">Verify UPI Payment</h3>
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-3 sm:p-4 z-50 overflow-y-auto backdrop-blur-sm">
+      <div className="bg-gradient-to-br from-white via-purple-50 to-blue-50 rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-10 my-4 border-4 border-purple-300 transform animate-fade-in">
+        {/* Header */}
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-block bg-purple-600 p-4 sm:p-5 rounded-full mb-3 sm:mb-4 shadow-lg">
+            <CheckCircle className="text-white" size={window.innerWidth < 640 ? 32 : 40} />
+          </div>
+          <h3 className="text-2xl sm:text-4xl font-black text-purple-900 mb-2">Verify Payment</h3>
+          <p className="text-gray-600 font-semibold text-sm sm:text-base">Enter your transaction details to complete registration</p>
+          
+          {/* Critical Registration Notice */}
+          <div className="mt-4 p-3 sm:p-4 bg-blue-600 border-3 border-blue-700 rounded-xl shadow-lg">
+            <p className="text-xs sm:text-sm text-white font-black flex items-start">
+              <span className="text-lg sm:text-xl mr-2 flex-shrink-0">🎯</span>
+              <span>This step generates your Registration ID. Without submitting this form, your registration will remain incomplete.</span>
+            </p>
+          </div>
+        </div>
 
         <form onSubmit={(e) => {
           e.preventDefault();
@@ -221,22 +256,26 @@ const result = await apiRequest('/api/verify-upi-payment', {
             payerName: formData.get('payerName'),
             payerUPI: formData.get('payerUPI')
           });
-        }} className="space-y-4">
+        }} className="space-y-4 sm:space-y-5">
+          {/* UPI Transaction ID */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm sm:text-base font-black text-gray-800 mb-2 sm:mb-3 flex items-center">
+              <span className="bg-purple-600 text-white rounded-full w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-xs sm:text-sm mr-2">1</span>
               UPI Transaction ID *
             </label>
             <input
               type="text"
               name="upiTransactionId"
               required
-              placeholder="Enter UPI reference number"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-black placeholder-gray-500"
+              placeholder="Enter 12-digit UPI Transaction ID"
+              className="w-full px-4 sm:px-5 py-3 sm:py-4 border-3 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-500 focus:border-purple-500 text-sm sm:text-base font-semibold bg-white shadow-md transition-all text-gray-900"
             />
           </div>
 
+          {/* Payer Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm sm:text-base font-black text-gray-800 mb-2 sm:mb-3 flex items-center">
+              <span className="bg-blue-600 text-white rounded-full w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-xs sm:text-sm mr-2">2</span>
               Your Name *
             </label>
             <input
@@ -244,43 +283,57 @@ const result = await apiRequest('/api/verify-upi-payment', {
               name="payerName"
               required
               placeholder="Enter your full name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-black placeholder-gray-500"
+              className="w-full px-4 sm:px-5 py-3 sm:py-4 border-3 border-blue-300 rounded-xl focus:ring-4 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base font-semibold bg-white shadow-md transition-all text-gray-900"
             />
           </div>
 
+          {/* Payer UPI ID */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm sm:text-base font-black text-gray-800 mb-2 sm:mb-3 flex items-center">
+              <span className="bg-green-600 text-white rounded-full w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-xs sm:text-sm mr-2">3</span>
               Your UPI ID
             </label>
             <input
               type="text"
               name="payerUPI"
               placeholder="yourname@upi (optional)"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-black placeholder-gray-500"
+              className="w-full px-4 sm:px-5 py-3 sm:py-4 border-3 border-green-300 rounded-xl focus:ring-4 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base font-semibold bg-white shadow-md transition-all text-gray-900"
             />
           </div>
 
-          <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
-            <p className="text-sm text-yellow-800">
-              <strong>Note:</strong> Your registration will be confirmed only after manual verification by our team. This may take up to 24 hours.
+          {/* Warning Message */}
+          <div className="bg-yellow-400 border-4 border-yellow-500 rounded-xl p-4 sm:p-5 shadow-lg">
+            <p className="text-xs sm:text-base text-gray-900 font-black flex items-start">
+              <span className="text-xl sm:text-2xl mr-2 sm:mr-3 flex-shrink-0">⚠️</span>
+              <span>
+                <strong>Note:</strong> Your registration will be confirmed only after manual verification by our team. This may take up to 24 hours.
+              </span>
             </p>
           </div>
 
-          <div className="flex space-x-3 pt-4">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
             <button
               type="button"
               onClick={handleCancelVerification}
               disabled={isProcessing}
-              className="flex-1 bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400 transition-colors duration-200 disabled:opacity-50"
+              className="flex-1 px-5 sm:px-6 py-3 sm:py-4 bg-gray-600 text-white rounded-xl hover:bg-gray-700 disabled:bg-gray-400 transition-all font-black text-sm sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none"
             >
-              Cancel
+              ❌ Cancel
             </button>
             <button
               type="submit"
               disabled={isProcessing}
-              className={`px-6 py-3 rounded-lg ${isProcessing ? 'opacity-60 cursor-not-allowed bg-blue-400' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+              className="flex-1 px-5 sm:px-6 py-3 sm:py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all font-black text-sm sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none"
             >
-              {isProcessing ? 'Submitting...' : 'Submit Verification'}
+              {isProcessing ? (
+                <span className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-3 border-white border-t-transparent mr-2"></div>
+                  Submitting...
+                </span>
+              ) : (
+                '✅ Submit Verification'
+              )}
             </button>
           </div>
         </form>
@@ -289,113 +342,189 @@ const result = await apiRequest('/api/verify-upi-payment', {
   );
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-3 sm:p-6 bg-white rounded-2xl shadow-xl border border-gray-200">
-      <div className="text-center mb-4 sm:mb-8">
-        <h2 className="text-xl sm:text-3xl font-bold text-gray-800 mb-2">Complete Your Payment</h2>
-        <p className="text-sm sm:text-base text-gray-600">Pay securely via UPI to confirm your registration</p>
+    <>
+      {/* Add blink animation */}
+      <style>{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+        .animate-blink {
+          animation: blink 1s ease-in-out infinite;
+        }
+      `}</style>
+      
+    <div className="w-full max-w-6xl mx-auto p-3 sm:p-6 bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 min-h-screen">
+      {/* Header Section - Compact */}
+      <div className="text-center mb-4 sm:mb-6">
+        <div className="inline-block mb-2 bg-purple-600 text-white px-4 py-2 rounded-full shadow-lg">
+          <span className="text-xs sm:text-sm font-black uppercase tracking-wider">Step 4 of 5</span>
+        </div>
         
-        {/* Amount Display */}
-        <div className="mt-4 sm:mt-6 p-4 sm:p-6 bg-blue-50 rounded-xl border border-blue-200">
-          <div className="text-xs sm:text-sm text-blue-700 mb-1 sm:mb-2">Total Amount Payable</div>
-          <div className="text-3xl sm:text-4xl font-bold text-blue-600">₹{amount}</div>
-          <div className="text-xs sm:text-sm text-blue-600 mt-1 sm:mt-2">Tech Fest Chaitanya 2025 Registration</div>
+        <h2 className="text-2xl sm:text-4xl font-black text-gray-900 mb-2">
+          💳 Complete Your Payment
+        </h2>
+        <p className="text-sm sm:text-base text-gray-700 font-semibold max-w-2xl mx-auto mb-3">
+          Secure UPI payment to confirm your Tech Fest registration
+        </p>
+        
+        {/* Important Registration Note - COMPACT & MOBILE FRIENDLY */}
+        <div className="max-w-4xl mx-auto px-2">
+          <div className="relative bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-3 sm:border-4 border-yellow-400 rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-5 shadow-2xl animate-pulse">
+            {/* Decorative corners - mobile optimized */}
+            <div className="absolute -top-1.5 sm:-top-2 -left-1.5 sm:-left-2 bg-yellow-400 text-red-600 font-black text-base sm:text-lg md:text-2xl w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-xl animate-bounce border border-white sm:border-2">⚠️</div>
+            <div className="absolute -top-1.5 sm:-top-2 -right-1.5 sm:-right-2 bg-yellow-400 text-red-600 font-black text-base sm:text-lg md:text-2xl w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-xl animate-bounce border border-white sm:border-2">⚠️</div>
+            <div className="absolute -bottom-1.5 sm:-bottom-2 -left-1.5 sm:-left-2 bg-yellow-400 text-red-600 font-black text-base sm:text-lg md:text-2xl w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-xl animate-bounce border border-white sm:border-2" style={{ animationDelay: '0.2s' }}>⚠️</div>
+            <div className="absolute -bottom-1.5 sm:-bottom-2 -right-1.5 sm:-right-2 bg-yellow-400 text-red-600 font-black text-base sm:text-lg md:text-2xl w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-xl animate-bounce border border-white sm:border-2" style={{ animationDelay: '0.2s' }}>⚠️</div>
+            
+            <div className="bg-white bg-opacity-95 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-5 border-2 sm:border-3 border-yellow-400 shadow-inner">
+              <div className="flex items-start justify-center">
+                <span className="text-2xl sm:text-3xl md:text-4xl mr-1.5 sm:mr-2 md:mr-3 flex-shrink-0 animate-pulse">🚨</span>
+                <div className="text-left flex-1">
+                  <h3 className="text-sm sm:text-lg md:text-2xl font-black text-red-600 mb-1.5 sm:mb-2 uppercase tracking-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.2)' }}>
+                    CRITICAL: READ THIS!
+                  </h3>
+                  <div className="bg-yellow-100 border-2 sm:border-3 border-yellow-500 rounded-md sm:rounded-lg p-1.5 sm:p-2 md:p-3 mb-1.5 sm:mb-2">
+                    <p className="text-xs sm:text-sm md:text-lg text-gray-900 font-black leading-tight">
+                      🔴 Payment alone does <span className="text-red-600 underline decoration-2 sm:decoration-4">NOT</span> complete registration!
+                    </p>
+                  </div>
+                  <div className="space-y-0.5 sm:space-y-1 text-[10px] sm:text-xs md:text-sm">
+                    <p className="text-gray-800 font-bold leading-tight flex items-start">
+                      <span className="text-sm sm:text-base mr-0.5 sm:mr-1 flex-shrink-0">1️⃣</span>
+                      <span className="flex-1">Make UPI payment • <span className="font-black">2️⃣ Click "Verify Now"</span></span>
+                    </p>
+                    <p className="text-gray-800 font-bold leading-tight flex items-start">
+                      <span className="text-sm sm:text-base mr-0.5 sm:mr-1 flex-shrink-0">3️⃣</span>
+                      <span className="flex-1">Submit transaction details to get Registration ID</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Amount Display - Compact */}
+        <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-white rounded-xl shadow-xl border-3 border-blue-600 max-w-md mx-auto">
+          <div className="text-xs sm:text-sm text-blue-700 mb-1 font-bold flex items-center justify-center">
+            <span className="text-lg mr-1">💰</span>
+            Total Amount
+          </div>
+          <div className="text-3xl sm:text-5xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            ₹{amount}
+          </div>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Left Column - QR Code & UPI Details */}
-        <div className="space-y-4 sm:space-y-6">
-          {/* Device Indicator */}
-          <div className="flex items-center justify-center space-x-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
+        <div className="space-y-3 sm:space-y-4">
+          {/* Device Indicator - Enhanced */}
+          <div className="flex items-center justify-center space-x-3 p-4 bg-white rounded-xl shadow-lg border-2 border-gray-200">
             {deviceType === 'mobile' ? (
               <>
-                <Smartphone className="text-blue-600" size={20} />
-                <span className="text-sm font-medium text-gray-700">Mobile Device Detected</span>
+                <div className="bg-blue-600 p-2 rounded-lg">
+                  <Smartphone className="text-white" size={24} />
+                </div>
+                <span className="text-base font-black text-gray-800">📱 Mobile Device Detected</span>
               </>
             ) : deviceType === 'tablet' ? (
               <>
-                <Laptop className="text-green-600" size={20} />
-                <span className="text-sm font-medium text-gray-700">Tablet Device Detected</span>
+                <div className="bg-green-600 p-2 rounded-lg">
+                  <Laptop className="text-white" size={24} />
+                </div>
+                <span className="text-base font-black text-gray-800">📱 Tablet Device Detected</span>
               </>
             ) : (
               <>
-                <Laptop className="text-purple-600" size={20} />
-                <span className="text-sm font-medium text-gray-700">Desktop Device Detected</span>
+                <div className="bg-purple-600 p-2 rounded-lg">
+                  <Laptop className="text-white" size={24} />
+                </div>
+                <span className="text-base font-black text-gray-800">💻 Desktop Device Detected</span>
               </>
             )}
           </div>
 
-          {/* QR Code Section */}
-          <div className="p-6 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
-            <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-medium text-gray-700 flex items-center">
-                <QrCode className="mr-2" size={20} />
+          {/* QR Code Section - Compact */}
+          <div className="p-4 bg-white rounded-xl shadow-xl border-3 border-purple-300">
+            <div className="flex items-center justify-between mb-6">
+              <h4 className="text-xl font-black text-gray-800 flex items-center">
+                <div className="bg-purple-600 p-2 rounded-lg mr-3">
+                  <QrCode className="text-white" size={24} />
+                </div>
                 Scan QR Code
               </h4>
               <button
                 onClick={downloadQRCode}
-                className="flex items-center text-gray-800 space-x-1 px-3 py-2 text-sm bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center text-white font-bold space-x-2 px-4 py-2 text-sm bg-blue-600 rounded-xl hover:bg-blue-700 transition-all shadow-md hover:shadow-lg transform hover:scale-105"
               >
-                <Download size={16} />
-                <span>Download QR</span>
+                <Download size={18} />
+                <span>Download</span>
               </button>
             </div>
             
-            <div className="flex flex-col items-center space-y-4">
-              <img 
-                src={generateQRCodeUrl()} 
-                alt="UPI QR Code"
-                className="w-64 h-64 border-4 border-white rounded-lg shadow-lg"
-                onError={(e) => {
-                  console.error('QR code failed to load');
-                  e.target.style.display = 'none';
-                }}
-              />
+            <div className="flex flex-col items-center space-y-3">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 rounded-2xl blur-xl opacity-50 animate-pulse"></div>
+                <img 
+                  src={generateQRCodeUrl()} 
+                  alt="UPI QR Code"
+                  className="relative w-52 h-52 sm:w-60 sm:h-60 border-4 border-white rounded-xl shadow-xl"
+                  onError={(e) => {
+                    console.error('QR code failed to load');
+                    e.target.style.display = 'none';
+                  }}
+                />
+              </div>
               
               <div className="text-center space-y-2 w-full">
-                <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                  <span className="text-sm font-medium text-gray-600">UPI ID:</span>
-                  <div className="flex items-center space-x-2">
-                    <code className="text-sm font-mono bg-gray-100 px-2 py-1 rounded text-gray-900 font-bold">{upiId}</code>
+                {/* UPI ID */}
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-2 border-blue-300 shadow-md">
+                  <span className="text-sm font-black text-gray-700">UPI ID:</span>
+                  <div className="flex items-center space-x-3">
+                    <code className="text-base font-mono bg-white px-4 py-2 rounded-lg text-blue-600 font-black border-2 border-blue-300">{upiId}</code>
                     <button
                       onClick={() => copyToClipboard(upiId, 'upiId')}
-                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                      className="p-2 bg-white hover:bg-blue-50 rounded-lg transition-colors border-2 border-blue-300"
                       title="Copy UPI ID"
                     >
                       {copiedField === 'upiId' ? (
-                        <CheckCircle size={16} className="text-green-600" />
+                        <CheckCircle size={20} className="text-green-600" />
                       ) : (
-                        <Copy size={16} className="text-gray-500" />
+                        <Copy size={20} className="text-blue-600" />
                       )}
                     </button>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                  <span className="text-sm font-medium text-gray-600">Amount:</span>
-                  <div className="flex items-center space-x-2">
-                    <code className="text-sm font-mono bg-gray-100 px-2 py-1 rounded text-gray-900 font-bold">₹{amount}</code>
+                {/* Amount */}
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border-2 border-green-300 shadow-md">
+                  <span className="text-sm font-black text-gray-700">Amount:</span>
+                  <div className="flex items-center space-x-3">
+                    <code className="text-base font-mono bg-white px-4 py-2 rounded-lg text-green-600 font-black border-2 border-green-300">₹{amount}</code>
                     <button
                       onClick={() => copyToClipboard(amount.toString(), 'amount')}
-                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                      className="p-2 bg-white hover:bg-green-50 rounded-lg transition-colors border-2 border-green-300"
                       title="Copy Amount"
                     >
                       {copiedField === 'amount' ? (
-                        <CheckCircle size={16} className="text-green-600" />
+                        <CheckCircle size={20} className="text-green-600" />
                       ) : (
-                        <Copy size={16} className="text-gray-500" />
+                        <Copy size={20} className="text-green-600" />
                       )}
                     </button>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                  <span className="text-sm font-medium text-gray-600">Recipient:</span>
-                  <div className="flex items-center space-x-2">
-                    <code className="text-sm font-mono bg-gray-100 px-2 py-1 rounded text-gray-900 font-bold">{recipientName}</code>
+                {/* Recipient */}
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-300 shadow-md">
+                  <span className="text-sm font-black text-gray-700">To:</span>
+                  <div className="flex items-center space-x-3">
+                    <code className="text-sm font-mono bg-white px-4 py-2 rounded-lg text-purple-600 font-black border-2 border-purple-300">{recipientName}</code>
                     <button
                       onClick={() => copyToClipboard(recipientName, 'name')}
-                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                      className="p-2 bg-white hover:bg-purple-50 rounded-lg transition-colors border-2 border-purple-300"
                       title="Copy Name"
                     >
                       {copiedField === 'name' ? (
@@ -412,111 +541,151 @@ const result = await apiRequest('/api/verify-upi-payment', {
         </div>
 
         {/* Right Column - Actions & Instructions */}
-        <div className="space-y-6">
+        <div className="space-y-3 sm:space-y-4">
           {/* Payment Action Buttons */}
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {deviceType === 'mobile' && (
               <button
                 onClick={handleUPIPayment}
                 disabled={isProcessing}
-                className="w-full bg-purple-600 text-white py-4 px-6 rounded-lg hover:bg-purple-700 disabled:bg-purple-400 disabled:cursor-not-allowed transition-all duration-200 font-semibold text-lg shadow-md hover:shadow-lg"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 sm:py-5 px-4 sm:px-8 rounded-xl sm:rounded-2xl hover:from-purple-700 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all duration-200 font-black text-base sm:text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 border-3 sm:border-4 border-purple-700"
               >
                 {isProcessing ? (
                   <span className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Opening UPI App...
+                    <div className="animate-spin rounded-full h-5 w-5 sm:h-6 sm:w-6 border-3 border-white border-t-transparent mr-2 sm:mr-3"></div>
+                    <span className="text-sm sm:text-base">Opening UPI App...</span>
                   </span>
                 ) : (
-                  `Open UPI App - Pay ₹${amount}`
+                  <span className="flex items-center justify-center">
+                    <span className="text-xl sm:text-2xl mr-2 sm:mr-3">📱</span>
+                    <span className="leading-tight">{`Open UPI App - Pay ₹${amount}`}</span>
+                  </span>
                 )}
               </button>
             )}
 
-            {/* Payment Verification */}
-            <div className="p-6 bg-green-50 rounded-xl border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-3 text-center text-lg">
-                Payment Confirmation
-              </h4>
-              <p className="text-sm text-green-700 mb-4 text-center">
-                After making the payment, click below to verify and complete your registration
-              </p>
+            {/* Payment Verification - Mobile Optimized */}
+            <div className="relative p-3 sm:p-4 md:p-5 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg sm:rounded-xl shadow-xl border-3 sm:border-4 border-green-500">
+              {/* Attention grabbers */}
+              <div className="absolute -top-1.5 sm:-top-2 -right-1.5 sm:-right-2 bg-yellow-400 text-red-600 font-black text-xs sm:text-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-lg transform rotate-12 animate-bounce border border-white sm:border-2">
+                CLICK!
+              </div>
+              
+              <div className="text-center mb-2 sm:mb-3">
+                <div className="inline-block bg-green-600 p-2 sm:p-3 rounded-full mb-1.5 sm:mb-2 shadow-lg animate-bounce">
+                  <CheckCircle className="text-white" size={24} />
+                </div>
+                <h4 className="font-black text-green-900 text-base sm:text-lg md:text-2xl mb-1.5 sm:mb-2 uppercase leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>
+                  ⚡ Verification Required ⚡
+                </h4>
+                
+                {/* Critical Reminder - Mobile Optimized */}
+                <div className="mb-2 sm:mb-3 p-2 sm:p-3 bg-red-600 border-2 sm:border-3 border-red-800 rounded-lg sm:rounded-xl shadow-lg">
+                  <p className="text-[10px] sm:text-xs md:text-sm text-white font-black flex items-start justify-center">
+                    <span className="text-lg sm:text-xl mr-1.5 sm:mr-2 flex-shrink-0 animate-bounce">🔴</span>
+                    <span className="text-left leading-tight">Registration ID generated ONLY after verification!</span>
+                  </p>
+                </div>
+                
+                <p className="text-[10px] sm:text-xs md:text-sm text-gray-800 font-bold bg-white p-1.5 sm:p-2 rounded-md sm:rounded-lg border border-green-400 sm:border-2">
+                  Click below after making payment
+                </p>
+              </div>
               <button
                 onClick={handlePaymentSuccessClick}
                 disabled={isProcessing}
-                className="w-full bg-green-600 text-white py-4 px-6 rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 font-semibold text-lg shadow-md hover:shadow-lg"
+                className="w-full bg-gradient-to-r from-green-600 via-green-500 to-green-600 text-white py-4 sm:py-5 px-4 sm:px-6 rounded-xl hover:from-green-700 hover:via-green-600 hover:to-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 font-black text-sm sm:text-base md:text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 border-3 border-green-800 animate-blink"
               >
                 {isProcessing ? (
                   <span className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Verifying...
+                    <div className="animate-spin rounded-full h-5 w-5 sm:h-6 sm:w-6 border-3 border-white border-t-transparent mr-2 sm:mr-3"></div>
+                    <span className="text-sm sm:text-base">Verifying...</span>
                   </span>
                 ) : (
-                  "I've Made the Payment - Verify Now"
+                  <span className="flex items-center justify-center">
+                    <span className="text-xl sm:text-2xl mr-2 sm:mr-3">✅</span>
+                    <span className="leading-tight">I've Made the Payment - Verify Now</span>
+                  </span>
                 )}
               </button>
             </div>
           </div>
 
-          {/* Instructions */}
-          <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
-            <h5 className="font-semibold text-blue-800 mb-3 flex items-center text-lg">
-              <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm mr-2">
-                i
-              </span>
-              Payment Instructions
+          {/* Instructions - Compact */}
+          <div className="p-4 bg-white rounded-xl shadow-lg border-3 border-blue-300">
+            <h5 className="font-black text-blue-900 mb-2 flex items-center text-base">
+              <div className="bg-blue-600 p-1.5 rounded-lg mr-2">
+                <span className="text-white text-sm">ℹ️</span>
+              </div>
+              Instructions
             </h5>
-            <ul className="text-sm text-blue-700 space-y-3">
+            <ul className="text-xs sm:text-sm text-gray-700 space-y-1.5">
               {getDeviceInstructions().map((instruction, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="text-blue-600 font-semibold mr-2">{index + 1}.</span>
-                  {instruction}
+                <li key={index} className="flex items-start p-2 bg-blue-50 rounded-lg border border-blue-200">
+                  <span className="bg-blue-600 text-white font-black rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 flex-shrink-0">{index + 1}</span>
+                  <span className="font-semibold">{instruction}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Help Section */}
-          <div className="p-6 bg-yellow-50 rounded-xl border border-yellow-200">
-            <h5 className="font-semibold text-yellow-800 mb-2 text-lg">Need Help?</h5>
-            <ul className="text-sm text-yellow-700 space-y-2">
-              <li>• Ensure you have a UPI app installed (Google Pay, PhonePe, Paytm, etc.)</li>
-              <li>• Make sure your UPI app has sufficient balance</li>
-              <li>• Double-check the UPI ID and amount before paying</li>
-              <li>• Contact support if payment fails: chaitanyahptu@gmail.com</li>
+          {/* Help Section - Compact */}
+          <div className="p-4 bg-white rounded-xl shadow-lg border-3 border-yellow-300">
+            <h5 className="font-black text-yellow-900 mb-2 text-base flex items-center">
+              <span className="text-2xl mr-2">🆘</span>
+              Help
+            </h5>
+            <ul className="text-xs sm:text-sm text-gray-700 space-y-1.5">
+              <li className="flex items-start p-2 bg-yellow-50 rounded-lg border border-yellow-200">
+                <span className="text-base mr-2">✓</span>
+                <span className="font-semibold">UPI app required (GPay, PhonePe, Paytm)</span>
+              </li>
+              <li className="flex items-start p-2 bg-yellow-50 rounded-lg border border-yellow-200">
+                <span className="text-base mr-2">💰</span>
+                <span className="font-semibold">Ensure sufficient balance</span>
+              </li>
+              <li className="flex items-start p-2 bg-red-50 rounded-lg border-2 border-red-300">
+                <span className="text-base mr-2">📧</span>
+                <span className="font-semibold">Support: <a href="mailto:chaitanyahptu@gmail.com" className="text-blue-600 underline">chaitanyahptu@gmail.com</a></span>
+              </li>
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Navigation Buttons */}
-      <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
+      {/* Navigation Buttons - Compact */}
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-4 sm:mt-6 pt-4 border-t-3 border-gray-300 gap-3">
         <button
           onClick={prevStep}
-          className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+          className="w-full sm:w-auto px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all font-black text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
         >
           ← Back to Events
         </button>
         
-        <div className="text-center">
-          <div className="text-sm text-gray-600 mb-1">Total Amount</div>
-          <div className="text-2xl font-bold text-blue-600">₹{amount}</div>
+        <div className="text-center bg-yellow-400 px-6 py-3 rounded-lg shadow-lg border-3 border-yellow-500">
+          <div className="text-xs text-gray-700 font-black uppercase">Total</div>
+          <div className="text-2xl sm:text-3xl font-black text-gray-900">₹{amount}</div>
         </div>
 
-        <div className="w-32"></div>
+        <div className="w-full sm:w-auto sm:w-32"></div>
       </div>
 
-      {/* Copy Success Message */}
+      {/* Copy Success Message - Enhanced */}
       {copiedField && (
-        <div className="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg animate-bounce">
-          {copiedField === 'upiId' && 'UPI ID copied!'}
-          {copiedField === 'amount' && 'Amount copied!'}
-          {copiedField === 'name' && 'Name copied!'}
+        <div className="fixed bottom-6 right-6 bg-green-600 text-white px-6 py-4 rounded-2xl shadow-2xl animate-bounce border-4 border-green-700 z-50">
+          <div className="flex items-center font-black text-base">
+            <CheckCircle size={24} className="mr-3" />
+            {copiedField === 'upiId' && '✅ UPI ID copied!'}
+            {copiedField === 'amount' && '✅ Amount copied!'}
+            {copiedField === 'name' && '✅ Name copied!'}
+          </div>
         </div>
       )}
 
       {/* Verification Modal */}
       {showVerification && <VerificationModal />}
     </div>
+    </>
   );
 };
 

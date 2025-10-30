@@ -42,7 +42,7 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
         return;
       }
 
-      const response = await fetch('https://backend-0c8i.onrender.com/api/send-otp', {
+      const response = await fetch('http://localhost:5000/api/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
@@ -128,7 +128,7 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
         return;
       }
 
-      const response = await fetch('https://backend-0c8i.onrender.com/api/verify-otp', {
+      const response = await fetch('http://localhost:5000/api/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -173,119 +173,159 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
   const userEmail = getEmail() || 'your email';
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="bg-white rounded-2xl shadow-sm p-6 max-w-md mx-auto">
+    <div className="p-4 sm:p-8 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-[600px]">
+      <div className="bg-white rounded-2xl shadow-2xl border-2 border-blue-200 p-4 sm:p-8 max-w-2xl mx-auto">
         {/* Mobile Header */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={prevStep}
             disabled={loading}
-            className="flex items-center text-gray-600 hover:text-gray-800 disabled:opacity-50 transition-colors"
+            className="flex items-center text-blue-600 hover:text-blue-800 disabled:opacity-50 transition-colors font-semibold"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
-            <span className="text-sm font-medium">Back</span>
+            <span className="text-sm sm:text-base">Back</span>
           </button>
           
-          <div className="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+          <div className="text-xs sm:text-sm bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold border-2 border-blue-300">
             Step {currentStep}/{totalSteps}
           </div>
         </div>
 
         {/* Main Content */}
         <div className="text-center mb-6">
-          <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Mail className="w-7 h-7 text-blue-600" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg animate-pulse">
+            <Mail className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
           </div>
           
-          <h2 className="text-2xl font-bold text-gray-800 mb-3">Verify Your Email</h2>
+          <h2 className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
+            Verify Your Email
+          </h2>
           
-          <p className="text-gray-600 text-sm mb-3">
+          <p className="text-gray-700 text-sm sm:text-base mb-2 font-semibold">
             We've sent a 6-digit OTP to
           </p>
-          <p className="font-semibold text-gray-800 text-base break-all px-4">{userEmail}</p>
-          <p className="text-xs text-gray-500 mt-2">
-            The OTP will expire in 10 minutes
+          <p className="font-bold text-blue-600 text-base sm:text-lg break-all px-2 sm:px-4 bg-blue-50 py-2 rounded-lg inline-block">{userEmail}</p>
+          <p className="text-xs sm:text-sm text-gray-600 mt-3 font-medium">
+            ⏰ The OTP will expire in 10 minutes
           </p>
         </div>
 
-        {/* Development OTP Display - Mobile Optimized */}
-       
-
-        {/* OTP Input - Mobile Optimized */}
-        <div className="flex justify-center space-x-2 mb-6 px-4">
-          {otp.map((digit, index) => (
-            <input
-              key={index}
-              ref={(el) => (inputRefs.current[index] = el)}
-              type="text"
-              maxLength="1"
-              value={digit}
-              onChange={(e) => handleOtpChange(index, e.target.value)}
-              onKeyDown={(e) => handleKeyDown(index, e)}
-              className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors text-gray-900 bg-white flex-1 max-w-[50px]"
-              disabled={loading}
-              inputMode="numeric"
-              pattern="[0-9]*"
-            />
-          ))}
+        {/* CRITICAL SPAM FOLDER WARNING - LARGE AND PROMINENT */}
+        <div className="mb-6 p-4 sm:p-6 bg-gradient-to-r from-red-100 to-orange-100 border-4 border-red-500 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+            <div className="text-5xl sm:text-6xl flex-shrink-0 animate-bounce">📮</div>
+            <div className="text-center sm:text-left flex-1">
+              <h3 className="font-black text-red-900 text-lg sm:text-xl mb-2 uppercase tracking-wide">
+                ⚠️ CHECK YOUR SPAM FOLDER! ⚠️
+              </h3>
+              <p className="text-red-800 text-sm sm:text-base font-bold leading-relaxed">
+                Our emails often go to spam/junk folders. 
+                <span className="block mt-2 bg-red-200 px-3 py-2 rounded-lg text-red-900 text-base sm:text-lg animate-pulse">
+                  📧 Look in your SPAM folder NOW!
+                </span>
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Timer/Resend Section */}
-        <div className="text-center mb-6">
+        {/* OTP Input - Enhanced & Engaging */}
+        <div className="mb-6">
+          <p className="text-center text-gray-700 font-bold mb-4 text-base sm:text-lg">
+            🔐 Enter 6-Digit OTP
+          </p>
+          <div className="flex justify-center gap-2 sm:gap-3 px-2 sm:px-4">
+            {otp.map((digit, index) => (
+              <input
+                key={index}
+                ref={(el) => (inputRefs.current[index] = el)}
+                type="text"
+                maxLength="1"
+                value={digit}
+                onChange={(e) => handleOtpChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
+                className="w-11 h-11 sm:w-14 sm:h-14 text-center text-xl sm:text-2xl font-black border-3 border-blue-400 rounded-xl focus:border-orange-500 focus:ring-4 focus:ring-orange-200 transition-all text-gray-900 bg-gradient-to-br from-white to-blue-50 shadow-lg hover:shadow-xl transform hover:scale-105 flex-1 max-w-[50px] sm:max-w-[60px]"
+                disabled={loading}
+                inputMode="numeric"
+                pattern="[0-9]*"
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Timer/Resend Section - Enhanced */}
+        <div className="text-center mb-6 bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-xl border-2 border-blue-200">
           {timer > 0 ? (
-            <div className="flex items-center justify-center text-gray-600 text-sm">
-              <Clock className="w-4 h-4 mr-2" />
-              Resend OTP in {timer}s
+            <div className="flex items-center justify-center text-blue-700 font-bold text-sm sm:text-base">
+              <Clock className="w-5 h-5 mr-2 animate-pulse" />
+              ⏳ Resend OTP in <span className="text-orange-600 mx-1 text-lg">{timer}s</span>
             </div>
           ) : (
             <button
               onClick={sendOTP}
               disabled={loading}
-              className="flex items-center justify-center text-blue-600 hover:text-blue-700 transition-colors mx-auto text-sm"
+              className="flex items-center justify-center text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all mx-auto text-sm sm:text-base font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Resend OTP
+              <RotateCcw className="w-5 h-5 mr-2" />
+              🔄 Resend OTP
             </button>
           )}
         </div>
 
-        {/* Message Display */}
+        {/* Message Display - Enhanced */}
         {message && (
-          <div className={`text-center mb-6 p-3 rounded-lg text-sm ${
+          <div className={`text-center mb-6 p-4 rounded-xl text-sm sm:text-base font-bold shadow-lg ${
             message.includes('successfully') || message.includes('test OTP') || message.includes('✅')
-              ? 'bg-green-100 text-green-700' 
+              ? 'bg-gradient-to-r from-green-100 to-green-200 text-green-900 border-2 border-green-500' 
               : message.includes('❌') || message.includes('Invalid') || message.includes('Failed')
-              ? 'bg-red-100 text-red-700'
-              : 'bg-yellow-100 text-yellow-700'
+              ? 'bg-gradient-to-r from-red-100 to-red-200 text-red-900 border-2 border-red-500'
+              : 'bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-900 border-2 border-yellow-500'
           }`}>
             {message}
           </div>
         )}
 
-        {/* Verify Button - Mobile Optimized */}
+        {/* Verify Button - Enhanced & Engaging */}
         <button
           onClick={verifyOTP}
           disabled={loading || otp.join('').length !== 6}
-          className="w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors font-semibold text-base mb-4 flex items-center justify-center"
+          className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white py-4 sm:py-5 rounded-xl disabled:bg-gray-400 disabled:from-gray-400 disabled:to-gray-400 transition-all font-black text-base sm:text-lg mb-4 flex items-center justify-center shadow-xl hover:shadow-2xl transform hover:scale-105 border-2 border-green-500 disabled:border-gray-500"
         >
           {loading ? (
             <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-              Verifying...
+              <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
+              ⏳ Verifying...
             </>
           ) : (
-            'Verify OTP'
+            <>
+              <span className="text-2xl mr-2">✅</span>
+              Verify OTP
+            </>
           )}
         </button>
 
-        {/* Help Section - Mobile Optimized */}
-        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-          <h4 className="font-semibold text-blue-800 mb-2 text-sm">Didn't receive the OTP?</h4>
-          <ul className="text-blue-700 text-xs space-y-1">
-            <li>• Check your spam folder</li>
-            <li>• Ensure you entered the correct email</li>
-            <li>• Wait for the timer to resend</li>
-            <li>• Contact support if issues persist</li>
+        {/* Help Section - Enhanced with Spam Emphasis */}
+        <div className="mt-4 p-4 sm:p-5 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border-2 border-blue-300 shadow-lg">
+          <h4 className="font-black text-blue-900 mb-3 text-sm sm:text-base flex items-center justify-center">
+            <span className="text-xl mr-2">❓</span>
+            Didn't receive the OTP?
+          </h4>
+          <ul className="text-blue-800 text-xs sm:text-sm space-y-2 font-semibold">
+            <li className="flex items-start bg-red-100 p-2 rounded-lg border-2 border-red-400">
+              <span className="text-lg mr-2 flex-shrink-0">📮</span>
+              <span className="font-black text-red-900">CHECK YOUR SPAM/JUNK FOLDER FIRST!</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-base mr-2">📧</span>
+              Ensure you entered the correct email address
+            </li>
+            <li className="flex items-start">
+              <span className="text-base mr-2">⏰</span>
+              Wait for the timer to resend a new OTP
+            </li>
+            <li className="flex items-start">
+              <span className="text-base mr-2">💬</span>
+              Contact support if issues persist
+            </li>
           </ul>
         </div>
 
