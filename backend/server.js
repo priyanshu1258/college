@@ -776,6 +776,17 @@ app.get("/api/events", (req, res) => {
         type: "team",
         maxParticipants: 4,
       },
+      {
+        id: "ctf",
+        name: "CTF - Capture The Flag",
+        description:
+          "Cybersecurity challenge with hacking and problem-solving tasks",
+        price: 0,
+        duration: "6 Hours",
+        category: "Technical",
+        type: "team",
+        maxParticipants: 4,
+      },
     ];
 
     // Individual events (matches your frontend exactly)
