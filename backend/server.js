@@ -788,6 +788,26 @@ app.get("/api/events", (req, res) => {
         type: "team",
         maxParticipants: 4,
       },
+      {
+        id: "singing-team",
+        name: "Singing Competition (Team)",
+        description: "Team performance showcasing vocal harmony and talent",
+        price: 0,
+        duration: "2 Hours",
+        category: "Cultural",
+        type: "team",
+        maxParticipants: 4,
+      },
+      {
+        id: "dancing-team",
+        name: "Dancing Competition (Team)",
+        description: "Team choreography and dance performance",
+        price: 0,
+        duration: "3 Hours",
+        category: "Cultural",
+        type: "team",
+        maxParticipants: 4,
+      },
     ];
 
     // Individual events (matches your frontend exactly)
@@ -851,7 +871,7 @@ app.get("/api/events", (req, res) => {
         id: "singing",
         name: "Singing Competition",
         description: "Showcase your vocal talent",
-        price: 99,
+        price: 0,
         duration: "2 Hours",
         category: "Cultural",
         type: "individual",
@@ -860,7 +880,7 @@ app.get("/api/events", (req, res) => {
         id: "dancing",
         name: "Dancing Competition",
         description: "Show your dance moves and creativity",
-        price: 99,
+        price: 0,
         duration: "3 Hours",
         category: "Cultural",
         type: "individual",
@@ -891,6 +911,7 @@ app.post("/api/calculate-amount", (req, res) => {
       participationType,
       teamMembersCount = 1,
       includeFood = true,
+      includeAccommodation = false,
     } = req.body;
 
     if (!selectedEvents || !Array.isArray(selectedEvents)) {
@@ -913,6 +934,9 @@ app.post("/api/calculate-amount", (req, res) => {
       esports: { price: 149, type: "team" },
       debate: { price: 99, type: "team" },
       "project-bazaar": { price: 0, type: "team" },
+      ctf: { price: 0, type: "team" },
+      "singing-team": { price: 0, type: "team" },
+      "dancing-team": { price: 0, type: "team" },
 
       // Individual events
       "retro-theming": { price: 99, type: "individual" },
@@ -921,8 +945,8 @@ app.post("/api/calculate-amount", (req, res) => {
       "human-vs-ai": { price: 99, type: "individual" },
       "reverse-engineering": { price: 99, type: "individual" },
       "jack-of-hearts": { price: 99, type: "individual" },
-      singing: { price: 99, type: "individual" },
-      dancing: { price: 99, type: "individual" },
+      singing: { price: 0, type: "individual" },
+      dancing: { price: 0, type: "individual" },
     };
 
     selectedEvents.forEach((eventId) => {
@@ -936,8 +960,11 @@ app.post("/api/calculate-amount", (req, res) => {
       }
     });
 
-    const foodTotal = includeFood ? 199 * totalParticipants : 0;
-    const totalAmount = eventTotal + foodTotal;
+    const foodTotal = includeFood ? 299 * totalParticipants : 0;
+    const accommodationTotal = includeAccommodation
+      ? 299 * totalParticipants
+      : 0;
+    const totalAmount = eventTotal + foodTotal + accommodationTotal;
 
     res.json({
       success: true,
@@ -945,7 +972,9 @@ app.post("/api/calculate-amount", (req, res) => {
       breakdown: {
         eventFees: eventTotal,
         foodCharges: foodTotal,
+        accommodationCharges: accommodationTotal,
         foodCount: includeFood ? totalParticipants : 0,
+        accommodationCount: includeAccommodation ? totalParticipants : 0,
         participantCount: totalParticipants,
       },
     });

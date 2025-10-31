@@ -119,6 +119,8 @@ class GoogleSheetsService {
           paymentData?.method || "upi",
           paymentData?.upiTransactionId || "",
           paymentData?.payerName || "",
+          eventSelection?.includeFood ? "Yes" : "No",
+          eventSelection?.includeAccommodation ? "Yes" : "No",
           new Date(registeredAt).toLocaleString("en-IN"),
           "Pending Verification",
         ],
@@ -126,7 +128,7 @@ class GoogleSheetsService {
 
       await this.sheets.spreadsheets.values.append({
         spreadsheetId: this.spreadsheetId,
-        range: "Registrations!A:W",
+        range: "Registrations!A:Y",
         valueInputOption: "RAW",
         insertDataOption: "INSERT_ROWS",
         requestBody: { values },

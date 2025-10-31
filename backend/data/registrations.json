@@ -1081,5 +1081,518 @@
     "status": "registered",
     "registeredAt": "2025-10-29T07:27:44.958Z",
     "verified": false
+  },
+  {
+    "registrationId": "REG17618997248256D1K0",
+    "teamId": "TEAM-MHELLSEX-S0KM0W",
+    "studentDetails": {
+      "fullName": "Priyanshu Attri",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "3",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "HPTU"
+        },
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "HPTU"
+        },
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "HPTU"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "hackathon"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "hackathon",
+          "name": "Hackathon (Code Forge)",
+          "description": "36-hour coding competition to build innovative solutions",
+          "price": 199,
+          "duration": "36 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "includeAccommodation": true,
+      "totalAmount": 3188,
+      "eventCount": 1,
+      "participantCount": 4,
+      "eventName": "Hackathon (Code Forge)",
+      "price": 3188,
+      "eventId": "hackathon"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "HPTU",
+        "teamId": "TEAM-MHELLSEX-S0KM0W",
+        "memberIndex": 1
+      },
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "HPTU",
+        "teamId": "TEAM-MHELLSEX-S0KM0W",
+        "memberIndex": 2
+      },
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "HPTU",
+        "teamId": "TEAM-MHELLSEX-S0KM0W",
+        "memberIndex": 3
+      }
+    ],
+    "paymentData": {
+      "upiTransactionId": "845623197",
+      "payerName": "Priyanshu Attri",
+      "payerUPI": "dasddsad",
+      "verificationData": {
+        "upiTransactionId": "845623197",
+        "payerName": "Priyanshu Attri",
+        "payerUPI": "dasddsad",
+        "verificationId": "CHAITANYA17618997248088Q0MK",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-31T08:35:24.817Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-31T08:35:24.825Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG176190022621772DJL",
+    "teamId": "TEAM-MHELWJAH-WQJZCR",
+    "studentDetails": {
+      "fullName": "Priyanshu Attri",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "2",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "human-vs-ai",
+        "integration-bee",
+        "prompt-engineering"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "human-vs-ai",
+          "name": "Human vs AI",
+          "description": "Test your skills against artificial intelligence",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Technical",
+          "type": "individual"
+        },
+        {
+          "id": "integration-bee",
+          "name": "Integration Bee",
+          "description": "Mathematical integration competition",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Technical",
+          "type": "individual"
+        },
+        {
+          "id": "prompt-engineering",
+          "name": "Prompt Engineering",
+          "description": "Master the art of AI prompt crafting",
+          "price": 99,
+          "duration": "2 Hours",
+          "category": "Technical",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "includeAccommodation": false,
+      "totalAmount": 596,
+      "eventCount": 3,
+      "participantCount": 1,
+      "eventName": "Human vs AI, Integration Bee, Prompt Engineering",
+      "price": 596,
+      "eventId": "multiple"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "upiTransactionId": "122335465",
+      "payerName": "Priyanshu Attri",
+      "payerUPI": "sfsdfsfdsdf",
+      "verificationData": {
+        "upiTransactionId": "122335465",
+        "payerName": "Priyanshu Attri",
+        "payerUPI": "sfsdfsfdsdf",
+        "verificationId": "CHAITANYA1761900226200Z4EBJ",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-31T08:43:46.210Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-31T08:43:46.217Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761900462250KIEWL",
+    "teamId": "TEAM-MHEM1LEY-UXAE3M",
+    "studentDetails": {
+      "fullName": "Priyanshu Attri",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753204",
+      "college": "HPTU",
+      "year": "2",
+      "rollNumber": "23015103053",
+      "department": "Btech cse",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "HPTU"
+        },
+        {
+          "name": "Priyanshu Attri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "HPTU"
+        },
+        {
+          "name": "Priyanshu Attri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "HPTU"
+        },
+        {
+          "name": "Priyanshu Attri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "HPTU"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "hackathon"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "hackathon",
+          "name": "Hackathon (Code Forge)",
+          "description": "36-hour coding competition to build innovative solutions",
+          "price": 199,
+          "duration": "36 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "includeAccommodation": true,
+      "totalAmount": 3985,
+      "eventCount": 1,
+      "participantCount": 5,
+      "eventName": "Hackathon (Code Forge)",
+      "price": 3985,
+      "eventId": "hackathon"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "HPTU",
+        "teamId": "TEAM-MHEM1LEY-UXAE3M",
+        "memberIndex": 1
+      },
+      {
+        "name": "Priyanshu Attri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "HPTU",
+        "teamId": "TEAM-MHEM1LEY-UXAE3M",
+        "memberIndex": 2
+      },
+      {
+        "name": "Priyanshu Attri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "HPTU",
+        "teamId": "TEAM-MHEM1LEY-UXAE3M",
+        "memberIndex": 3
+      },
+      {
+        "name": "Priyanshu Attri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "HPTU",
+        "teamId": "TEAM-MHEM1LEY-UXAE3M",
+        "memberIndex": 4
+      }
+    ],
+    "paymentData": {
+      "upiTransactionId": "456412132132",
+      "payerName": "Advait Kaushal ",
+      "payerUPI": "sajfdhjkabbf",
+      "verificationData": {
+        "upiTransactionId": "456412132132",
+        "payerName": "Advait Kaushal ",
+        "payerUPI": "sajfdhjkabbf",
+        "verificationId": "CHAITANYA1761900462232L267A",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-31T08:47:42.242Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-31T08:47:42.251Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1761900664790ZLC57",
+    "teamId": "TEAM-MHEM5XP2-1DWF26",
+    "studentDetails": {
+      "fullName": "Advait kaushal",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753203",
+      "college": "sdfsdf",
+      "year": "2",
+      "rollNumber": "12123341",
+      "department": "dsfsaf",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "sdfsdf"
+        },
+        {
+          "name": " Attri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "sdfsdf"
+        },
+        {
+          "name": " cttri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "sdfsdf"
+        },
+        {
+          "name": " Dttri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "sdfsdf"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "esports",
+        "datathon",
+        "polymath",
+        "debate",
+        "project-bazaar",
+        "singing-team",
+        "ctf",
+        "dancing-team"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "esports",
+          "name": "E-Sports Tournament",
+          "description": "Competitive gaming tournament",
+          "price": 149,
+          "duration": "1 Day",
+          "category": "Esports",
+          "type": "team",
+          "maxParticipants": 4,
+          "requiresGameSelection": true
+        },
+        {
+          "id": "datathon",
+          "name": "Datathon",
+          "description": "Data analysis and machine learning competition",
+          "price": 199,
+          "duration": "24 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "polymath",
+          "name": "PolyMath (Escape Room)",
+          "description": "Solve puzzles and escape the room challenge",
+          "price": 149,
+          "duration": "4 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "debate",
+          "name": "Debate Competition",
+          "description": "Argumentation and public speaking challenge",
+          "price": 99,
+          "duration": "3 Hours",
+          "category": "Cultural",
+          "type": "team",
+          "maxParticipants": 2
+        },
+        {
+          "id": "project-bazaar",
+          "name": "Project Bazaar",
+          "description": "Showcase your innovative projects",
+          "price": 0,
+          "duration": "6 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "singing-team",
+          "name": "Singing Competition (Team)",
+          "description": "Team performance showcasing vocal harmony and talent",
+          "price": 0,
+          "duration": "2 Hours",
+          "category": "Cultural",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "ctf",
+          "name": "CTF - Capture The Flag",
+          "description": "Cybersecurity challenge with hacking and problem-solving tasks",
+          "price": 0,
+          "duration": "6 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "dancing-team",
+          "name": "Dancing Competition (Team)",
+          "description": "Team choreography and dance performance",
+          "price": 0,
+          "duration": "3 Hours",
+          "category": "Cultural",
+          "type": "team",
+          "maxParticipants": 4
+        }
+      ],
+      "selectedEsportsGame": "VALORANT",
+      "includeFood": true,
+      "includeAccommodation": false,
+      "totalAmount": 4475,
+      "eventCount": 8,
+      "participantCount": 5,
+      "eventName": "E-Sports Tournament, Datathon, PolyMath (Escape Room), Debate Competition, Project Bazaar, Singing Competition (Team), CTF - Capture The Flag, Dancing Competition (Team)",
+      "price": 4475,
+      "eventId": "multiple"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "sdfsdf",
+        "teamId": "TEAM-MHEM5XP2-1DWF26",
+        "memberIndex": 1
+      },
+      {
+        "name": " Attri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "sdfsdf",
+        "teamId": "TEAM-MHEM5XP2-1DWF26",
+        "memberIndex": 2
+      },
+      {
+        "name": " cttri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "sdfsdf",
+        "teamId": "TEAM-MHEM5XP2-1DWF26",
+        "memberIndex": 3
+      },
+      {
+        "name": " Dttri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "sdfsdf",
+        "teamId": "TEAM-MHEM5XP2-1DWF26",
+        "memberIndex": 4
+      }
+    ],
+    "paymentData": {
+      "upiTransactionId": "02132132132123",
+      "payerName": "Advait Kaushal ",
+      "payerUPI": "sajfdhjkabbf",
+      "verificationData": {
+        "upiTransactionId": "02132132132123",
+        "payerName": "Advait Kaushal ",
+        "payerUPI": "sajfdhjkabbf",
+        "verificationId": "CHAITANYA1761900664772FEVXI",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-10-31T08:51:04.786Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-10-31T08:51:04.790Z",
+    "verified": false
   }
 ]
