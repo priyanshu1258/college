@@ -6,6 +6,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
   const [selectedEvents, setSelectedEvents] = useState(data?.selectedEvents || []);
   const [selectedEsportsGame, setSelectedEsportsGame] = useState(data?.selectedEsportsGame || '');
   const [includeFood, setIncludeFood] = useState(data?.includeFood ?? true);
+  const [includeAccommodation, setIncludeAccommodation] = useState(data?.includeAccommodation ?? false);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -125,6 +126,26 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         category: 'Technical',
         type: 'team',
         maxParticipants: 4
+      },
+      {
+        id: 'singing-team',
+        name: 'Singing Competition (Team)',
+        description: 'Team performance showcasing vocal harmony and talent',
+        price: 0,
+        duration: '2 Hours',
+        category: 'Cultural',
+        type: 'team',
+        maxParticipants: 4
+      },
+      {
+        id: 'dancing-team',
+        name: 'Dancing Competition (Team)',
+        description: 'Team choreography and dance performance',
+        price: 0,
+        duration: '3 Hours',
+        category: 'Cultural',
+        type: 'team',
+        maxParticipants: 4
       }
     ];
 
@@ -187,7 +208,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'singing',
         name: 'Singing Competition',
         description: 'Showcase your vocal talent',
-        price: 99,
+        price: 0,
         duration: '2 Hours',
         category: 'Cultural',
         type: 'individual'
@@ -196,7 +217,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'dancing',
         name: 'Dancing Competition',
         description: 'Show your dance moves and creativity',
-        price: 99,
+        price: 0,
         duration: '3 Hours',
         category: 'Cultural',
         type: 'individual'
@@ -253,9 +274,10 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
       }
     });
 
-    const foodTotal = includeFood ? 199 * totalParticipants : 0;
+    const foodTotal = includeFood ? 299 * totalParticipants : 0;
+    const accommodationTotal = includeAccommodation ? 299 * totalParticipants : 0;
     
-    return eventTotal + foodTotal;
+    return eventTotal + foodTotal + accommodationTotal;
   };
 
   const handleSubmit = (e) => {
@@ -307,6 +329,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         selectedEventsData: selectedEventsData,
         selectedEsportsGame: selectedEsportsGame,
         includeFood: includeFood,
+        includeAccommodation: includeAccommodation,
         totalAmount: totalAmount,
         eventCount: selectedEvents.length,
         participantCount: totalParticipants,
@@ -407,59 +430,90 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
           )}
         </div>
 
-        {/* Food Package Option - Enhanced Visibility & Mandatory for Hackathon */}
-        <div className={`mb-6 p-6 rounded-2xl shadow-xl border-4 ${
-          isHackathonSelected 
-            ? 'bg-orange-600 border-orange-700' 
-            : 'bg-blue-600 border-blue-700'
-        } text-white`}>
+        {/* Food & Accommodation Package Options - Compact Layout */}
+        <div className="mb-6">
           {isHackathonSelected && (
-            <div className="mb-4 p-3 bg-white rounded-lg">
-              <p className="text-orange-900 font-black text-sm sm:text-base flex items-center">
+            <div className="mb-4 p-3 bg-orange-100 rounded-lg border-2 border-orange-300">
+              <p className="text-orange-900 font-black text-sm flex items-center">
                 <span className="text-xl mr-2">⚠️</span>
                 Food Package is MANDATORY for Hackathon participants (36-hour event)
               </p>
             </div>
           )}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex-1">
-              <h3 className="text-xl sm:text-2xl font-black mb-3 flex items-center text-white drop-shadow-lg">
-                <span className="text-3xl sm:text-4xl mr-3">🍽️</span>
-                Food Package {isHackathonSelected && <span className="ml-2 text-yellow-300">(Required)</span>}
-              </h3>
-              <p className="text-white font-bold text-sm sm:text-base mb-3 drop-shadow">
-                Delicious meals and refreshments during the event
-              </p>
-              <div className="bg-white rounded-lg p-4 shadow-lg inline-block">
-                <p className="text-gray-900 text-sm sm:text-base font-black">
-                  {totalParticipants} × ₹199 = <span className="text-orange-600 text-xl sm:text-2xl">₹{199 * totalParticipants}</span>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Food Package */}
+            <div className={`p-5 rounded-xl shadow-lg border-4 ${
+              isHackathonSelected 
+                ? 'bg-orange-600 border-orange-700' 
+                : 'bg-blue-600 border-blue-700'
+            } text-white`}>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg sm:text-xl font-black flex items-center">
+                  <span className="text-2xl mr-2">🍽️</span>
+                  Food {isHackathonSelected && <span className="ml-2 text-xs bg-yellow-300 text-gray-900 px-2 py-0.5 rounded">Required</span>}
+                </h3>
+                <label className={`flex items-center ${isHackathonSelected ? 'cursor-not-allowed opacity-75' : 'cursor-pointer'}`}>
+                  <div className="relative">
+                    <input
+                      type="checkbox"
+                      checked={includeFood}
+                      onChange={(e) => {
+                        if (!isHackathonSelected) {
+                          setIncludeFood(e.target.checked);
+                        }
+                      }}
+                      disabled={isHackathonSelected}
+                      className="sr-only"
+                    />
+                    <div className={`block w-14 h-8 rounded-full transition-colors border-3 ${
+                      includeFood ? 'bg-green-500 border-green-600' : 'bg-gray-300 border-gray-400'
+                    }`}></div>
+                    <div className={`absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform shadow-lg ${
+                      includeFood ? 'transform translate-x-6' : ''
+                    }`}></div>
+                  </div>
+                </label>
+              </div>
+              <p className="text-white text-xs sm:text-sm mb-2">Delicious meals & refreshments</p>
+              <div className="bg-white rounded-lg p-3 inline-block">
+                <p className="text-gray-900 text-sm font-black">
+                  {totalParticipants} × ₹299 = <span className="text-orange-600 text-lg">₹{299 * totalParticipants}</span>
                 </p>
               </div>
             </div>
-            <label className={`flex items-center ${isHackathonSelected ? 'cursor-not-allowed opacity-75' : 'cursor-pointer'} ml-0 sm:ml-4`}>
-              <div className="relative">
-                <input
-                  type="checkbox"
-                  checked={includeFood}
-                  onChange={(e) => {
-                    if (!isHackathonSelected) {
-                      setIncludeFood(e.target.checked);
-                    }
-                  }}
-                  disabled={isHackathonSelected}
-                  className="sr-only"
-                />
-                <div className={`block w-16 h-9 rounded-full transition-colors border-4 ${
-                  includeFood ? 'bg-green-500 border-green-600' : 'bg-gray-300 border-gray-400'
-                }`}></div>
-                <div className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform shadow-lg ${
-                  includeFood ? 'transform translate-x-7' : ''
-                }`}></div>
+
+            {/* Accommodation Package */}
+            <div className="p-5 bg-purple-600 border-purple-700 rounded-xl shadow-lg border-4 text-white">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg sm:text-xl font-black flex items-center">
+                  <span className="text-2xl mr-2">🏨</span>
+                  Accommodation
+                </h3>
+                <label className="flex items-center cursor-pointer">
+                  <div className="relative">
+                    <input
+                      type="checkbox"
+                      checked={includeAccommodation}
+                      onChange={(e) => setIncludeAccommodation(e.target.checked)}
+                      className="sr-only"
+                    />
+                    <div className={`block w-14 h-8 rounded-full transition-colors border-3 ${
+                      includeAccommodation ? 'bg-green-500 border-green-600' : 'bg-gray-300 border-gray-400'
+                    }`}></div>
+                    <div className={`absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform shadow-lg ${
+                      includeAccommodation ? 'transform translate-x-6' : ''
+                    }`}></div>
+                  </div>
+                </label>
               </div>
-              <span className="ml-4 text-white font-black text-base sm:text-lg drop-shadow-lg">
-                {includeFood ? '✓ Included' : 'Add Food'}
-              </span>
-            </label>
+              <p className="text-white text-xs sm:text-sm mb-2">Comfortable stay during event</p>
+              <div className="bg-white rounded-lg p-3 inline-block">
+                <p className="text-gray-900 text-sm font-black">
+                  {totalParticipants} × ₹299 = <span className="text-purple-600 text-lg">₹{299 * totalParticipants}</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -745,9 +799,25 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                       <span className="text-xl mr-2">🍽️</span>
                       Food Package
                     </p>
-                    <p className="text-gray-600 text-xs sm:text-sm mt-1">₹199 × {totalParticipants} participants</p>
+                    <p className="text-gray-600 text-xs sm:text-sm mt-1">₹299 × {totalParticipants} participants</p>
                   </div>
-                  <span className="font-black text-yellow-600 text-base sm:text-lg">₹{199 * totalParticipants}</span>
+                  <span className="font-black text-yellow-600 text-base sm:text-lg">₹{299 * totalParticipants}</span>
+                </div>
+              </div>
+            )}
+            
+            {/* Accommodation Package Breakdown */}
+            {includeAccommodation && (
+              <div className="border-2 border-purple-300 rounded-xl p-4 bg-purple-50">
+                <div className="flex justify-between items-center">
+                  <div className="flex-1">
+                    <p className="text-gray-700 font-bold text-sm sm:text-base flex items-center">
+                      <span className="text-xl mr-2">🏨</span>
+                      Accommodation Package
+                    </p>
+                    <p className="text-gray-600 text-xs sm:text-sm mt-1">₹299 × {totalParticipants} participants</p>
+                  </div>
+                  <span className="font-black text-purple-600 text-base sm:text-lg">₹{299 * totalParticipants}</span>
                 </div>
               </div>
             )}
@@ -775,7 +845,8 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                   <span className="text-white font-black text-lg sm:text-xl block">Grand Total</span>
                   <span className="text-blue-200 text-xs sm:text-sm font-semibold">
                     {selectedEvents.length} {selectedEvents.length === 1 ? 'event' : 'events'} 
-                    {includeFood ? ' + Food Package' : ''}
+                    {includeFood ? ' + Food' : ''}
+                    {includeAccommodation ? ' + Accommodation' : ''}
                   </span>
                 </div>
                 <span className="text-yellow-300 font-black text-2xl sm:text-3xl">₹{totalAmount}</span>

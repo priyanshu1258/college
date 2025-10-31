@@ -200,7 +200,15 @@ const ContactPage = () => {
       description: "Available during business hours"
     },
     {
-      icon: "📍",
+      icon: "�‍💻",
+      title: "Tech Team",
+      details: [
+        "Priyanshu Attri: 7018753204"
+      ],
+      description: "Technical support and assistance"
+    },
+    {
+      icon: "�📍",
       title: "Visit Us",
       details: [
         "Himachal Pradesh Technical University",
@@ -271,7 +279,7 @@ const ContactPage = () => {
           </Link>
           
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
-            {['Home', 'About', 'Events', 'Schedule', 'Sponsors', 'Contact'].map((item) => (
+            {['Home', 'About', 'Events', 'Sponsors', 'Contact'].map((item) => (
               <Link
                 key={item}
                 to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
@@ -297,7 +305,7 @@ const ContactPage = () => {
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
             <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-lg border-b border-gray-800 z-50 flex flex-col items-center py-4 space-y-4">
-              {['Home', 'About', 'Events', 'Schedule', 'Sponsors', 'Contact'].map((item) => (
+              {['Home', 'About', 'Events', 'Sponsors', 'Contact'].map((item) => (
                 <Link
                   key={item}
                   to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}

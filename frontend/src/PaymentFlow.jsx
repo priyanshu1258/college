@@ -119,6 +119,7 @@ const PaymentFlow = () => {
         selectedEventsData: latestFormData.eventSelection?.selectedEventsData || [],
         selectedEsportsGame: latestFormData.eventSelection?.selectedEsportsGame || '',
         includeFood: latestFormData.eventSelection?.includeFood ?? true,
+        includeAccommodation: latestFormData.eventSelection?.includeAccommodation ?? false,
         totalAmount: latestFormData.eventSelection?.totalAmount || 0,
         eventCount: latestFormData.eventSelection?.eventCount || 0,
         participantCount: latestFormData.eventSelection?.participantCount || 1,
@@ -161,6 +162,8 @@ const PaymentFlow = () => {
           studentName: result.registration?.studentName || latestFormData.studentDetails.fullName,
           event: result.registration?.event || eventSelection.eventName,
           amount: result.registration?.amount || eventSelection.totalAmount,
+          includeFood: eventSelection.includeFood,
+          includeAccommodation: eventSelection.includeAccommodation,
           teamId: result.teamId,
           teamMembers: latestFormData.studentDetails?.teamMembers || [],
           participationType: latestFormData.studentDetails?.participationType || 'individual'
@@ -204,108 +207,132 @@ const PaymentFlow = () => {
 <head>
   <meta charset="UTF-8">
   <style>
+    @page {
+      size: letter;
+      margin: 0;
+    }
     body {
       font-family: 'Arial', sans-serif;
-      padding: 40px;
-      max-width: 800px;
-      margin: 0 auto;
-      background: #f8f9fa;
+      padding: 15px 20px;
+      margin: 0;
+      background: white;
+      width: 8.5in;
+      min-height: 11in;
+      box-sizing: border-box;
     }
     .certificate {
       background: white;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      border: 3px solid #2563eb;
+      padding: 20px;
+      border-radius: 8px;
+      border: 2px solid #2563eb;
     }
     .header {
       text-align: center;
-      border-bottom: 3px solid #2563eb;
-      padding-bottom: 20px;
-      margin-bottom: 30px;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
     }
     .logo {
-      font-size: 36px;
+      font-size: 20px;
       font-weight: bold;
       color: #2563eb;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
     .subtitle {
       color: #6b7280;
-      font-size: 14px;
+      font-size: 11px;
     }
     .title {
-      font-size: 28px;
+      font-size: 18px;
       font-weight: bold;
       color: #1f2937;
       text-align: center;
-      margin: 30px 0;
+      margin: 10px 0;
     }
     .reg-id {
       background: #dbeafe;
-      padding: 15px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 6px;
       text-align: center;
-      font-size: 24px;
+      font-size: 16px;
       font-weight: bold;
       color: #1e40af;
-      margin: 20px 0;
+      margin: 10px 0;
       border: 2px dashed #2563eb;
     }
     .details-section {
-      margin: 30px 0;
+      margin: 15px 0;
     }
     .detail-row {
       display: flex;
-      padding: 12px;
+      padding: 6px 8px;
       border-bottom: 1px solid #e5e7eb;
+      font-size: 12px;
     }
     .detail-label {
       font-weight: bold;
       color: #374151;
-      width: 180px;
+      width: 150px;
       flex-shrink: 0;
     }
     .detail-value {
       color: #1f2937;
       flex: 1;
+      word-break: break-word;
     }
     .footer {
-      margin-top: 40px;
-      padding-top: 20px;
+      margin-top: 15px;
+      padding-top: 10px;
       border-top: 2px solid #e5e7eb;
       text-align: center;
       color: #6b7280;
-      font-size: 12px;
+      font-size: 9px;
+      line-height: 1.4;
     }
     .success-badge {
       display: inline-block;
       background: #10b981;
       color: white;
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 14px;
+      padding: 5px 15px;
+      border-radius: 15px;
+      font-size: 11px;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 5px 0;
     }
-    .watermark {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-45deg);
-      font-size: 100px;
-      color: rgba(37, 99, 235, 0.05);
-      font-weight: bold;
-      z-index: -1;
+    .instructions {
+      background: #fef3c7;
+      padding: 12px;
+      border-radius: 6px;
+      border-left: 3px solid #f59e0b;
+      margin: 15px 0;
+    }
+    .instructions h3 {
+      color: #92400e;
+      margin: 0 0 6px 0;
+      font-size: 12px;
+    }
+    .instructions ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #78350f;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+    .instructions li {
+      margin-bottom: 3px;
     }
     @media print {
-      body { background: white; padding: 0; }
-      .certificate { box-shadow: none; }
+      body {
+        padding: 15px 20px;
+      }
+      .certificate {
+        box-shadow: none;
+        page-break-inside: avoid;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="watermark">TECH FEST CHAITANYA 2025</div>
   <div class="certificate">
     <div class="header">
       <div class="logo">🎓 TECH FEST CHAITANYA 2025</div>
@@ -335,6 +362,14 @@ const PaymentFlow = () => {
         <span class="detail-label">💰 Amount Paid:</span>
         <span class="detail-value">₹${registrationData.amount}</span>
       </div>
+      <div class="detail-row">
+        <span class="detail-label">🍽️ Food Package:</span>
+        <span class="detail-value">${registrationData.includeFood ? '✅ Included' : '❌ Not Included'}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">🏨 Accommodation:</span>
+        <span class="detail-value">${registrationData.includeAccommodation ? '✅ Included' : '❌ Not Included'}</span>
+      </div>
       ${registrationData.teamId && registrationData.teamId !== 'INDIVIDUAL' ? `
       <div class="detail-row">
         <span class="detail-label">👥 Team ID:</span>
@@ -363,29 +398,23 @@ const PaymentFlow = () => {
       </div>
     </div>
     
-    <div style="background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b; margin: 30px 0;">
-      <h3 style="color: #92400e; margin: 0 0 10px 0; font-size: 16px;">📋 Important Instructions:</h3>
-      <ul style="margin: 0; padding-left: 20px; color: #78350f; font-size: 14px;">
-        <li>Keep this registration confirmation safe for event entry</li>
-        <li>Bring a valid ID card on the event day</li>
-        <li>Check your email for event schedule and updates</li>
+    <div class="instructions">
+      <h3>📋 Important Instructions:</h3>
+      <ul>
+        <li>Keep this confirmation safe for event entry</li>
+        <li>Bring valid ID card on event day</li>
+        <li>Check email for schedule updates</li>
         ${registrationData.teamId && registrationData.teamId !== 'INDIVIDUAL' ? 
-          `<li>Share your Team ID (${registrationData.teamId}) with all team members</li>` : ''}
-        <li>Reach the venue 30 minutes before event start time</li>
+          `<li>Share Team ID (${registrationData.teamId}) with all members</li>` : ''}
+        <li>Reach venue 30 minutes before start time</li>
       </ul>
     </div>
     
     <div class="footer">
-      <p style="margin: 5px 0;"><strong>Contact Information:</strong></p>
-      <p style="margin: 5px 0;">📧 Email: chaitanyahptu@gmail.com</p>
-      <p style="margin: 5px 0;">📞 Tech Team: Priyanshu Attri - 7018753204</p>
-      <p style="margin: 5px 0;">🌐 Website: techfest.chaitanya.ac.in</p>
-      <p style="margin: 15px 0 5px 0; font-size: 11px;">
-        This is a computer-generated document. No signature required.
-      </p>
-      <p style="margin: 5px 0; font-size: 11px;">
-        Generated on ${new Date().toLocaleString('en-IN')}
-      </p>
+      <p style="margin: 3px 0;"><strong>Contact Information:</strong></p>
+      <p style="margin: 2px 0;">📧 chaitanyahptu@gmail.com | 📞 Tech Team: Priyanshu Attri - 7018753204 | 🌐 techfest.chaitanya.ac.in</p>
+      <p style="margin: 8px 0 2px 0;">This is a computer-generated document. No signature required.</p>
+      <p style="margin: 2px 0;">Generated on ${new Date().toLocaleString('en-IN')}</p>
     </div>
   </div>
 </body>
@@ -517,6 +546,24 @@ const PaymentFlow = () => {
                     <div className="font-bold text-green-600 text-xl">₹{registrationData.amount}</div>
                   </div>
                 </div>
+                <div className="flex items-start p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                  <span className="text-xl mr-3">🍽️</span>
+                  <div className="flex-1">
+                    <div className="text-xs text-gray-600 font-semibold">Food Package</div>
+                    <div className="font-bold text-gray-900">
+                      {registrationData.includeFood ? '✅ Included' : '❌ Not Included'}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-start p-3 bg-purple-50 rounded-lg border border-purple-200">
+                  <span className="text-xl mr-3">🏨</span>
+                  <div className="flex-1">
+                    <div className="text-xs text-gray-600 font-semibold">Accommodation</div>
+                    <div className="font-bold text-gray-900">
+                      {registrationData.includeAccommodation ? '✅ Included' : '❌ Not Included'}
+                    </div>
+                  </div>
+                </div>
                 {registrationData.teamId && registrationData.teamId !== 'INDIVIDUAL' && (
                   <div className="flex items-start p-3 bg-yellow-50 rounded-lg border border-yellow-200">
                     <span className="text-xl mr-3">👥</span>
@@ -563,7 +610,7 @@ const PaymentFlow = () => {
               <ul className="space-y-3">
                 <li className="flex items-start p-3 bg-blue-50 rounded-lg">
                   <span className="text-lg mr-2 flex-shrink-0">📧</span>
-                  <span className="text-sm text-gray-700 font-semibold">Confirmation email sent to your inbox after the manual verification by the tech team :)</span>
+                  <span className="text-sm text-gray-700 font-semibold">Confirmation email sent to your inbox after the manual verification by our tech team :)</span>
                 </li>
                 <li className="flex items-start p-3 bg-purple-50 rounded-lg">
                   <span className="text-lg mr-2 flex-shrink-0">📱</span>
