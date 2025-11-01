@@ -29,7 +29,7 @@ const EventPage = () => {
         resources: "Large hall with power and internet, mentoring support, breakout rooms, 24-hour security",
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-blue-500 to-cyan-500",
-        price: 199,
+        price: 99,
         teamSize: "2-5 members",
         targetAudience: "Programmers, Developers and Hardware Enthusiasts",
         requirements: "Original code created during event, submission includes demo link, project description, and source code"
@@ -88,24 +88,7 @@ const EventPage = () => {
         targetAudience: "Students with strong proficiency in calculus and mathematics",
         requirements: "Mathematical knowledge, no external aids allowed"
       },
-      {
-        id: 5,
-        name: "Under the Hood",
-        tagline: "Reverse Engineering Challenge",
-        category: "technical",
-        duration: "3 Hours",
-        schedule: "To be scheduled",
-        description: "Challenge participants to analyze and deconstruct compiled software, proprietary file formats, or encrypted protocols to uncover hidden flags. Uses binary executables, firmware images, obfuscated scripts, or network captures.",
-        rules: "Teams of 1-3. BYOD with VM. Static analysis tools allowed. No collaboration between teams. No infrastructure attacks.",
-        judging: "Points based on difficulty (Easy: 100, Medium: 250, Hard: 500). Tie-breaker: earliest submission and quality of write-up.",
-        resources: "Computer lab, BYOD with pre-installed tools (Ghidra, GDB, Wireshark), CTF platform",
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-        color: "from-indigo-500 to-purple-500",
-        price: 149,
-        teamSize: "1-3 members",
-        targetAudience: "Students with background in assembly, C/C++, debugging, ethical hacking",
-        requirements: "Laptop with VM, reverse engineering tools, flag submission in exact format"
-      },
+      
       {
         id: 6,
         name: "Capture the Flag",
@@ -119,7 +102,7 @@ const EventPage = () => {
         resources: "CTF platform, dedicated servers, monitoring tools, networking infrastructure",
         image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-red-500 to-pink-500",
-        price: 149,
+        price: 0,
         teamSize: "2-4 members",
         targetAudience: "Cybersecurity enthusiasts, ethical hackers",
         requirements: "Cybersecurity knowledge, appropriate tools"
@@ -244,13 +227,13 @@ const EventPage = () => {
         duration: "1 Hour",
         schedule: "To be scheduled",
         description: "Competitive debate on business, management, ethics, leadership, and startup topics. Teams present arguments and rebuttals on given topics with structured format.",
-        rules: "Teams of 2 members. Topics given 45-60 minutes in advance. 3-4 minute speeches + 2-minute rebuttals. No personal attacks or offensive language.",
+        rules: "Teams of 4 members. Topics given 45-60 minutes in advance. 3-4 minute speeches + 2-minute rebuttals. No personal attacks or offensive language.",
         judging: "Content & Argumentation, Clarity & Communication, Confidence & Body Language, Rebuttal & Presence of Mind, Time Management",
         resources: "Debate venue, timing system, judging panel, topic preparation area",
         image: "https://images.unsplash.com/photo-1587019158091-1a103c5dd17f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-blue-500 to-cyan-500",
-        price: 50,
-        teamSize: "2 members",
+        price: 99,
+        teamSize: "4 members",
         targetAudience: "Public speakers, critical thinkers",
         requirements: "Research skills, public speaking, logical reasoning"
       },
@@ -267,15 +250,33 @@ const EventPage = () => {
         resources: "Problem chits, timing system, judging panel, preparation area",
         image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-green-500 to-teal-500",
-        price: 80,
+        price: 99,
         teamSize: "2 members",
         targetAudience: "Management students, aspiring leaders",
         requirements: "Quick thinking, communication skills, management knowledge"
+      },
+      {
+        id: 15,
+        name: "Pitch High",
+        tagline: "Pitch Your Vision, Win the Future",
+        category: "other",
+        duration: "4 Hours",
+        schedule: "To be scheduled",
+        description: "Business pitch competition where teams present innovative startup ideas and business solutions. Teams develop comprehensive business plans and pitch to a panel of judges, simulating a real investor pitch scenario.",
+        rules: "Teams of 4 members. 15 minutes preparation + research time. 5-7 minute pitch presentation + 3 minute Q&A. Presentation should include problem statement, solution, market analysis, and business model.",
+        judging: "Innovation & Creativity (30%), Business Viability (25%), Presentation Quality (25%), Market Understanding (20%)",
+        resources: "Presentation venue, projector & screen, judging panel, preparation area with internet access",
+        image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+        color: "from-orange-500 to-red-500",
+        price: 99,
+        teamSize: "4 members",
+        targetAudience: "Entrepreneurs, business students, innovators",
+        requirements: "Business acumen, presentation skills, innovative thinking"
       }
     ],
     cultural: [
       {
-        id: 15,
+        id: 16,
         name: "Singing/Stand-up/Dancing",
         tagline: "Where Art Meets Heart",
         category: "cultural",

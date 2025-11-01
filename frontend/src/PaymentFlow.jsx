@@ -212,122 +212,206 @@ const PaymentFlow = () => {
       margin: 0;
     }
     body {
-      font-family: 'Arial', sans-serif;
-      padding: 15px 20px;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      padding: 20px;
       margin: 0;
-      background: white;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       width: 8.5in;
       min-height: 11in;
       box-sizing: border-box;
     }
     .certificate {
       background: white;
-      padding: 20px;
-      border-radius: 8px;
-      border: 2px solid #2563eb;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .certificate::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+    .certificate::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 50%;
+      opacity: 0.1;
     }
     .header {
       text-align: center;
-      border-bottom: 2px solid #2563eb;
-      padding-bottom: 10px;
-      margin-bottom: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      margin: -25px -25px 20px -25px;
+      border-radius: 15px 15px 0 0;
+      color: white;
+      position: relative;
+      z-index: 1;
     }
     .logo {
-      font-size: 20px;
+      font-size: 28px;
       font-weight: bold;
-      color: #2563eb;
       margin-bottom: 5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
     .subtitle {
-      color: #6b7280;
-      font-size: 11px;
+      font-size: 13px;
+      opacity: 0.95;
+      letter-spacing: 0.5px;
     }
     .title {
-      font-size: 18px;
+      font-size: 24px;
       font-weight: bold;
-      color: #1f2937;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       text-align: center;
-      margin: 10px 0;
+      margin: 15px 0;
+      position: relative;
+      z-index: 1;
     }
     .reg-id {
-      background: #dbeafe;
-      padding: 8px;
-      border-radius: 6px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 12px;
+      border-radius: 10px;
       text-align: center;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
-      color: #1e40af;
-      margin: 10px 0;
-      border: 2px dashed #2563eb;
-    }
-    .details-section {
+      color: white;
       margin: 15px 0;
-    }
-    .detail-row {
-      display: flex;
-      padding: 6px 8px;
-      border-bottom: 1px solid #e5e7eb;
-      font-size: 12px;
-    }
-    .detail-label {
-      font-weight: bold;
-      color: #374151;
-      width: 150px;
-      flex-shrink: 0;
-    }
-    .detail-value {
-      color: #1f2937;
-      flex: 1;
-      word-break: break-word;
-    }
-    .footer {
-      margin-top: 15px;
-      padding-top: 10px;
-      border-top: 2px solid #e5e7eb;
-      text-align: center;
-      color: #6b7280;
-      font-size: 9px;
-      line-height: 1.4;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      position: relative;
+      z-index: 1;
     }
     .success-badge {
       display: inline-block;
-      background: #10b981;
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
       color: white;
-      padding: 5px 15px;
-      border-radius: 15px;
-      font-size: 11px;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 12px;
       font-weight: bold;
-      margin: 5px 0;
+      margin: 10px 0;
+      box-shadow: 0 4px 10px rgba(17, 153, 142, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+    .details-section {
+      margin: 20px 0;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .detail-row {
+      display: flex;
+      padding: 8px 10px;
+      margin-bottom: 5px;
+      background: white;
+      border-radius: 6px;
+      font-size: 12px;
+      border-left: 3px solid #667eea;
+      transition: all 0.3s;
+    }
+    .detail-row:hover {
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+    }
+    .detail-label {
+      font-weight: bold;
+      color: #667eea;
+      width: 160px;
+      flex-shrink: 0;
+    }
+    .detail-value {
+      color: #2d3748;
+      flex: 1;
+      word-break: break-word;
     }
     .instructions {
-      background: #fef3c7;
-      padding: 12px;
-      border-radius: 6px;
-      border-left: 3px solid #f59e0b;
+      background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 4px solid #f59e0b;
       margin: 15px 0;
+      position: relative;
+      z-index: 1;
     }
     .instructions h3 {
       color: #92400e;
-      margin: 0 0 6px 0;
-      font-size: 12px;
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .instructions ul {
       margin: 0;
-      padding-left: 18px;
+      padding-left: 20px;
       color: #78350f;
-      font-size: 10px;
-      line-height: 1.5;
+      font-size: 11px;
+      line-height: 1.6;
     }
     .instructions li {
-      margin-bottom: 3px;
+      margin-bottom: 5px;
+    }
+    .footer {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 2px solid #e2e8f0;
+      text-align: center;
+      color: #64748b;
+      font-size: 10px;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-highlight {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: bold;
+    }
+    .contact-grid {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+    .contact-item {
+      background: #f1f5f9;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 10px;
+      color: #475569;
     }
     @media print {
       body {
-        padding: 15px 20px;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       }
       .certificate {
-        box-shadow: none;
         page-break-inside: avoid;
+      }
+      .detail-row:hover {
+        transform: none;
+        box-shadow: none;
       }
     }
   </style>
@@ -339,46 +423,45 @@ const PaymentFlow = () => {
       <div class="subtitle">Himachal Pradesh Technical University</div>
     </div>
     
-    <div class="title">✅ Registration Confirmation</div>
-    
     <div style="text-align: center;">
-      <span class="success-badge">SUCCESSFULLY REGISTERED</span>
+      <div class="title">✨ Registration Confirmation ✨</div>
+      <span class="success-badge">✓ SUCCESSFULLY REGISTERED</span>
     </div>
     
     <div class="reg-id">
-      Registration ID: ${registrationData.registrationId}
+      🎫 Registration ID: ${registrationData.registrationId}
     </div>
     
     <div class="details-section">
       <div class="detail-row">
-        <span class="detail-label">👤 Participant Name:</span>
+        <span class="detail-label">👤 Participant Name</span>
         <span class="detail-value">${registrationData.studentName}</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">🎯 Event(s):</span>
+        <span class="detail-label">🎯 Event(s)</span>
         <span class="detail-value">${registrationData.event}</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">💰 Amount Paid:</span>
+        <span class="detail-label">💰 Amount Paid</span>
         <span class="detail-value">₹${registrationData.amount}</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">🍽️ Food Package:</span>
+        <span class="detail-label">🍽️ Food Package</span>
         <span class="detail-value">${registrationData.includeFood ? '✅ Included' : '❌ Not Included'}</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">🏨 Accommodation:</span>
+        <span class="detail-label">🏨 Accommodation</span>
         <span class="detail-value">${registrationData.includeAccommodation ? '✅ Included' : '❌ Not Included'}</span>
       </div>
       ${registrationData.teamId && registrationData.teamId !== 'INDIVIDUAL' ? `
       <div class="detail-row">
-        <span class="detail-label">👥 Team ID:</span>
+        <span class="detail-label">👥 Team ID</span>
         <span class="detail-value">${registrationData.teamId}</span>
       </div>
       ` : ''}
       ${registrationData.teamMembers && registrationData.teamMembers.length > 0 ? `
       <div class="detail-row">
-        <span class="detail-label">👥 Team Members:</span>
+        <span class="detail-label">👥 Team Members</span>
         <span class="detail-value">
           ${registrationData.teamMembers.map((member, index) => 
             `${index + 1}. ${member.name} (${member.email})`
@@ -387,7 +470,7 @@ const PaymentFlow = () => {
       </div>
       ` : ''}
       <div class="detail-row">
-        <span class="detail-label">📅 Registration Date:</span>
+        <span class="detail-label">📅 Registration Date</span>
         <span class="detail-value">${new Date().toLocaleDateString('en-IN', { 
           day: 'numeric', 
           month: 'long', 
@@ -399,7 +482,7 @@ const PaymentFlow = () => {
     </div>
     
     <div class="instructions">
-      <h3>📋 Important Instructions:</h3>
+      <h3>📋 Important Instructions</h3>
       <ul>
         <li>Keep this confirmation safe for event entry</li>
         <li>Bring valid ID card on event day</li>
@@ -411,10 +494,14 @@ const PaymentFlow = () => {
     </div>
     
     <div class="footer">
-      <p style="margin: 3px 0;"><strong>Contact Information:</strong></p>
-      <p style="margin: 2px 0;">📧 chaitanyahptu@gmail.com | 📞 Tech Team: Priyanshu Attri - 7018753204 | 🌐 techfest.chaitanya.ac.in</p>
-      <p style="margin: 8px 0 2px 0;">This is a computer-generated document. No signature required.</p>
-      <p style="margin: 2px 0;">Generated on ${new Date().toLocaleString('en-IN')}</p>
+      <p style="margin: 8px 0;"><strong class="footer-highlight">Contact Information</strong></p>
+      <div class="contact-grid">
+        <span class="contact-item">📧 chaitanyahptu@gmail.com</span>
+        <span class="contact-item">📞 Tech Team: Priyanshu Attri - 7018753204</span>
+        <span class="contact-item">🌐 techfest.chaitanya.ac.in</span>
+      </div>
+      <p style="margin: 12px 0 5px 0; font-size: 9px;">This is a computer-generated document. No signature required.</p>
+      <p style="margin: 3px 0; font-size: 9px;">Generated on ${new Date().toLocaleString('en-IN')}</p>
     </div>
   </div>
 </body>
@@ -646,9 +733,8 @@ const PaymentFlow = () => {
             
             <button
               onClick={onReset}
-              className="bg-white text-gray-800 border-3 border-gray-300 px-8 py-4 rounded-xl hover:bg-gray-50 transition-all font-black text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 flex items-center justify-center"
+              className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
             >
-              <span className="text-2xl mr-3">➕</span>
               Register Another Participant
             </button>
           </div>

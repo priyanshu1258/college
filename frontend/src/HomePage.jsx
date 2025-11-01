@@ -3,6 +3,13 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link, useNavigate } from 'react-router-dom';
 
+// Import images
+import img1 from './assets/IMG-20251029-WA0006.jpg';
+import img2 from './assets/IMG-20251029-WA0007.jpg';
+import img3 from './assets/IMG-20251029-WA0008.jpg';
+import img4 from './assets/IMG-20251029-WA0009.jpg';
+import img5 from './assets/IMG-20251029-WA0010.jpg';
+
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
@@ -109,6 +116,62 @@ const HomePage = () => {
           }
         }
       );
+
+      // Gallery morphing animation - smooth morphing transition with images coming to center
+      // All images morph from small scale to full size at center with staggered timing
+      const galleryTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".gallery-section",
+          start: "top 60%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      galleryTimeline
+        .fromTo(".gallery-img-1",
+          { scale: 0, opacity: 0, x: -800, y: -600 },
+          { scale: 1, opacity: 1, x: 0, y: 0, duration: 2, ease: "power1.inOut" }
+        )
+        .fromTo(".gallery-img-2",
+          { scale: 0, opacity: 0, x: 800, y: -600 },
+          { scale: 1, opacity: 1, x: 0, y: 0, duration: 2, ease: "power1.inOut" },
+          "-=1.6"
+        )
+        .fromTo(".gallery-img-3",
+          { scale: 0, opacity: 0, y: 800 },
+          { scale: 1, opacity: 1, y: 0, duration: 2, ease: "power1.inOut" },
+          "-=1.6"
+        )
+        .fromTo(".gallery-img-4",
+          { scale: 0, opacity: 0, x: -800, y: 600 },
+          { scale: 1, opacity: 1, x: 0, y: 0, duration: 2, ease: "power1.inOut" },
+          "-=1.6"
+        )
+        .fromTo(".gallery-img-5",
+          { scale: 0, opacity: 0, x: 800, y: 600 },
+          { scale: 1, opacity: 1, x: 0, y: 0, duration: 2, ease: "power1.inOut" },
+          "-=1.6"
+        );
+
+      // Background Image Morphing Animation
+      const bgTimeline = gsap.timeline({ repeat: -1 });
+      bgTimeline
+        .to(".bg-img-1", { opacity: 1, duration: 0, ease: "none" })
+        .to(".bg-img-1", { scale: 1.1, duration: 4, ease: "power1.inOut" })
+        .to(".bg-img-1", { opacity: 0, duration: 1.5, ease: "power1.inOut" })
+        .to(".bg-img-2", { opacity: 1, duration: 1.5, ease: "power1.inOut" }, "-=1.5")
+        .to(".bg-img-2", { scale: 1.1, duration: 4, ease: "power1.inOut" })
+        .to(".bg-img-2", { opacity: 0, duration: 1.5, ease: "power1.inOut" })
+        .to(".bg-img-3", { opacity: 1, duration: 1.5, ease: "power1.inOut" }, "-=1.5")
+        .to(".bg-img-3", { scale: 1.1, duration: 4, ease: "power1.inOut" })
+        .to(".bg-img-3", { opacity: 0, duration: 1.5, ease: "power1.inOut" })
+        .to(".bg-img-4", { opacity: 1, duration: 1.5, ease: "power1.inOut" }, "-=1.5")
+        .to(".bg-img-4", { scale: 1.1, duration: 4, ease: "power1.inOut" })
+        .to(".bg-img-4", { opacity: 0, duration: 1.5, ease: "power1.inOut" })
+        .to(".bg-img-5", { opacity: 1, duration: 1.5, ease: "power1.inOut" }, "-=1.5")
+        .to(".bg-img-5", { scale: 1.1, duration: 4, ease: "power1.inOut" })
+        .to(".bg-img-5", { opacity: 0, duration: 1.5, ease: "power1.inOut" })
+        .to(".bg-img-1", { opacity: 1, scale: 1, duration: 1.5, ease: "power1.inOut" }, "-=1.5");
 
       // Parallax effects
       gsap.to(".parallax-bg", {
@@ -300,11 +363,34 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black overflow-x-hidden">
-      {/* Animated Background */}
-      <div className="fixed inset-0 overflow-hidden">
-        <div className="parallax-bg absolute inset-0 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50" />
-        <div className="parallax-element absolute top-1/4 left-1/4 w-64 h-64 bg-gray-700/20 rounded-full blur-3xl" />
-        <div className="parallax-element absolute bottom-1/4 right-1/4 w-96 h-96 bg-gray-600/20 rounded-full blur-3xl" />
+      {/* Animated Background with Morphing Images */}
+      <div className="fixed inset-0 overflow-hidden z-0">
+        {/* Background Image Slideshow with Morph Effect */}
+        <div className="bg-morph-container absolute inset-0">
+          <div className="bg-img-1 absolute inset-0 opacity-0">
+            <img src={img1} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/70"></div>
+          </div>
+          <div className="bg-img-2 absolute inset-0 opacity-0">
+            <img src={img2} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/70"></div>
+          </div>
+          <div className="bg-img-3 absolute inset-0 opacity-0">
+            <img src={img3} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/70"></div>
+          </div>
+          <div className="bg-img-4 absolute inset-0 opacity-0">
+            <img src={img4} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/70"></div>
+          </div>
+          <div className="bg-img-5 absolute inset-0 opacity-0">
+            <img src={img5} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/70"></div>
+          </div>
+        </div>
+        <div className="parallax-bg absolute inset-0 bg-gradient-to-br from-yellow-900/10 via-orange-900/10 to-red-900/10" />
+        <div className="parallax-element absolute top-1/4 left-1/4 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl" />
+        <div className="parallax-element absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
         
         {/* Floating Particles */}
         <div ref={particlesRef} className="absolute inset-0">
@@ -326,7 +412,7 @@ const HomePage = () => {
       <nav ref={navigationRef} className="relative z-50 py-4 sm:py-6 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2 sm:space-x-4 group">
-            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-gray-400 rounded-full animate-pulse" />
+            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-gray-400 rounded-full" />
             <span className="text-white font-mono text-lg sm:text-xl font-bold">CHAITANYA</span>
           </Link>
           
@@ -402,7 +488,7 @@ const HomePage = () => {
               onClick={handleRegisterNow}
               className="register-button w-full sm:w-auto bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-white px-8 py-4 sm:px-10 sm:py-5 rounded-xl sm:rounded-2xl text-lg sm:text-xl font-black hover:from-yellow-400 hover:via-orange-400 hover:to-red-400 transition-all transform hover:scale-110 shadow-2xl border-2 border-yellow-400 animate-pulse-glow relative overflow-hidden"
             >
-              <span className="relative z-10">🚀 REGISTER NOW</span>
+              <span className="relative z-10">🚀 Register Now - Limited Seats!</span>
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
             </button>
             <button 
@@ -417,11 +503,17 @@ const HomePage = () => {
               rel="noopener noreferrer"
               className="w-full sm:w-auto"
             >
-              <button className="w-full flex items-center justify-center space-x-2 sm:space-x-3 border-2 border-gray-500 text-gray-300 px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-700 hover:text-white transition-all transform hover:scale-105 group">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+              <button className="watch-trailer-btn w-full flex items-center justify-center space-x-2 sm:space-x-3 border-2 border-yellow-400 bg-yellow-400 text-black px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold hover:bg-yellow-300 hover:border-yellow-300 transition-colors transform hover:scale-105 group relative overflow-hidden">
+                {/* Electric shock effect background */}
+                <div className="electric-bg absolute inset-0"></div>
+                
+                {/* Glitch effect overlay */}
+                <div className="glitch-overlay absolute inset-0"></div>
+                
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform relative z-10" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z"/>
                 </svg>
-                <span>Watch Trailer</span>
+                <span className="glitch-text relative z-10" data-text="Watch Trailer">Watch Trailer</span>
               </button>
             </a>
           </div>
@@ -457,65 +549,147 @@ const HomePage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="features-section relative py-12 sm:py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white text-center mb-8 sm:mb-16">
-            <span className="text-gray-400">&lt;</span>
-            What's Happening
-            <span className="text-gray-400">/&gt;</span>
-          </h2>
+      <section className="features-section relative py-16 sm:py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-12 sm:mb-20">
+            <div className="inline-block mb-4">
+              <span className="text-yellow-400 text-sm sm:text-base font-mono bg-yellow-400/10 px-4 py-2 rounded-full border border-yellow-400/30">
+                ✨ Featured Highlights
+              </span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-4 sm:mb-6">
+              <span className="text-gray-500">&lt;</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500">
+                What's Happening
+              </span>
+              <span className="text-gray-500">/&gt;</span>
+            </h2>
+            <p className="text-gray-400 text-base sm:text-xl max-w-3xl mx-auto leading-relaxed">
+              Dive into a world of innovation, competition, and creativity at CHAITANYA 2025
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+          {/* Features Grid with Enhanced Design */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="feature-card bg-gray-800/80 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-700 hover:border-gray-400 transition-all duration-300 group opacity-0"
+                className="feature-card group relative opacity-0"
               >
-                <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
+                {/* Gradient Border Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                
+                {/* Card Content */}
+                <div className="relative bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-gray-700/50 group-hover:border-yellow-400/50 transition-all duration-500 h-full flex flex-col">
+                  {/* Icon with Animated Background */}
+                  <div className="relative mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="relative text-5xl sm:text-6xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                      {feature.icon}
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-orange-400 transition-all duration-300">
+                    {feature.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-400 text-sm sm:text-base leading-relaxed flex-1">
+                    {feature.description}
+                  </p>
+
+                  {/* Decorative Bottom Line */}
+                  <div className="mt-6 pt-4 border-t border-gray-700/50 group-hover:border-yellow-400/30 transition-colors duration-300">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-500 font-mono">0{index + 1}</span>
+                      <div className="w-8 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right"></div>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 group-hover:text-gray-300 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
-                  {feature.description}
-                </p>
               </div>
             ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="text-center mt-12 sm:mt-16">
+            <button 
+              onClick={handleExploreEvents}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-white px-8 py-4 rounded-xl font-bold hover:from-yellow-400 hover:via-orange-400 hover:to-red-400 transition-all transform hover:scale-105 shadow-2xl border-2 border-yellow-400/50"
+            >
+              <span>Explore All Events</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Events Section */}
-      <section className="events-section relative py-12 sm:py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white text-center mb-8 sm:mb-16">
+      {/* Gallery Morphing Section - Full Screen Images */}
+      <section className="gallery-section relative overflow-hidden bg-black py-12 sm:py-16 flex items-center">
+        <div className="w-full max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white text-center mb-8 sm:mb-12 md:mb-16 relative z-10">
             <span className="text-gray-400">#</span>
-            Major Events
+            Glimpses of <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-500">CHAITANYA</span>
             <span className="text-gray-400">#</span>
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-            {events.map((event, index) => (
-              <div
-                key={index}
-                className="event-card bg-gradient-to-br from-gray-800 to-gray-900 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-700 hover:border-gray-400 transition-all duration-500 group opacity-0"
-              >
-                <div className="flex items-start justify-between mb-4 sm:mb-6">
-                  <div className="event-icon text-2xl sm:text-3xl">{event.icon}</div>
-                  <span className="bg-gray-700 text-gray-300 px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm">
-                    {event.type}
-                  </span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3 group-hover:text-gray-300 transition-colors">
-                  {event.name}
-                </h3>
-                <div className="flex items-center justify-between text-gray-400 text-xs sm:text-sm">
-                  <span>📅 {event.date}</span>
-                  <span>👥 {event.participants}</span>
-                </div>
-              </div>
-            ))}
+          {/* Full Screen Image Grid with Morphing Effect */}
+          <div className="relative w-full h-[60vh] md:h-[65vh] lg:h-[70vh] max-h-[600px]">
+            {/* Image 1 - Top Left */}
+            <div className="gallery-img-1 absolute top-0 left-0 w-1/2 h-1/2 overflow-hidden">
+              <img 
+                src={img1} 
+                alt="Chaitanya Event 1" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/20 to-black/40"></div>
+            </div>
+
+            {/* Image 2 - Top Right */}
+            <div className="gallery-img-2 absolute top-0 right-0 w-1/2 h-1/2 overflow-hidden">
+              <img 
+                src={img2} 
+                alt="Chaitanya Event 2" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-bl from-transparent via-black/20 to-black/40"></div>
+            </div>
+
+            {/* Image 3 - Center (Main Focus) */}
+            <div className="gallery-img-3 absolute top-1/4 left-1/4 w-1/2 h-1/2 overflow-hidden shadow-2xl z-20 border-4 border-white">
+              <img 
+                src={img3} 
+                alt="Chaitanya Event 3" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+            </div>
+
+            {/* Image 4 - Bottom Left */}
+            <div className="gallery-img-4 absolute bottom-0 left-0 w-1/2 h-1/2 overflow-hidden">
+              <img 
+                src={img4} 
+                alt="Chaitanya Event 4" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/20 to-black/40"></div>
+            </div>
+
+            {/* Image 5 - Bottom Right */}
+            <div className="gallery-img-5 absolute bottom-0 right-0 w-1/2 h-1/2 overflow-hidden">
+              <img 
+                src={img5} 
+                alt="Chaitanya Event 5" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tl from-transparent via-black/20 to-black/40"></div>
+            </div>
+
+            {/* Decorative glow effects */}
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 via-orange-500/10 to-red-500/10 pointer-events-none mix-blend-overlay"></div>
           </div>
         </div>
       </section>
@@ -560,7 +734,7 @@ const HomePage = () => {
               </a>
             ))}
           </div>
-          <p className="text-gray-500 text-xs sm:text-sm">
+          <p className="text-gray-300 text-sm sm:text-base font-medium">
             © 2025 CHAITANYA Tech Fest. Built with 🖤 by HPTU Students
           </p>
         </div>
@@ -575,6 +749,108 @@ const HomePage = () => {
           50% {
             box-shadow: 0 0 30px rgba(251, 146, 60, 0.8), 0 0 60px rgba(251, 146, 60, 0.5), 0 0 80px rgba(251, 146, 60, 0.3);
           }
+        }
+
+        @keyframes electric-pulse {
+          0%, 100% {
+            background: linear-gradient(45deg, transparent 30%, rgba(251, 191, 36, 0.1) 50%, transparent 70%);
+            background-size: 200% 200%;
+            background-position: 0% 0%;
+          }
+          25% {
+            background-position: 100% 100%;
+          }
+          50% {
+            background: linear-gradient(-45deg, transparent 30%, rgba(251, 191, 36, 0.2) 50%, transparent 70%);
+            background-size: 200% 200%;
+            background-position: 100% 0%;
+          }
+          75% {
+            background-position: 0% 100%;
+          }
+        }
+
+        @keyframes glitch {
+          0% {
+            transform: translate(0);
+          }
+          20% {
+            transform: translate(-2px, 2px);
+          }
+          40% {
+            transform: translate(-2px, -2px);
+          }
+          60% {
+            transform: translate(2px, 2px);
+          }
+          80% {
+            transform: translate(2px, -2px);
+          }
+          100% {
+            transform: translate(0);
+          }
+        }
+
+        @keyframes glitch-text {
+          0% {
+            text-shadow: 0 0 0 transparent;
+          }
+          20% {
+            text-shadow: -2px 0 0 rgba(255, 0, 0, 0.5), 2px 0 0 rgba(0, 255, 255, 0.5);
+          }
+          40% {
+            text-shadow: 2px 0 0 rgba(255, 0, 0, 0.5), -2px 0 0 rgba(0, 255, 255, 0.5);
+          }
+          60% {
+            text-shadow: -2px 0 0 rgba(0, 255, 255, 0.5), 2px 0 0 rgba(255, 0, 0, 0.5);
+          }
+          80% {
+            text-shadow: 2px 0 0 rgba(0, 255, 255, 0.5), -2px 0 0 rgba(255, 0, 0, 0.5);
+          }
+          100% {
+            text-shadow: 0 0 0 transparent;
+          }
+        }
+
+        .watch-trailer-btn {
+          box-shadow: 0 0 20px rgba(251, 191, 36, 0.4), 0 0 35px rgba(251, 191, 36, 0.3);
+          animation: glitch 0.5s infinite;
+        }
+
+        .watch-trailer-btn:hover {
+          box-shadow: 0 0 30px rgba(251, 191, 36, 0.7), 0 0 60px rgba(251, 191, 36, 0.5);
+        }
+
+        .electric-bg {
+          animation: electric-pulse 1.5s infinite;
+          opacity: 1;
+        }
+
+        .glitch-text {
+          animation: glitch-text 0.5s infinite;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+          content: attr(data-text);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .glitch-overlay {
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(251, 191, 36, 0.1) 25%,
+            transparent 50%,
+            rgba(251, 191, 36, 0.1) 75%,
+            transparent 100%
+          );
+          animation: glitch 0.7s infinite;
+          opacity: 1;
         }
 
         .animate-pulse-glow {

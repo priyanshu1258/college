@@ -18,17 +18,26 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
 
   // Check if hackathon is selected
   const isHackathonSelected = selectedEvents.includes('hackathon');
+  
+  // Check if any free event is selected (events with price 0)
+  const hasFreeEvents = selectedEvents.some(eventId => {
+    const event = events.find(e => e.id === eventId);
+    return event && event.price === 0;
+  });
+  
+  // Food is mandatory for hackathon or free events
+  const isFoodMandatory = isHackathonSelected || hasFreeEvents;
 
   useEffect(() => {
     fetchEvents();
   }, [currentParticipationType]); // Add dependency to refetch when participation type changes
 
-  // Auto-enable food for hackathon and prevent disabling
+  // Auto-enable food for hackathon and free events, prevent disabling
   useEffect(() => {
-    if (isHackathonSelected && !includeFood) {
+    if (isFoodMandatory && !includeFood) {
       setIncludeFood(true);
     }
-  }, [isHackathonSelected]);
+  }, [isFoodMandatory, selectedEvents]);
 
   const fetchEvents = async () => {
     try {
@@ -60,7 +69,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'hackathon',
         name: 'Hackathon (Code Forge)',
         description: '36-hour coding competition to build innovative solutions',
-        price: 199,
+        price: 99,
         duration: '36 Hours',
         category: 'Technical',
         type: 'team',
@@ -144,6 +153,26 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         price: 0,
         duration: '3 Hours',
         category: 'Cultural',
+        type: 'team',
+        maxParticipants: 4
+      },
+      {
+        id: 'pitch-high',
+        name: 'Pitch High',
+        description: 'Business pitch competition for innovative ideas',
+        price: 99,
+        duration: '4 Hours',
+        category: 'Business',
+        type: 'team',
+        maxParticipants: 4
+      },
+      {
+        id: 'two-minute-manager',
+        name: 'Two Minute Manager',
+        description: 'Quick thinking leadership and management challenge',
+        price: 99,
+        duration: '1 Hour',
+        category: 'Business',
         type: 'team',
         maxParticipants: 4
       }
@@ -431,39 +460,41 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         </div>
 
         {/* Food & Accommodation Package Options - Compact Layout */}
-        <div className="mb-6">
-          {isHackathonSelected && (
-            <div className="mb-4 p-3 bg-orange-100 rounded-lg border-2 border-orange-300">
-              <p className="text-orange-900 font-black text-sm flex items-center">
-                <span className="text-xl mr-2">⚠️</span>
-                Food Package is MANDATORY for Hackathon participants (36-hour event)
+        <div className="mb-4 sm:mb-6">
+          {isFoodMandatory && (
+            <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-orange-100 rounded-lg border-2 border-orange-300">
+              <p className="text-orange-900 font-black text-xs sm:text-sm flex items-center">
+                <span className="text-lg sm:text-xl mr-2">⚠️</span>
+                {isHackathonSelected 
+                  ? 'Food Package is MANDATORY for Hackathon participants (36-hour event)'
+                  : 'Food Package is MANDATORY for participants in free events'}
               </p>
             </div>
           )}
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
             {/* Food Package */}
-            <div className={`p-5 rounded-xl shadow-lg border-4 ${
-              isHackathonSelected 
+            <div className={`p-4 sm:p-5 rounded-xl shadow-lg border-4 ${
+              isFoodMandatory 
                 ? 'bg-orange-600 border-orange-700' 
                 : 'bg-blue-600 border-blue-700'
             } text-white`}>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg sm:text-xl font-black flex items-center">
-                  <span className="text-2xl mr-2">🍽️</span>
-                  Food {isHackathonSelected && <span className="ml-2 text-xs bg-yellow-300 text-gray-900 px-2 py-0.5 rounded">Required</span>}
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <h3 className="text-base sm:text-xl font-black flex items-center">
+                  <span className="text-xl sm:text-2xl mr-2">🍽️</span>
+                  Food {isFoodMandatory && <span className="ml-2 text-xs bg-yellow-300 text-gray-900 px-2 py-0.5 rounded">Required</span>}
                 </h3>
-                <label className={`flex items-center ${isHackathonSelected ? 'cursor-not-allowed opacity-75' : 'cursor-pointer'}`}>
+                <label className={`flex items-center ${isFoodMandatory ? 'cursor-not-allowed opacity-75' : 'cursor-pointer'}`}>
                   <div className="relative">
                     <input
                       type="checkbox"
                       checked={includeFood}
                       onChange={(e) => {
-                        if (!isHackathonSelected) {
+                        if (!isFoodMandatory) {
                           setIncludeFood(e.target.checked);
                         }
                       }}
-                      disabled={isHackathonSelected}
+                      disabled={isFoodMandatory}
                       className="sr-only"
                     />
                     <div className={`block w-14 h-8 rounded-full transition-colors border-3 ${
@@ -475,19 +506,20 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                   </div>
                 </label>
               </div>
-              <p className="text-white text-xs sm:text-sm mb-2">Delicious meals & refreshments</p>
-              <div className="bg-white rounded-lg p-3 inline-block">
-                <p className="text-gray-900 text-sm font-black">
-                  {totalParticipants} × ₹299 = <span className="text-orange-600 text-lg">₹{299 * totalParticipants}</span>
+              <p className="text-white text-xs sm:text-sm mb-2">Delicious meals & refreshments for all 3 days</p>
+              <p className="text-white text-xs mb-2 opacity-90">Complete food coverage throughout the event</p>
+              <div className="bg-white rounded-lg p-2 sm:p-3 inline-block">
+                <p className="text-gray-900 text-xs sm:text-sm font-black">
+                  {totalParticipants} × ₹299 = <span className="text-orange-600 text-base sm:text-lg">₹{299 * totalParticipants}</span>
                 </p>
               </div>
             </div>
 
             {/* Accommodation Package */}
-            <div className="p-5 bg-purple-600 border-purple-700 rounded-xl shadow-lg border-4 text-white">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg sm:text-xl font-black flex items-center">
-                  <span className="text-2xl mr-2">🏨</span>
+            <div className="p-4 sm:p-5 bg-purple-600 border-purple-700 rounded-xl shadow-lg border-4 text-white">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <h3 className="text-base sm:text-xl font-black flex items-center">
+                  <span className="text-xl sm:text-2xl mr-2">🏨</span>
                   Accommodation
                 </h3>
                 <label className="flex items-center cursor-pointer">
@@ -508,9 +540,9 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                 </label>
               </div>
               <p className="text-white text-xs sm:text-sm mb-2">Comfortable stay during event</p>
-              <div className="bg-white rounded-lg p-3 inline-block">
-                <p className="text-gray-900 text-sm font-black">
-                  {totalParticipants} × ₹299 = <span className="text-purple-600 text-lg">₹{299 * totalParticipants}</span>
+              <div className="bg-white rounded-lg p-2 sm:p-3 inline-block">
+                <p className="text-gray-900 text-xs sm:text-sm font-black">
+                  {totalParticipants} × ₹299 = <span className="text-purple-600 text-base sm:text-lg">₹{299 * totalParticipants}</span>
                 </p>
               </div>
             </div>
@@ -519,20 +551,20 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
 
         {/* E-Sports Game Selection - Enhanced with Team Size Requirements */}
         {selectedEvents.includes('esports') && (
-          <div className="mb-6 p-6 bg-green-600 text-white rounded-2xl shadow-xl border-4 border-green-700">
-            <h3 className="text-xl sm:text-2xl font-black mb-2 flex items-center">
-              <span className="text-2xl sm:text-3xl mr-3">🎮</span>
+          <div className="mb-4 sm:mb-6 p-4 sm:p-6 bg-green-600 text-white rounded-2xl shadow-xl border-4 border-green-700">
+            <h3 className="text-lg sm:text-2xl font-black mb-2 flex items-center">
+              <span className="text-xl sm:text-3xl mr-2 sm:mr-3">🎮</span>
               Select Your E-Sports Game
             </h3>
-            <p className="text-white font-bold text-sm sm:text-base mb-4 drop-shadow">
+            <p className="text-white font-bold text-xs sm:text-base mb-3 sm:mb-4 drop-shadow">
               ⚠️ Each game has specific team size requirements
             </p>
             
             {/* Team Size Warning for Current Selection */}
             {selectedEsportsGame && (
-              <div className="mb-4 p-4 bg-white rounded-lg">
-                <p className="text-gray-900 font-black text-sm sm:text-base">
-                  <span className="text-2xl mr-2">👥</span>
+              <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-white rounded-lg">
+                <p className="text-gray-900 font-black text-xs sm:text-base">
+                  <span className="text-lg sm:text-2xl mr-2">👥</span>
                   {selectedEsportsGame === 'VALORANT' 
                     ? `VALORANT requires EXACTLY 5 members` 
                     : `${selectedEsportsGame} requires EXACTLY 4 members`}
@@ -620,30 +652,30 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                 }`}
               >
                 {/* Card Header with Solid Color */}
-                <div className={`${bgColor} text-white p-6 relative overflow-hidden transition-colors duration-300`}>
+                <div className={`${bgColor} text-white p-4 sm:p-6 relative overflow-hidden transition-colors duration-300`}>
                   {/* Decorative corner accent */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
                   <div className="absolute bottom-0 left-0 w-24 h-24 bg-black opacity-10 rounded-full -ml-12 -mb-12"></div>
                   
                   <div className="relative z-10">
-                    <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-xl sm:text-2xl font-black pr-4 leading-tight drop-shadow-lg">{event.name}</h3>
+                    <div className="flex justify-between items-start mb-2 sm:mb-3">
+                      <h3 className="text-lg sm:text-2xl font-black pr-2 sm:pr-4 leading-tight drop-shadow-lg">{event.name}</h3>
                       {isSelected && (
-                        <div className="bg-yellow-400 text-gray-900 rounded-full p-2 shadow-lg animate-bounce">
-                          <Check className="w-5 h-5 sm:w-6 sm:h-6 font-black" strokeWidth={3} />
+                        <div className="bg-yellow-400 text-gray-900 rounded-full p-1.5 sm:p-2 shadow-lg animate-bounce flex-shrink-0">
+                          <Check className="w-4 h-4 sm:w-6 sm:h-6 font-black" strokeWidth={3} />
                         </div>
                       )}
                     </div>
                     
                     {/* Category Badge - Enhanced Visibility */}
-                    <span className="inline-block bg-gray-900 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider border-2 border-white shadow-lg">
+                    <span className="inline-block bg-gray-900 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs font-black uppercase tracking-wider border-2 border-white shadow-lg">
                       {event.category}
                     </span>
                   </div>
                 </div>
 
                 {/* Card Body with White Background */}
-                <div className="bg-white p-6">
+                <div className="bg-white p-4 sm:p-6">
                   <p className="text-gray-700 mb-5 text-sm sm:text-base leading-relaxed font-medium min-h-[60px]">
                     {event.description}
                   </p>
