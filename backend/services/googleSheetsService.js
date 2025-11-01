@@ -121,7 +121,16 @@ class GoogleSheetsService {
           paymentData?.payerName || "",
           eventSelection?.includeFood ? "Yes" : "No",
           eventSelection?.includeAccommodation ? "Yes" : "No",
-          new Date(registeredAt).toLocaleString("en-IN"),
+          new Date(registeredAt).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+          }),
           "Pending Verification",
         ],
       ];
@@ -164,7 +173,16 @@ class GoogleSheetsService {
           transactionData.currency || "INR", // H
           transactionData.paymentMethod || "upi", // I
           transactionData.status || "completed", // J
-          new Date(transactionData.submittedAt).toLocaleString("en-IN"), // K
+          new Date(transactionData.submittedAt).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+          }), // K
           transactionData.verificationData?.upiTransactionId ||
             transactionData.paymentData?.upiTransactionId ||
             "", // L

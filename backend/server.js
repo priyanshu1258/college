@@ -720,7 +720,7 @@ app.get("/api/events", (req, res) => {
         id: "hackathon",
         name: "Hackathon (Code Forge)",
         description: "36-hour coding competition to build innovative solutions",
-        price: 199,
+        price: 99,
         duration: "36 Hours",
         category: "Technical",
         type: "team",
@@ -765,7 +765,7 @@ app.get("/api/events", (req, res) => {
         duration: "3 Hours",
         category: "Cultural",
         type: "team",
-        maxParticipants: 2,
+        maxParticipants: 4,
       },
       {
         id: "project-bazaar",
@@ -805,6 +805,26 @@ app.get("/api/events", (req, res) => {
         price: 0,
         duration: "3 Hours",
         category: "Cultural",
+        type: "team",
+        maxParticipants: 4,
+      },
+      {
+        id: "pitch-high",
+        name: "Pitch High",
+        description: "Business pitch competition for innovative ideas",
+        price: 99,
+        duration: "4 Hours",
+        category: "Business",
+        type: "team",
+        maxParticipants: 4,
+      },
+      {
+        id: "two-minute-manager",
+        name: "Two Minute Manager",
+        description: "Quick thinking leadership and management challenge",
+        price: 99,
+        duration: "1 Hour",
+        category: "Business",
         type: "team",
         maxParticipants: 4,
       },
@@ -928,7 +948,7 @@ app.post("/api/calculate-amount", (req, res) => {
     // Event pricing matches frontend exactly
     const events = {
       // Team events
-      hackathon: { price: 199, type: "team" },
+      hackathon: { price: 99, type: "team" },
       datathon: { price: 199, type: "team" },
       polymath: { price: 149, type: "team" },
       esports: { price: 149, type: "team" },
@@ -937,6 +957,8 @@ app.post("/api/calculate-amount", (req, res) => {
       ctf: { price: 0, type: "team" },
       "singing-team": { price: 0, type: "team" },
       "dancing-team": { price: 0, type: "team" },
+      "pitch-high": { price: 99, type: "team" },
+      "two-minute-manager": { price: 99, type: "team" },
 
       // Individual events
       "retro-theming": { price: 99, type: "individual" },
@@ -1079,6 +1101,8 @@ function getEventName(eventId) {
     "jack-of-hearts": "Jack of Hearts",
     singing: "Singing Competition",
     dancing: "Dancing Competition",
+    "pitch-high": "Pitch High",
+    "two-minute-manager": "Two Minute Manager",
   };
   return events[eventId] || eventId;
 }

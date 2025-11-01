@@ -1594,5 +1594,336 @@
     "status": "registered",
     "registeredAt": "2025-10-31T08:51:04.790Z",
     "verified": false
+  },
+  {
+    "registrationId": "REG1762013480477YI1HT",
+    "teamId": "TEAM-MHGHBYU5-4OYLX7",
+    "studentDetails": {
+      "fullName": "Advait kaushal",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753203",
+      "college": "sdfsdf",
+      "year": "2",
+      "rollNumber": "12123341",
+      "department": "dsfsaf",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "dancing"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "dancing",
+          "name": "Dancing Competition",
+          "description": "Show your dance moves and creativity",
+          "price": 0,
+          "duration": "3 Hours",
+          "category": "Cultural",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "includeAccommodation": false,
+      "totalAmount": 299,
+      "eventCount": 1,
+      "participantCount": 1,
+      "eventName": "Dancing Competition",
+      "price": 299,
+      "eventId": "dancing"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "upiTransactionId": "1",
+      "payerName": "jambaram",
+      "payerUPI": "ddd",
+      "verificationData": {
+        "upiTransactionId": "1",
+        "payerName": "jambaram",
+        "payerUPI": "ddd",
+        "verificationId": "CHAITANYA1762013480455FPOIQ",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-11-01T16:11:20.474Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-11-01T16:11:20.477Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG17620138845853F1S1",
+    "teamId": "TEAM-MHGHKMND-OMFMLI",
+    "studentDetails": {
+      "fullName": "Ritesh",
+      "email": "auctobat@gmail.com",
+      "phone": "7018753206",
+      "college": "sdfkj",
+      "year": "3",
+      "rollNumber": "56454",
+      "department": "skjdfjk",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "sdfkj"
+        },
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "sdfkj"
+        },
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "sdfkj"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "dancing-team",
+        "singing-team",
+        "project-bazaar"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "dancing-team",
+          "name": "Dancing Competition (Team)",
+          "description": "Team choreography and dance performance",
+          "price": 0,
+          "duration": "3 Hours",
+          "category": "Cultural",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "singing-team",
+          "name": "Singing Competition (Team)",
+          "description": "Team performance showcasing vocal harmony and talent",
+          "price": 0,
+          "duration": "2 Hours",
+          "category": "Cultural",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "project-bazaar",
+          "name": "Project Bazaar",
+          "description": "Showcase your innovative projects",
+          "price": 0,
+          "duration": "6 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "includeAccommodation": false,
+      "totalAmount": 1196,
+      "eventCount": 3,
+      "participantCount": 4,
+      "eventName": "Dancing Competition (Team), Singing Competition (Team), Project Bazaar",
+      "price": 1196,
+      "eventId": "multiple"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "sdfkj",
+        "teamId": "TEAM-MHGHKMND-OMFMLI",
+        "memberIndex": 1
+      },
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "sdfkj",
+        "teamId": "TEAM-MHGHKMND-OMFMLI",
+        "memberIndex": 2
+      },
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "sdfkj",
+        "teamId": "TEAM-MHGHKMND-OMFMLI",
+        "memberIndex": 3
+      }
+    ],
+    "paymentData": {
+      "upiTransactionId": "2",
+      "payerName": "sdfsdf",
+      "payerUPI": "sdf",
+      "verificationData": {
+        "upiTransactionId": "2",
+        "payerName": "sdfsdf",
+        "payerUPI": "sdf",
+        "verificationId": "CHAITANYA1762013884567X7WJV",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-11-01T16:18:04.580Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-11-01T16:18:04.585Z",
+    "verified": false
+  },
+  {
+    "registrationId": "REG1762022496849M0OIW",
+    "teamId": "TEAM-MHGMP7WX-3GJRIU",
+    "studentDetails": {
+      "fullName": "Ritesh",
+      "email": "auctobat@gmail.com",
+      "phone": "7018753206",
+      "college": "sdfkj",
+      "year": "2",
+      "rollNumber": "56454",
+      "department": "skjdfjk",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "sdfkj"
+        },
+        {
+          "name": "Ritesh",
+          "email": "auctobat@gmail.com",
+          "phone": "7018753206",
+          "college": "sdfkj"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "two-minute-manager",
+        "pitch-high",
+        "project-bazaar",
+        "singing-team",
+        "ctf"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "two-minute-manager",
+          "name": "Two Minute Manager",
+          "description": "Quick thinking leadership and management challenge",
+          "price": 99,
+          "duration": "1 Hour",
+          "category": "Business",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "pitch-high",
+          "name": "Pitch High",
+          "description": "Business pitch competition for innovative ideas",
+          "price": 99,
+          "duration": "4 Hours",
+          "category": "Business",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "project-bazaar",
+          "name": "Project Bazaar",
+          "description": "Showcase your innovative projects",
+          "price": 0,
+          "duration": "6 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "singing-team",
+          "name": "Singing Competition (Team)",
+          "description": "Team performance showcasing vocal harmony and talent",
+          "price": 0,
+          "duration": "2 Hours",
+          "category": "Cultural",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "ctf",
+          "name": "CTF - Capture The Flag",
+          "description": "Cybersecurity challenge with hacking and problem-solving tasks",
+          "price": 0,
+          "duration": "6 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": true,
+      "includeAccommodation": false,
+      "totalAmount": 1491,
+      "eventCount": 5,
+      "participantCount": 3,
+      "eventName": "Two Minute Manager, Pitch High, Project Bazaar, Singing Competition (Team), CTF - Capture The Flag",
+      "price": 1491,
+      "eventId": "multiple"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "sdfkj",
+        "teamId": "TEAM-MHGMP7WX-3GJRIU",
+        "memberIndex": 1
+      },
+      {
+        "name": "Ritesh",
+        "email": "auctobat@gmail.com",
+        "phone": "7018753206",
+        "college": "sdfkj",
+        "teamId": "TEAM-MHGMP7WX-3GJRIU",
+        "memberIndex": 2
+      }
+    ],
+    "paymentData": {
+      "upiTransactionId": "7",
+      "payerName": "n",
+      "payerUPI": "n",
+      "verificationData": {
+        "upiTransactionId": "7",
+        "payerName": "n",
+        "payerUPI": "n",
+        "verificationId": "CHAITANYA1762022496827TDZQ4",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-11-01T18:41:36.841Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-11-01T18:41:36.849Z",
+    "verified": false
   }
 ]
