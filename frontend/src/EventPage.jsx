@@ -65,7 +65,7 @@ const EventPage = () => {
         resources: "Exhibition space with tables and power, display boards, internet, voting system",
         image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-green-500 to-teal-500",
-        price: 10,
+        price: 99,
         teamSize: "1-4 members",
         targetAudience: "Programmers, Developers, designers, Builders, software and Hardware Enthusiasts",
         requirements: "Functional prototype or comprehensive simulation, display materials"
@@ -102,7 +102,7 @@ const EventPage = () => {
         resources: "CTF platform, dedicated servers, monitoring tools, networking infrastructure",
         image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-red-500 to-pink-500",
-        price: 10,
+        price: 99,
         teamSize: "2-4 members",
         targetAudience: "Cybersecurity enthusiasts, ethical hackers",
         requirements: "Cybersecurity knowledge, appropriate tools"
@@ -288,7 +288,7 @@ const EventPage = () => {
         resources: "Stage, sound system, lighting, judging panel, timing system",
         image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-purple-500 to-pink-500",
-        price: 10,
+        price: 99,
         teamSize: "Solo, Duet, or Group (3-8)",
         targetAudience: "Performers, artists, entertainers",
         requirements: "Performance skills, audio tracks, adherence to time limits"

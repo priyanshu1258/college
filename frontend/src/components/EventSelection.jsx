@@ -120,7 +120,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'project-bazaar',
         name: 'Project Bazaar',
         description: 'Showcase your innovative projects',
-        price: 10,
+        price: 99,
         duration: '6 Hours',
         category: 'Technical',
         type: 'team',
@@ -130,7 +130,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'ctf',
         name: 'CTF - Capture The Flag',
         description: 'Cybersecurity challenge with hacking and problem-solving tasks',
-        price: 10,
+        price: 99,
         duration: '6 Hours',
         category: 'Technical',
         type: 'team',
@@ -140,7 +140,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'singing-team',
         name: 'Singing Competition (Team)',
         description: 'Team performance showcasing vocal harmony and talent',
-        price: 10,
+        price: 49,
         duration: '2 Hours',
         category: 'Cultural',
         type: 'team',
@@ -150,7 +150,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'dancing-team',
         name: 'Dancing Competition (Team)',
         description: 'Team choreography and dance performance',
-        price: 10,
+        price: 49,
         duration: '3 Hours',
         category: 'Cultural',
         type: 'team',
@@ -201,7 +201,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'integration-bee',
         name: 'Integration Bee',
         description: 'Mathematical integration competition',
-        price: 10,
+        price: 99,
         duration: '3 Hours',
         category: 'Technical',
         type: 'individual'
@@ -237,7 +237,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'singing',
         name: 'Singing Competition',
         description: 'Showcase your vocal talent',
-        price: 10,
+        price: 99,
         duration: '2 Hours',
         category: 'Cultural',
         type: 'individual'
@@ -246,7 +246,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'dancing',
         name: 'Dancing Competition',
         description: 'Show your dance moves and creativity',
-        price: 10,
+        price: 99,
         duration: '3 Hours',
         category: 'Cultural',
         type: 'individual'
@@ -296,7 +296,12 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
       const event = events.find(e => e.id === eventId);
       if (event) {
         if (event.type === 'team') {
-          eventTotal += event.price * totalParticipants;
+          // For flat rate events (singing-team, dancing-team), charge fixed price
+          if (event.flatRate) {
+            eventTotal += event.price;
+          } else {
+            eventTotal += event.price * totalParticipants;
+          }
         } else {
           eventTotal += event.price;
         }
@@ -736,7 +741,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                         ✓ SELECTED
                         {event.type === 'team' && (
                           <span className="ml-2 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm sm:text-base font-black shadow-md">
-                            ₹{event.price * totalParticipants} total
+                            ₹{event.flatRate ? event.price : event.price * totalParticipants} total
                           </span>
                         )}
                       </p>
@@ -790,10 +795,12 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                     const event = events.find(e => e.id === eventId);
                     if (!event) return null;
                     
-                    const eventPrice = event.type === 'team' ? event.price * totalParticipants : event.price;
-                    const priceBreakdown = event.type === 'team' 
-                      ? `₹${event.price} × ${totalParticipants} participants`
-                      : `₹${event.price}`;
+                    const eventPrice = event.flatRate ? event.price : (event.type === 'team' ? event.price * totalParticipants : event.price);
+                    const priceBreakdown = event.flatRate 
+                      ? `₹${event.price} (flat rate for team)`
+                      : event.type === 'team' 
+                        ? `₹${event.price} × ${totalParticipants} participants`
+                        : `₹${event.price}`;
                     
                     return (
                       <div key={eventId} className="bg-white p-3 rounded-lg border-2 border-green-200">
@@ -863,6 +870,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                     ₹{selectedEvents.reduce((total, eventId) => {
                       const event = events.find(e => e.id === eventId);
                       if (!event) return total;
+                      if (event.flatRate) return total + event.price;
                       return total + (event.type === 'team' ? event.price * totalParticipants : event.price);
                     }, 0)}
                   </span>
