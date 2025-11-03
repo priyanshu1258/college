@@ -771,7 +771,7 @@ app.get("/api/events", (req, res) => {
         id: "project-bazaar",
         name: "Project Bazaar",
         description: "Showcase your innovative projects",
-        price: 10,
+        price: 99,
         duration: "6 Hours",
         category: "Technical",
         type: "team",
@@ -782,7 +782,7 @@ app.get("/api/events", (req, res) => {
         name: "CTF - Capture The Flag",
         description:
           "Cybersecurity challenge with hacking and problem-solving tasks",
-        price: 10,
+        price: 99,
         duration: "6 Hours",
         category: "Technical",
         type: "team",
@@ -792,7 +792,7 @@ app.get("/api/events", (req, res) => {
         id: "singing-team",
         name: "Singing Competition (Team)",
         description: "Team performance showcasing vocal harmony and talent",
-        price: 10,
+        price: 49,
         duration: "2 Hours",
         category: "Cultural",
         type: "team",
@@ -802,7 +802,7 @@ app.get("/api/events", (req, res) => {
         id: "dancing-team",
         name: "Dancing Competition (Team)",
         description: "Team choreography and dance performance",
-        price: 10,
+        price: 49,
         duration: "3 Hours",
         category: "Cultural",
         type: "team",
@@ -854,7 +854,7 @@ app.get("/api/events", (req, res) => {
         id: "integration-bee",
         name: "Integration Bee",
         description: "Mathematical integration competition",
-        price: 10,
+        price: 99,
         duration: "3 Hours",
         category: "Technical",
         type: "individual",
@@ -891,7 +891,7 @@ app.get("/api/events", (req, res) => {
         id: "singing",
         name: "Singing Competition",
         description: "Showcase your vocal talent",
-        price: 10,
+        price: 99,
         duration: "2 Hours",
         category: "Cultural",
         type: "individual",
@@ -900,7 +900,7 @@ app.get("/api/events", (req, res) => {
         id: "dancing",
         name: "Dancing Competition",
         description: "Show your dance moves and creativity",
-        price: 10,
+        price: 99,
         duration: "3 Hours",
         category: "Cultural",
         type: "individual",
@@ -953,29 +953,34 @@ app.post("/api/calculate-amount", (req, res) => {
       polymath: { price: 149, type: "team" },
       esports: { price: 149, type: "team" },
       debate: { price: 99, type: "team" },
-      "project-bazaar": { price: 10, type: "team" },
-      ctf: { price: 10, type: "team" },
-      "singing-team": { price: 10, type: "team" },
-      "dancing-team": { price: 10, type: "team" },
+      "project-bazaar": { price: 99, type: "team" },
+      ctf: { price: 99, type: "team" },
+      "singing-team": { price: 49, type: "team" },
+      "dancing-team": { price: 49, type: "team" },
       "pitch-high": { price: 99, type: "team" },
       "two-minute-manager": { price: 99, type: "team" },
 
       // Individual events
       "retro-theming": { price: 99, type: "individual" },
       "prompt-engineering": { price: 99, type: "individual" },
-      "integration-bee": { price: 10, type: "individual" },
+      "integration-bee": { price: 99, type: "individual" },
       "human-vs-ai": { price: 99, type: "individual" },
       "reverse-engineering": { price: 99, type: "individual" },
       "jack-of-hearts": { price: 99, type: "individual" },
-      singing: { price: 10, type: "individual" },
-      dancing: { price: 10, type: "individual" },
+      singing: { price: 99, type: "individual" },
+      dancing: { price: 99, type: "individual" },
     };
 
     selectedEvents.forEach((eventId) => {
       const event = events[eventId];
       if (event) {
         if (event.type === "team") {
-          eventTotal += event.price * totalParticipants;
+          // For flat rate events (singing-team, dancing-team), charge fixed price
+          if (event.flatRate) {
+            eventTotal += event.price;
+          } else {
+            eventTotal += event.price * totalParticipants;
+          }
         } else {
           eventTotal += event.price;
         }
