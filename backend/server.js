@@ -626,7 +626,12 @@ app.post("/api/verify-otp", async (req, res) => {
   try {
     const { email, otp: submittedOTP } = req.body;
 
-    console.log("📨 OTP Verification Request:", { email, submittedOTP });
+    console.log("📨 OTP Verification Request:", {
+      email,
+      submittedOTP,
+      submittedOTPType: typeof submittedOTP,
+      bodyKeys: Object.keys(req.body),
+    });
 
     if (!email || !submittedOTP) {
       return res.status(400).json({
@@ -637,6 +642,15 @@ app.post("/api/verify-otp", async (req, res) => {
 
     // Get stored OTP data
     const storedData = otpStore.get(email);
+
+    console.log("🗄️ Stored OTP data:", {
+      found: !!storedData,
+      storedOTP: storedData?.otp,
+      storedOTPType: typeof storedData?.otp,
+      expiresAt: storedData?.expiresAt,
+      currentTime: Date.now(),
+      isExpired: storedData ? Date.now() > storedData.expiresAt : "N/A",
+    });
 
     if (!storedData) {
       console.log("❌ No OTP found for email:", email);
@@ -656,8 +670,19 @@ app.post("/api/verify-otp", async (req, res) => {
       });
     }
 
-    // Verify OTP
-    if (storedData.otp === submittedOTP) {
+    // Verify OTP - Ensure both are strings for comparison
+    const storedOTP = String(storedData.otp);
+    const submittedOTPString = String(submittedOTP);
+
+    console.log("🔍 OTP Comparison:", {
+      stored: storedOTP,
+      storedType: typeof storedOTP,
+      submitted: submittedOTPString,
+      submittedType: typeof submittedOTPString,
+      match: storedOTP === submittedOTPString,
+    });
+
+    if (storedOTP === submittedOTPString) {
       // Remove OTP after successful verification
       otpStore.delete(email);
       console.log("✅ OTP verified successfully for:", email);
@@ -671,9 +696,9 @@ app.post("/api/verify-otp", async (req, res) => {
         "❌ Invalid OTP for email:",
         email,
         "Expected:",
-        storedData.otp,
+        storedOTP,
         "Received:",
-        submittedOTP
+        submittedOTPString
       );
       res.status(400).json({
         success: false,
@@ -720,7 +745,7 @@ app.get("/api/events", (req, res) => {
         id: "hackathon",
         name: "Hackathon (Code Forge)",
         description: "36-hour coding competition to build innovative solutions",
-        price: 99,
+        price: 0,
         duration: "36 Hours",
         category: "Technical",
         type: "team",
@@ -730,7 +755,7 @@ app.get("/api/events", (req, res) => {
         id: "datathon",
         name: "Datathon",
         description: "Data analysis and machine learning competition",
-        price: 199,
+        price: 0,
         duration: "24 Hours",
         category: "Technical",
         type: "team",
@@ -740,7 +765,7 @@ app.get("/api/events", (req, res) => {
         id: "polymath",
         name: "PolyMath (Escape Room)",
         description: "Solve puzzles and escape the room challenge",
-        price: 149,
+        price: 0,
         duration: "4 Hours",
         category: "Technical",
         type: "team",
@@ -750,7 +775,7 @@ app.get("/api/events", (req, res) => {
         id: "esports",
         name: "E-Sports Tournament",
         description: "Competitive gaming tournament",
-        price: 149,
+        price: 0,
         duration: "1 Day",
         category: "Esports",
         type: "team",
@@ -761,7 +786,7 @@ app.get("/api/events", (req, res) => {
         id: "debate",
         name: "Debate Competition",
         description: "Argumentation and public speaking challenge",
-        price: 99,
+        price: 0,
         duration: "3 Hours",
         category: "Cultural",
         type: "team",
@@ -771,7 +796,7 @@ app.get("/api/events", (req, res) => {
         id: "project-bazaar",
         name: "Project Bazaar",
         description: "Showcase your innovative projects",
-        price: 99,
+        price: 0,
         duration: "6 Hours",
         category: "Technical",
         type: "team",
@@ -782,7 +807,7 @@ app.get("/api/events", (req, res) => {
         name: "CTF - Capture The Flag",
         description:
           "Cybersecurity challenge with hacking and problem-solving tasks",
-        price: 99,
+        price: 0,
         duration: "6 Hours",
         category: "Technical",
         type: "team",
@@ -792,27 +817,27 @@ app.get("/api/events", (req, res) => {
         id: "singing-team",
         name: "Singing Competition (Team)",
         description: "Team performance showcasing vocal harmony and talent",
-        price: 49,
+        price: 0,
         duration: "2 Hours",
         category: "Cultural",
         type: "team",
-        maxParticipants: 4,
+        maxParticipants: 10,
       },
       {
         id: "dancing-team",
         name: "Dancing Competition (Team)",
         description: "Team choreography and dance performance",
-        price: 49,
+        price: 0,
         duration: "3 Hours",
         category: "Cultural",
         type: "team",
-        maxParticipants: 4,
+        maxParticipants: 10,
       },
       {
         id: "pitch-high",
         name: "Pitch High",
         description: "Business pitch competition for innovative ideas",
-        price: 99,
+        price: 0,
         duration: "4 Hours",
         category: "Business",
         type: "team",
@@ -822,7 +847,7 @@ app.get("/api/events", (req, res) => {
         id: "two-minute-manager",
         name: "Two Minute Manager",
         description: "Quick thinking leadership and management challenge",
-        price: 99,
+        price: 0,
         duration: "1 Hour",
         category: "Business",
         type: "team",
@@ -836,7 +861,7 @@ app.get("/api/events", (req, res) => {
         id: "retro-theming",
         name: "Retro Theming",
         description: "Creative design competition with retro themes",
-        price: 99,
+        price: 0,
         duration: "3 Hours",
         category: "Creative",
         type: "individual",
@@ -845,7 +870,7 @@ app.get("/api/events", (req, res) => {
         id: "prompt-engineering",
         name: "Prompt Engineering",
         description: "Master the art of AI prompt crafting",
-        price: 99,
+        price: 0,
         duration: "2 Hours",
         category: "Technical",
         type: "individual",
@@ -854,7 +879,7 @@ app.get("/api/events", (req, res) => {
         id: "integration-bee",
         name: "Integration Bee",
         description: "Mathematical integration competition",
-        price: 99,
+        price: 0,
         duration: "3 Hours",
         category: "Technical",
         type: "individual",
@@ -863,7 +888,7 @@ app.get("/api/events", (req, res) => {
         id: "human-vs-ai",
         name: "Human vs AI",
         description: "Test your skills against artificial intelligence",
-        price: 99,
+        price: 0,
         duration: "2 Hours",
         category: "Technical",
         type: "individual",
@@ -872,7 +897,7 @@ app.get("/api/events", (req, res) => {
         id: "reverse-engineering",
         name: "Reverse Engineering",
         description: "Deconstruct and understand complex systems",
-        price: 99,
+        price: 0,
         duration: "3 Hours",
         category: "Technical",
         type: "individual",
@@ -882,7 +907,7 @@ app.get("/api/events", (req, res) => {
         id: "jack-of-hearts",
         name: "Jack of Hearts",
         description: "Card game strategy competition",
-        price: 99,
+        price: 0,
         duration: "2 Hours",
         category: "Gaming",
         type: "individual",
@@ -891,7 +916,7 @@ app.get("/api/events", (req, res) => {
         id: "singing",
         name: "Singing Competition",
         description: "Showcase your vocal talent",
-        price: 99,
+        price: 0,
         duration: "2 Hours",
         category: "Cultural",
         type: "individual",
@@ -900,7 +925,7 @@ app.get("/api/events", (req, res) => {
         id: "dancing",
         name: "Dancing Competition",
         description: "Show your dance moves and creativity",
-        price: 99,
+        price: 0,
         duration: "3 Hours",
         category: "Cultural",
         type: "individual",
@@ -930,7 +955,7 @@ app.post("/api/calculate-amount", (req, res) => {
       selectedEvents,
       participationType,
       teamMembersCount = 1,
-      includeFood = true,
+      includeFood = false,
       includeAccommodation = false,
     } = req.body;
 
@@ -948,27 +973,27 @@ app.post("/api/calculate-amount", (req, res) => {
     // Event pricing matches frontend exactly
     const events = {
       // Team events
-      hackathon: { price: 99, type: "team" },
-      datathon: { price: 199, type: "team" },
-      polymath: { price: 149, type: "team" },
-      esports: { price: 149, type: "team" },
-      debate: { price: 99, type: "team" },
-      "project-bazaar": { price: 99, type: "team" },
-      ctf: { price: 99, type: "team" },
-      "singing-team": { price: 49, type: "team" },
-      "dancing-team": { price: 49, type: "team" },
-      "pitch-high": { price: 99, type: "team" },
-      "two-minute-manager": { price: 99, type: "team" },
+      hackathon: { price: 0, type: "team" },
+      datathon: { price: 0, type: "team" },
+      polymath: { price: 0, type: "team" },
+      esports: { price: 0, type: "team" },
+      debate: { price: 0, type: "team" },
+      "project-bazaar": { price: 0, type: "team" },
+      ctf: { price: 0, type: "team" },
+      "singing-team": { price: 0, type: "team" },
+      "dancing-team": { price: 0, type: "team" },
+      "pitch-high": { price: 0, type: "team" },
+      "two-minute-manager": { price: 0, type: "team" },
 
       // Individual events
-      "retro-theming": { price: 99, type: "individual" },
-      "prompt-engineering": { price: 99, type: "individual" },
-      "integration-bee": { price: 99, type: "individual" },
-      "human-vs-ai": { price: 99, type: "individual" },
-      "reverse-engineering": { price: 99, type: "individual" },
-      "jack-of-hearts": { price: 99, type: "individual" },
-      singing: { price: 99, type: "individual" },
-      dancing: { price: 99, type: "individual" },
+      "retro-theming": { price: 0, type: "individual" },
+      "prompt-engineering": { price: 0, type: "individual" },
+      "integration-bee": { price: 0, type: "individual" },
+      "human-vs-ai": { price: 0, type: "individual" },
+      "reverse-engineering": { price: 0, type: "individual" },
+      "jack-of-hearts": { price: 0, type: "individual" },
+      singing: { price: 0, type: "individual" },
+      dancing: { price: 0, type: "individual" },
     };
 
     selectedEvents.forEach((eventId) => {
