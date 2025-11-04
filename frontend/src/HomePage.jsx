@@ -363,37 +363,6 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black overflow-x-hidden">
-      {/* CRITICAL: Site Under Development Banner - Fixed at Top */}
-      <div className="fixed top-0 left-0 right-0 z-[9999] bg-gradient-to-r from-red-700 via-red-600 to-orange-600 shadow-2xl border-b-8 border-yellow-400">
-        <div className="container mx-auto px-4 py-4 sm:py-6">
-          <div className="flex flex-col items-center justify-center text-center gap-2 sm:gap-3 animate-pulse">
-            <div className="flex items-center gap-3 sm:gap-4">
-              <span className="text-4xl sm:text-6xl">🚧</span>
-              <div>
-                <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-wider drop-shadow-2xl">
-                  ⚠️ SITE UNDER MAINTENANCE ⚠️
-                </h2>
-                <p className="text-base sm:text-xl md:text-2xl font-bold text-yellow-300 mt-1 sm:mt-2">
-                  Registration System Temporarily Unavailable Due to Technical Issues
-                </p>
-              </div>
-              <span className="text-4xl sm:text-6xl">🚧</span>
-            </div>
-            <div className="bg-black/40 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border-2 border-yellow-400 mt-2">
-              <p className="text-lg sm:text-2xl md:text-3xl font-black text-white">
-                🕙 WILL BE LIVE AFTER <span className="text-yellow-300 text-2xl sm:text-4xl">10:00 PM</span> TONIGHT 🕙
-              </p>
-              <p className="text-xs sm:text-sm md:text-base font-semibold text-gray-200 mt-1">
-                🔧 We're working hard to fix the issues. Please check back after 10 PM. Thank you for your patience! 🔧
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Spacer for fixed banner */}
-      <div className="h-32 sm:h-40 md:h-48"></div>
-
       {/* Animated Background with Morphing Images */}
       <div className="fixed inset-0 overflow-hidden z-0">
         {/* Background Image Slideshow with Morph Effect */}

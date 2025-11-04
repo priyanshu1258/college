@@ -25,10 +25,10 @@ const PaymentFlow = () => {
 
   const steps = [
     { number: 1, name: 'Student Details', component: StudentDetails },
-    { number: 2, name: 'OTP Verification', component: OTPVerification },
-    { number: 3, name: 'Event Selection', component: EventSelection },
-    { number: 4, name: 'Payment', component: DirectUPIPayment },
-    { number: 5, name: 'UPI Verification', component: UPIVerification }
+    // { number: 2, name: 'OTP Verification', component: OTPVerification }, // SKIPPED: OTP limit reached
+    { number: 2, name: 'Event Selection', component: EventSelection },
+    { number: 3, name: 'Payment', component: DirectUPIPayment },
+    { number: 4, name: 'UPI Verification', component: UPIVerification }
   ];
 
   const CurrentComponent = steps[currentStep]?.component;
