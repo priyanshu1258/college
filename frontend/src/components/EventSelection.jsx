@@ -265,20 +265,6 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
           return prev;
         }
         
-        // HACKATHON RESTRICTION: If hackathon is being selected, clear all other events
-        if (eventId === 'hackathon') {
-          if (prev.length > 0) {
-            alert('🚫 Hackathon Registration Only!\n\nTeams participating in the Hackathon cannot register for other events.\n\nAll other selections will be cleared.');
-          }
-          return ['hackathon'];
-        }
-        
-        // HACKATHON RESTRICTION: If hackathon is already selected, prevent adding other events
-        if (prev.includes('hackathon')) {
-          alert('🚫 Hackathon Teams Only!\n\nYour team is registered for the Hackathon.\n\nYou cannot participate in other events while registered for the Hackathon.\n\nDeselect Hackathon first if you want to choose other events.');
-          return prev;
-        }
-        
         // For esports, ensure only one esports event can be selected
         if (eventId === 'esports') {
           const filtered = prev.filter(id => id !== 'esports');
@@ -437,19 +423,6 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
               </p>
             </div>
           </div>
-          
-          {/* Hackathon Warning Banner */}
-          {selectedEvents.includes('hackathon') && (
-            <div className="mt-6 p-4 sm:p-5 bg-red-600 text-white rounded-xl shadow-xl border-4 border-red-700 max-w-2xl mx-auto animate-pulse">
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-3xl sm:text-4xl">🚫</span>
-                <div className="text-left">
-                  <p className="font-black text-base sm:text-lg uppercase">Hackathon Teams Only</p>
-                  <p className="text-xs sm:text-sm font-semibold mt-1">Your team is exclusively registered for the Hackathon</p>
-                </div>
-              </div>
-            </div>
-          )}
           
           {error && (
             <div className="mt-6 p-4 bg-yellow-100 rounded-xl flex items-center justify-between border-3 border-yellow-400 shadow-lg max-w-2xl mx-auto">
@@ -638,8 +611,6 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8">
           {filteredEvents.map((event) => {
             const isSelected = selectedEvents.includes(event.id);
-            const isHackathon = event.id === 'hackathon';
-            const hackathonSelected = selectedEvents.includes('hackathon');
             
             // Team size restriction: only singing-team and dancing-team allowed for teams > 5
             const isTeamSizeRestricted = totalParticipants > 5 && 
@@ -647,7 +618,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
                                         event.id !== 'dancing-team' &&
                                         event.type === 'team';
             
-            const isDisabled = (!isSelected && hackathonSelected && !isHackathon) || isTeamSizeRestricted;
+            const isDisabled = isTeamSizeRestricted;
             
             // Get category-specific colors
             const categoryColors = {

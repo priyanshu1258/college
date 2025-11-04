@@ -2261,5 +2261,168 @@
     "status": "registered",
     "registeredAt": "2025-11-04T06:34:12.834Z",
     "verified": false
+  },
+  {
+    "registrationId": "REG1762254430478JX4BO",
+    "teamId": "TEAM-MHKGSD1Q-13Y51J",
+    "studentDetails": {
+      "fullName": "sdfs",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753204",
+      "college": "sdfsd",
+      "year": "3",
+      "rollNumber": "sdfs",
+      "department": "sdfsdf",
+      "participationType": "team",
+      "teamMembers": [
+        {
+          "name": "Priyanshu Attri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "sdfsd"
+        },
+        {
+          "name": "Priyanshu Attri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "sdfsd"
+        },
+        {
+          "name": "Priyanshu Attri",
+          "email": "priyanshuattri05@gmail.com",
+          "phone": "7018753204",
+          "college": "sdfsd"
+        }
+      ]
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "hackathon",
+        "dancing-team",
+        "singing-team",
+        "ctf",
+        "pitch-high",
+        "two-minute-manager"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "hackathon",
+          "name": "Hackathon (Code Forge)",
+          "description": "36-hour coding competition to build innovative solutions",
+          "price": 1,
+          "duration": "36 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "dancing-team",
+          "name": "Dancing Competition (Team)",
+          "description": "Team choreography and dance performance",
+          "price": 1,
+          "duration": "3 Hours",
+          "category": "Cultural",
+          "type": "team",
+          "maxParticipants": 10
+        },
+        {
+          "id": "singing-team",
+          "name": "Singing Competition (Team)",
+          "description": "Team performance showcasing vocal harmony and talent",
+          "price": 1,
+          "duration": "2 Hours",
+          "category": "Cultural",
+          "type": "team",
+          "maxParticipants": 10
+        },
+        {
+          "id": "ctf",
+          "name": "CTF - Capture The Flag",
+          "description": "Cybersecurity challenge with hacking and problem-solving tasks",
+          "price": 1,
+          "duration": "6 Hours",
+          "category": "Technical",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "pitch-high",
+          "name": "Pitch High",
+          "description": "Business pitch competition for innovative ideas",
+          "price": 1,
+          "duration": "4 Hours",
+          "category": "Business",
+          "type": "team",
+          "maxParticipants": 4
+        },
+        {
+          "id": "two-minute-manager",
+          "name": "Two Minute Manager",
+          "description": "Quick thinking leadership and management challenge",
+          "price": 1,
+          "duration": "1 Hour",
+          "category": "Business",
+          "type": "team",
+          "maxParticipants": 4
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": false,
+      "includeAccommodation": false,
+      "totalAmount": 24,
+      "eventCount": 6,
+      "participantCount": 4,
+      "eventName": "Hackathon (Code Forge), Dancing Competition (Team), Singing Competition (Team), CTF - Capture The Flag, Pitch High, Two Minute Manager",
+      "price": 24,
+      "eventId": "multiple"
+    },
+    "participationType": "team",
+    "teamMembers": [
+      {
+        "name": "Priyanshu Attri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "sdfsd",
+        "teamId": "TEAM-MHKGSD1Q-13Y51J",
+        "memberIndex": 1
+      },
+      {
+        "name": "Priyanshu Attri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "sdfsd",
+        "teamId": "TEAM-MHKGSD1Q-13Y51J",
+        "memberIndex": 2
+      },
+      {
+        "name": "Priyanshu Attri",
+        "email": "priyanshuattri05@gmail.com",
+        "phone": "7018753204",
+        "college": "sdfsd",
+        "teamId": "TEAM-MHKGSD1Q-13Y51J",
+        "memberIndex": 3
+      }
+    ],
+    "paymentData": {
+      "upiTransactionId": "546546546",
+      "payerName": "hggh",
+      "payerUPI": "",
+      "verificationData": {
+        "upiTransactionId": "546546546",
+        "payerName": "hggh",
+        "payerUPI": "",
+        "verificationId": "CHAITANYA1762254430461PFA8S",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-11-04T11:07:10.469Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-11-04T11:07:10.478Z",
+    "verified": false
   }
 ]
