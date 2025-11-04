@@ -2424,5 +2424,98 @@
     "status": "registered",
     "registeredAt": "2025-11-04T11:07:10.478Z",
     "verified": false
+  },
+  {
+    "registrationId": "REG1762270327112H10VO",
+    "teamId": "TEAM-MHKQ92YW-Y0YTLN",
+    "studentDetails": {
+      "fullName": "Priyanshu Attri",
+      "email": "priyanshuattri05@gmail.com",
+      "phone": "7018753204",
+      "college": "sdfsf",
+      "year": "2",
+      "rollNumber": "s334",
+      "department": "dsf",
+      "participationType": "individual",
+      "teamMembers": []
+    },
+    "eventSelection": {
+      "selectedEvents": [
+        "retro-theming",
+        "prompt-engineering",
+        "integration-bee",
+        "human-vs-ai"
+      ],
+      "selectedEventsData": [
+        {
+          "id": "retro-theming",
+          "name": "Retro Theming",
+          "description": "Creative design competition with retro themes",
+          "price": 1,
+          "duration": "3 Hours",
+          "category": "Creative",
+          "type": "individual"
+        },
+        {
+          "id": "prompt-engineering",
+          "name": "Prompt Engineering",
+          "description": "Master the art of AI prompt crafting",
+          "price": 1,
+          "duration": "2 Hours",
+          "category": "Technical",
+          "type": "individual"
+        },
+        {
+          "id": "integration-bee",
+          "name": "Integration Bee",
+          "description": "Mathematical integration competition",
+          "price": 1,
+          "duration": "3 Hours",
+          "category": "Technical",
+          "type": "individual"
+        },
+        {
+          "id": "human-vs-ai",
+          "name": "Human vs AI",
+          "description": "Test your skills against artificial intelligence",
+          "price": 1,
+          "duration": "2 Hours",
+          "category": "Technical",
+          "type": "individual"
+        }
+      ],
+      "selectedEsportsGame": "",
+      "includeFood": false,
+      "includeAccommodation": false,
+      "totalAmount": 4,
+      "eventCount": 4,
+      "participantCount": 1,
+      "eventName": "Retro Theming, Prompt Engineering, Integration Bee, Human vs AI",
+      "price": 4,
+      "eventId": "multiple"
+    },
+    "participationType": "individual",
+    "teamMembers": [],
+    "paymentData": {
+      "upiTransactionId": "5649847684",
+      "payerName": "PRIYNASHU ATTRI",
+      "payerUPI": "",
+      "verificationData": {
+        "upiTransactionId": "5649847684",
+        "payerName": "PRIYNASHU ATTRI",
+        "payerUPI": "",
+        "verificationId": "CHAITANYA1762270327080MJCH2",
+        "originalTransaction": {
+          "id": "TECHFEST1760889963885",
+          "amount": 200,
+          "timestamp": "2025-10-19T16:06:03.910Z",
+          "upiId": "priuanshuattri05@okaxis"
+        },
+        "verificationTimestamp": "2025-11-04T15:32:07.097Z"
+      }
+    },
+    "status": "registered",
+    "registeredAt": "2025-11-04T15:32:07.112Z",
+    "verified": false
   }
 ]
