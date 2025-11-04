@@ -10,7 +10,7 @@ const DirectUPIPayment = ({ amount, onPaymentSuccess, onPaymentFailure, nextStep
   const [verificationData, setVerificationData] = useState(null);
   
   // Your college's UPI ID
-  const upiId = '9816367020@axl';
+  const upiId = 'priyanshuattri05@okicici';
   const recipientName = 'Tech Fest Chaitanya 2025';
 
   // Detect device type
