@@ -29,7 +29,7 @@ const EventPage = () => {
         resources: "Large hall with power and internet, mentoring support, breakout rooms, 24-hour security",
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-blue-500 to-cyan-500",
-        price: 99,
+        price: 0,
         teamSize: "2-5 members",
         targetAudience: "Programmers, Developers and Hardware Enthusiasts",
         requirements: "Original code created during event, submission includes demo link, project description, and source code"
@@ -47,7 +47,7 @@ const EventPage = () => {
         resources: "Kaggle platform, high-performance computers with GPUs, datasets (train.csv, test.csv, sample_submission.csv)",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-purple-500 to-pink-500",
-        price: 199,
+        price: 0,
         teamSize: "2-4 members",
         targetAudience: "AIML enthusiasts",
         requirements: "Final deliverables: Source code and Methodology Report (max 500 words)"
@@ -65,7 +65,7 @@ const EventPage = () => {
         resources: "Exhibition space with tables and power, display boards, internet, voting system",
         image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-green-500 to-teal-500",
-        price: 99,
+        price: 0,
         teamSize: "1-4 members",
         targetAudience: "Programmers, Developers, designers, Builders, software and Hardware Enthusiasts",
         requirements: "Functional prototype or comprehensive simulation, display materials"
@@ -83,7 +83,7 @@ const EventPage = () => {
         resources: "Lecture hall, personal stations with writing materials, central display, timer",
         image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-orange-500 to-red-500",
-        price: 99,
+        price: 0,
         teamSize: "Individual",
         targetAudience: "Students with strong proficiency in calculus and mathematics",
         requirements: "Mathematical knowledge, no external aids allowed"
@@ -102,7 +102,7 @@ const EventPage = () => {
         resources: "CTF platform, dedicated servers, monitoring tools, networking infrastructure",
         image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-red-500 to-pink-500",
-        price: 99,
+        price: 0,
         teamSize: "2-4 members",
         targetAudience: "Cybersecurity enthusiasts, ethical hackers",
         requirements: "Cybersecurity knowledge, appropriate tools"
@@ -122,7 +122,7 @@ const EventPage = () => {
         resources: "BYOD with design software, provided mockup, projector for theme display",
         image: "https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-yellow-500 to-amber-500",
-        price: 99,
+        price: 0,
         teamSize: "1-4 members",
         targetAudience: "UI/UX designers, graphic design enthusiasts, creative individuals",
         requirements: "Design software, creativity, no pre-made complex assets"
@@ -140,7 +140,7 @@ const EventPage = () => {
         resources: "Computers with AI access, art supplies, timing system, internet restrictions",
         image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-pink-500 to-rose-500",
-        price: 99,
+        price: 0,
         teamSize: "Individual",
         targetAudience: "Engineering students, students interested in AI",
         requirements: "Art supplies, research skills, creativity within constraints"
@@ -158,7 +158,7 @@ const EventPage = () => {
         resources: "AI tools access, competition themes, judging platform",
         image: "https://www.masaischool.com/blog/content/images/2024/08/Prompt-Blog.png",
         color: "from-teal-500 to-cyan-500",
-        price: 99,
+        price: 0,
         teamSize: "Individual",
         targetAudience: "Anyone interested in AI, content creation and creative technology",
         requirements: "Prompt crafting skills, AI tool familiarity"
@@ -178,7 +178,7 @@ const EventPage = () => {
         resources: "Gaming arena, high-speed internet, streaming setup, referees, timing system",
         image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-green-500 to-emerald-500",
-        price: 149,
+        price: 0,
         teamSize: "4-5 members + 1 substitute",
         targetAudience: "Gamers, esports enthusiasts",
         requirements: "Own devices, game accounts, stable connection"
@@ -196,7 +196,7 @@ const EventPage = () => {
         resources: "Multiple rooms, puzzle materials, chess boards, final laptop with password file, clue tracking",
         image: "https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-purple-500 to-indigo-500",
-        price: 149,
+        price: 0,
         teamSize: "Up to 3 members",
         targetAudience: "Students interested in puzzles, critical thinking, strategic games",
         requirements: "Logical reasoning, pattern recognition, teamwork"
@@ -214,7 +214,7 @@ const EventPage = () => {
         resources: "Symbol collars, solitary zones, ID cards, game master, timing system, score tracker",
         image: "https://d7hftxdivxxvm.cloudfront.net/?height=796&quality=50&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2Ffx_ex_g9BZSQmdyKSyjF_w%2Fnormalized.jpg&width=800",
         color: "from-red-500 to-orange-500",
-        price: 99,
+        price: 0,
         teamSize: "Individual",
         targetAudience: "Psychology enthusiasts, deduction game players",
         requirements: "Deduction skills, social interaction, strategic thinking"
@@ -232,7 +232,7 @@ const EventPage = () => {
         resources: "Debate venue, timing system, judging panel, topic preparation area",
         image: "https://images.unsplash.com/photo-1587019158091-1a103c5dd17f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-blue-500 to-cyan-500",
-        price: 99,
+        price: 0,
         teamSize: "4 members",
         targetAudience: "Public speakers, critical thinkers",
         requirements: "Research skills, public speaking, logical reasoning"
@@ -250,7 +250,7 @@ const EventPage = () => {
         resources: "Problem chits, timing system, judging panel, preparation area",
         image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-green-500 to-teal-500",
-        price: 99,
+        price: 0,
         teamSize: "2 members",
         targetAudience: "Management students, aspiring leaders",
         requirements: "Quick thinking, communication skills, management knowledge"
@@ -268,7 +268,7 @@ const EventPage = () => {
         resources: "Presentation venue, projector & screen, judging panel, preparation area with internet access",
         image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-orange-500 to-red-500",
-        price: 99,
+        price: 0,
         teamSize: "4 members",
         targetAudience: "Entrepreneurs, business students, innovators",
         requirements: "Business acumen, presentation skills, innovative thinking"
@@ -288,7 +288,7 @@ const EventPage = () => {
         resources: "Stage, sound system, lighting, judging panel, timing system",
         image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
         color: "from-purple-500 to-pink-500",
-        price: 99,
+        price: 0,
         teamSize: "Solo, Duet, or Group (3-8)",
         targetAudience: "Performers, artists, entertainers",
         requirements: "Performance skills, audio tracks, adherence to time limits"

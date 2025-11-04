@@ -112,7 +112,7 @@ const OTPVerification = ({ formData, updateFormData, nextStep, prevStep, current
         return;
       }
 
-      console.log('🔐 Verifying OTP:', { email, otp: otpString });
+      console.log('🔐 Verifying OTP:', { email, otp: otpString, otpType: typeof otpString });
 
       if (process.env.NODE_ENV === 'development' && generatedOTP && otpString === generatedOTP) {
         console.log('✅ Development OTP verified successfully');

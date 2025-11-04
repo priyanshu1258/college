@@ -118,7 +118,7 @@ const PaymentFlow = () => {
         selectedEvents: latestFormData.eventSelection?.selectedEvents || [],
         selectedEventsData: latestFormData.eventSelection?.selectedEventsData || [],
         selectedEsportsGame: latestFormData.eventSelection?.selectedEsportsGame || '',
-        includeFood: latestFormData.eventSelection?.includeFood ?? true,
+        includeFood: latestFormData.eventSelection?.includeFood ?? false,
         includeAccommodation: latestFormData.eventSelection?.includeAccommodation ?? false,
         totalAmount: latestFormData.eventSelection?.totalAmount || 0,
         eventCount: latestFormData.eventSelection?.eventCount || 0,

@@ -5,7 +5,7 @@ import { apiRequest } from '../api/client';
 const EventSelection = ({ data, updateData, nextStep, prevStep, formData, participationType, teamSize }) => {
   const [selectedEvents, setSelectedEvents] = useState(data?.selectedEvents || []);
   const [selectedEsportsGame, setSelectedEsportsGame] = useState(data?.selectedEsportsGame || '');
-  const [includeFood, setIncludeFood] = useState(data?.includeFood ?? true);
+  const [includeFood, setIncludeFood] = useState(data?.includeFood ?? false);
   const [includeAccommodation, setIncludeAccommodation] = useState(data?.includeAccommodation ?? false);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,40 +19,35 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
   // Check if hackathon is selected
   const isHackathonSelected = selectedEvents.includes('hackathon');
   
-  // Check if any free event is selected (events with price 0)
-  const hasFreeEvents = selectedEvents.some(eventId => {
-    const event = events.find(e => e.id === eventId);
-    return event && event.price === 0;
-  });
-  
-  // Food is mandatory for hackathon or free events
-  const isFoodMandatory = isHackathonSelected || hasFreeEvents;
+  // Food is now optional for all events including hackathon
+  const isFoodMandatory = false;
 
   useEffect(() => {
     fetchEvents();
   }, [currentParticipationType]); // Add dependency to refetch when participation type changes
 
-  // Auto-enable food for hackathon and free events, prevent disabling
+  // Remove auto-enable food logic since it's no longer mandatory
   useEffect(() => {
-    if (isFoodMandatory && !includeFood) {
-      setIncludeFood(true);
-    }
-  }, [isFoodMandatory, selectedEvents]);
+    // Food is optional for all events now
+  }, [selectedEvents]);
 
   const fetchEvents = async () => {
     try {
       setLoading(true);
       setError('');
 
-      // FIX: Pass participation type to API
-      const result = await apiRequest(`/api/events?participationType=${currentParticipationType}`);
+      // Use local events instead of fetching from API
+      setEvents(getDefaultEvents());
 
-      if (result.success) {
-        setEvents(result.events);
-      } else {
-        setError(result.message || 'Failed to load events');
-        setEvents(getDefaultEvents());
-      }
+      // FIX: Pass participation type to API (commented out to use local events)
+      // const result = await apiRequest(`/api/events?participationType=${currentParticipationType}`);
+
+      // if (result.success) {
+      //   setEvents(result.events);
+      // } else {
+      //   setError(result.message || 'Failed to load events');
+      //   setEvents(getDefaultEvents());
+      // }
     } catch (err) {
       console.error('Error fetching events:', err);
       setError('Failed to connect to server');
@@ -69,7 +64,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'hackathon',
         name: 'Hackathon (Code Forge)',
         description: '36-hour coding competition to build innovative solutions',
-        price: 99,
+        price: 1,
         duration: '36 Hours',
         category: 'Technical',
         type: 'team',
@@ -79,7 +74,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'datathon',
         name: 'Datathon',
         description: 'Data analysis and machine learning competition',
-        price: 199,
+        price: 1,
         duration: '24 Hours',
         category: 'Technical',
         type: 'team',
@@ -89,7 +84,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'polymath',
         name: 'PolyMath (Escape Room)',
         description: 'Solve puzzles and escape the room challenge',
-        price: 149,
+        price: 1,
         duration: '4 Hours',
         category: 'Technical',
         type: 'team',
@@ -99,7 +94,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'esports',
         name: 'E-Sports Tournament',
         description: 'Competitive gaming tournament',
-        price: 149,
+        price: 1,
         duration: '8 Hours',
         category: 'Esports',
         type: 'team',
@@ -110,7 +105,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'debate',
         name: 'Debate Competition',
         description: 'Argumentation and public speaking challenge',
-        price: 99,
+        price: 1,
         duration: '3 Hours',
         category: 'Cultural',
         type: 'team',
@@ -120,7 +115,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'project-bazaar',
         name: 'Project Bazaar',
         description: 'Showcase your innovative projects',
-        price: 99,
+        price: 1,
         duration: '6 Hours',
         category: 'Technical',
         type: 'team',
@@ -130,7 +125,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'ctf',
         name: 'CTF - Capture The Flag',
         description: 'Cybersecurity challenge with hacking and problem-solving tasks',
-        price: 99,
+        price: 1,
         duration: '6 Hours',
         category: 'Technical',
         type: 'team',
@@ -140,27 +135,27 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'singing-team',
         name: 'Singing Competition (Team)',
         description: 'Team performance showcasing vocal harmony and talent',
-        price: 49,
+        price: 1,
         duration: '2 Hours',
         category: 'Cultural',
         type: 'team',
-        maxParticipants: 4
+        maxParticipants: 10
       },
       {
         id: 'dancing-team',
         name: 'Dancing Competition (Team)',
         description: 'Team choreography and dance performance',
-        price: 49,
+        price: 1,
         duration: '3 Hours',
         category: 'Cultural',
         type: 'team',
-        maxParticipants: 4
+        maxParticipants: 10
       },
       {
         id: 'pitch-high',
         name: 'Pitch High',
         description: 'Business pitch competition for innovative ideas',
-        price: 99,
+        price: 1,
         duration: '4 Hours',
         category: 'Business',
         type: 'team',
@@ -170,7 +165,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'two-minute-manager',
         name: 'Two Minute Manager',
         description: 'Quick thinking leadership and management challenge',
-        price: 99,
+        price: 1,
         duration: '1 Hour',
         category: 'Business',
         type: 'team',
@@ -183,7 +178,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'retro-theming',
         name: 'Retro Theming',
         description: 'Creative design competition with retro themes',
-        price: 99,
+        price: 1,
         duration: '3 Hours',
         category: 'Creative',
         type: 'individual'
@@ -192,7 +187,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'prompt-engineering',
         name: 'Prompt Engineering',
         description: 'Master the art of AI prompt crafting',
-        price: 99,
+        price: 1,
         duration: '2 Hours',
         category: 'Technical',
         type: 'individual'
@@ -201,7 +196,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'integration-bee',
         name: 'Integration Bee',
         description: 'Mathematical integration competition',
-        price: 99,
+        price: 1,
         duration: '3 Hours',
         category: 'Technical',
         type: 'individual'
@@ -210,7 +205,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'human-vs-ai',
         name: 'Human vs AI',
         description: 'Test your skills against artificial intelligence',
-        price: 99,
+        price: 1,
         duration: '2 Hours',
         category: 'Technical',
         type: 'individual'
@@ -219,7 +214,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'reverse-engineering',
         name: 'Reverse Engineering',
         description: 'Deconstruct and understand complex systems',
-        price: 99,
+        price: 1,
         duration: '3 Hours',
         category: 'Technical',
         type: 'individual'
@@ -228,7 +223,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'jack-of-hearts',
         name: 'Jack of Hearts',
         description: 'Card game strategy competition',
-        price: 99,
+        price: 1,
         duration: '2 Hours',
         category: 'Gaming',
         type: 'individual'
@@ -237,7 +232,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'singing',
         name: 'Singing Competition',
         description: 'Showcase your vocal talent',
-        price: 99,
+        price: 1,
         duration: '2 Hours',
         category: 'Cultural',
         type: 'individual'
@@ -246,7 +241,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         id: 'dancing',
         name: 'Dancing Competition',
         description: 'Show your dance moves and creativity',
-        price: 99,
+        price: 1,
         duration: '3 Hours',
         category: 'Cultural',
         type: 'individual'
@@ -263,6 +258,12 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
         return prev.filter(id => id !== eventId);
       } else {
         // Selecting a new event
+        
+        // TEAM SIZE RESTRICTION: If team has more than 5 people, only allow singing-team and dancing-team
+        if (totalParticipants > 5 && eventId !== 'singing-team' && eventId !== 'dancing-team') {
+          alert('🚫 Team Size Restriction!\n\nYour team has ' + totalParticipants + ' members (more than 5).\n\nTeams with more than 5 members can only participate in:\n• Singing Competition (Team)\n• Dancing Competition (Team)\n\nPlease reduce your team size to 5 or fewer to participate in other team events.');
+          return prev;
+        }
         
         // HACKATHON RESTRICTION: If hackathon is being selected, clear all other events
         if (eventId === 'hackathon') {
@@ -470,9 +471,7 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
             <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-orange-100 rounded-lg border-2 border-orange-300">
               <p className="text-orange-900 font-black text-xs sm:text-sm flex items-center">
                 <span className="text-lg sm:text-xl mr-2">⚠️</span>
-                {isHackathonSelected 
-                  ? 'Food Package is MANDATORY for Hackathon participants (36-hour event)'
-                  : 'Food Package is MANDATORY for participants in free events'}
+                Food Package is MANDATORY for Hackathon participants (36-hour event)
               </p>
             </div>
           )}
@@ -623,13 +622,32 @@ const EventSelection = ({ data, updateData, nextStep, prevStep, formData, partic
           </div>
         )}
 
+        {/* Team Size Warning for teams > 5 */}
+        {totalParticipants > 5 && currentParticipationType === 'team' && (
+          <div className="mb-6 p-4 bg-orange-100 rounded-xl border-4 border-orange-400">
+            <p className="text-orange-900 font-black text-sm sm:text-base flex items-center">
+              <span className="text-2xl mr-3">⚠️</span>
+              <span>
+                Your team has {totalParticipants} members. Teams with more than 5 members can only participate in <strong>Singing Competition (Team)</strong> and <strong>Dancing Competition (Team)</strong>. Other team events are disabled.
+              </span>
+            </p>
+          </div>
+        )}
+
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8">
           {filteredEvents.map((event) => {
             const isSelected = selectedEvents.includes(event.id);
             const isHackathon = event.id === 'hackathon';
             const hackathonSelected = selectedEvents.includes('hackathon');
-            const isDisabled = !isSelected && hackathonSelected && !isHackathon;
+            
+            // Team size restriction: only singing-team and dancing-team allowed for teams > 5
+            const isTeamSizeRestricted = totalParticipants > 5 && 
+                                        event.id !== 'singing-team' && 
+                                        event.id !== 'dancing-team' &&
+                                        event.type === 'team';
+            
+            const isDisabled = (!isSelected && hackathonSelected && !isHackathon) || isTeamSizeRestricted;
             
             // Get category-specific colors
             const categoryColors = {

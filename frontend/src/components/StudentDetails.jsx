@@ -114,8 +114,8 @@ const submissionData = {
   };
 
   const addTeamMember = () => {
-    if (formData.teamMembers.length >= 4) {
-      alert('Maximum 4 team members allowed (excluding yourself). Total team size: 5 people.');
+    if (formData.teamMembers.length >= 9) {
+      alert('Maximum 9 team members allowed (excluding yourself). Total team size: 10 people.');
       return;
     }
     setFormData(prev => ({
@@ -157,7 +157,7 @@ const submissionData = {
   };
 
   const isTeamParticipation = formData.participationType === 'team';
-  const canAddMoreMembers = formData.teamMembers.length < 4;
+  const canAddMoreMembers = formData.teamMembers.length < 9;
 
   return (
     <div className="p-4 sm:p-8">
@@ -352,7 +352,7 @@ const submissionData = {
                 <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mr-3">
                   <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
-                Team Members (Min 3, Max 4)
+                Team Members (Min 3, Max 10)
               </h3>
               <button
                 type="button"
@@ -483,7 +483,7 @@ const submissionData = {
         <div className="flex justify-between items-center pt-6 border-t-2 border-gray-200">
           <div className="text-xs sm:text-sm text-gray-600">
             {isTeamParticipation ? (
-              <>Total Team Size: <strong className="text-blue-600">{formData.teamMembers.length + 1}</strong> (Min: 3, Max: 4)</>
+              <>Total Team Size: <strong className="text-blue-600">{formData.teamMembers.length + 1}</strong> (Min: 3, Max: 10)</>
             ) : (
               <>Participation Type: <strong className="capitalize text-blue-600">{formData.participationType}</strong></>
             )}
