@@ -162,6 +162,24 @@ const submissionData = {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 p-4 sm:p-8">
       <div className="max-w-6xl mx-auto">
+        {/* Registration Closed Banner */}
+        <div className="mb-6 sm:mb-8">
+          <div className="bg-gradient-to-r from-red-600 via-red-500 to-orange-500 text-white p-4 sm:p-6 rounded-2xl shadow-2xl border-4 border-red-400 transform hover:scale-105 transition-all">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+              <span className="text-4xl sm:text-5xl">🚫</span>
+              <div className="text-center">
+                <p className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-wide mb-1">
+                  Sorry! Registrations Closed
+                </p>
+                <p className="text-sm sm:text-base font-bold">
+                  Registration window has ended. Thank you for your interest in CHAITANYA 2025
+                </p>
+              </div>
+              <span className="text-4xl sm:text-5xl">🚫</span>
+            </div>
+          </div>
+        </div>
+
         {/* Header with Glow Effect */}
         <div className="text-center mb-6 sm:mb-10">
           <h2 className="text-3xl sm:text-5xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-3 drop-shadow-2xl animate-pulse">
@@ -490,8 +508,12 @@ const submissionData = {
               <>Participation Type: <strong className="capitalize text-cyan-400">{formData.participationType}</strong></>
             )}
           </div>
-          <button type="submit" className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl hover:from-cyan-400 hover:via-blue-500 hover:to-purple-500 transition-all duration-300 font-black shadow-lg shadow-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-400/60 transform hover:scale-105 text-sm sm:text-base border border-cyan-400/50">
-            Continue to Event Selection →
+          <button 
+            type="submit" 
+            disabled
+            className="bg-gray-600 text-gray-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl cursor-not-allowed transition-all duration-300 font-black shadow-lg text-sm sm:text-base border border-gray-500/50 opacity-60"
+          >
+            Registration Closed ✕
           </button>
         </div>
       </form>

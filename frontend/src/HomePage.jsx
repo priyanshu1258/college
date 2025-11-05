@@ -485,21 +485,21 @@ const HomePage = () => {
 
           {/* Registration Deadline Warning Banner */}
           <div className="mb-8 sm:mb-10 mx-auto max-w-4xl px-4">
-            <div className="hero-cta bg-gradient-to-r from-red-600 via-red-500 to-orange-500 text-white p-4 sm:p-6 rounded-2xl shadow-2xl border-4 border-red-400 animate-pulse transform hover:scale-105 transition-all">
+            <div className="hero-cta bg-gradient-to-r from-red-600 via-red-500 to-orange-500 text-white p-4 sm:p-6 rounded-2xl shadow-2xl border-4 border-red-400 transform hover:scale-105 transition-all">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-                <span className="text-4xl sm:text-5xl">⏰</span>
+                <span className="text-4xl sm:text-5xl">🚫</span>
                 <div className="text-center sm:text-left">
                   <p className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-wide mb-1">
-                    ⚠️ REGISTRATIONS CLOSING SOON! ⚠️
+                    ⚠️ REGISTRATIONS CLOSED ⚠️
                   </p>
                   <p className="text-sm sm:text-base md:text-lg font-bold">
-                    Last Chance: Registrations End Tonight at 12:00 AM (Midnight)
+                    Registration window has ended
                   </p>
                   <p className="text-xs sm:text-sm font-semibold mt-1 text-yellow-200">
-                    🚨 Don't miss out! Register NOW before it's too late! 🚨
+                    Thank you for your interest in CHAITANYA 2025
                   </p>
                 </div>
-                <span className="text-4xl sm:text-5xl">⏰</span>
+                <span className="text-4xl sm:text-5xl">🚫</span>
               </div>
             </div>
           </div>
